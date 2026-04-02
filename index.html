@@ -229,6 +229,16 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .metodo-body .en-carta{font-size:12px;color:var(--gold);margin-top:8px;padding:6px 10px;background:#1a1008;border-radius:8px;}
 .rama-header{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
 .rama-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* Maridaje */
+.maridaje-section{margin-top:12px;padding-top:12px;border-top:1px solid var(--g2);}
+.maridaje-title{font-size:10px;letter-spacing:0.1em;color:var(--rojo);text-transform:uppercase;font-weight:500;margin-bottom:8px;}
+.maridaje-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.maridaje-chip{background:var(--g4);border:1px solid var(--g2);color:var(--crema);font-size:11px;padding:4px 9px;border-radius:20px;white-space:nowrap;}
+/* Maridaje admin selector */
+.plato-selector{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+.plato-toggle{background:var(--g4);border:1px solid var(--g2);color:var(--g3);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;transition:all 0.15s;}
+.plato-toggle.sel{background:#1a2210;border-color:#4a7a20;color:#9de060;}
 </style>
 </head>
 <body>
@@ -572,6 +582,10 @@ textarea.form-input{resize:vertical;min-height:68px;}
         <div class="form-group"><label class="form-label">NARIZ</label><textarea class="form-input" id="fNariz" placeholder="Fruta blanca, flores, pera..."></textarea></div>
         <div class="form-group"><label class="form-label">BOCA</label><textarea class="form-input" id="fBoca" placeholder="Suave, acidez equilibrada..."></textarea></div>
         <div class="form-group">
+          <label class="form-label">MARIDAJES (platos de la carta)</label>
+          <div class="plato-selector" id="platoSelector"></div>
+        </div>
+        <div class="form-group">
           <label class="form-label">BADGES</label>
           <div class="badge-toggles">
             <div class="badge-toggle" id="togRec" onclick="toggleBadge('rec')">⭐ Recomendado</div>
@@ -604,6 +618,27 @@ const CAT_INFO={
   'Jun-shu': {emoji:'🌾',dot:'#44aa55',desc:'Con cuerpo · Umami y arroz',temp:'15–20°C · versátil',   css:'cat-jun'},
   'Juku-shu':{emoji:'🥃',dot:'#cc8833',desc:'Añejo · Complejo',          temp:'15–18°C · ambiente',   css:'cat-juku'},
 };
+const PLATOS=[
+  '🌱 Edamame picante','🌱 Edamame natural','🥗 Ensalada algas vegetal','🦐 Langostinos',
+  '🍜 Sopa pescado con pescado','🍜 Sopa vegetal con tofu','🐟 Atún','🐟 Tún nido de atún',
+  '🐟 Nido de salmón','🥩 Carpaccio de salmón','🦐 Saam de gambas','🌿 Saam de seitán',
+  '🌿 Shisho y gambas','🦐 Katsu sandwich gambas','🌿 Katsu sandwich Heura','🐷 Katsu sandwich cerdo',
+  '🍋 Yuzucoshu ventresca atún','🍚 Sunomono de blancos','🐟 Lubina kimchee yuzu trufa',
+  '🍋 Cebiche corvina maracuyá','🦐 Croqueta gamba y kimchi','🐟 Anguila ahumada y encurtidos',
+  '🦐 Cigarroll pollo Karaage','🦪 Ostras natural','🦪 Ostras en tempura',
+  '🥣 Roll atún aguacate vinagreta mango chili','🥣 Roll salmón mango pepino miso',
+  '🦐 Roll langostino tempura y espárrago','🍆 Roll berenjena tempura shitake espárrago',
+  '🦐 Roll langostino pepino aguacate','🐟 Roll salmón ahumado tomate seco rúcula pesto',
+  '🥚 Roll foie membrillo','🥚 Roll tamago aguacate langostino','🌿 Roll tamago aguacate tofu',
+  '🐟 Maki atún','🐟 Maki salmón','🐟 Maki lubina','🥑 Maki aguacate',
+  '🐟 Nigiri atún','🐟 Nigiri ventresca de atún','🐟 Nigiri salmón','🐟 Nigiri lubina con trufa',
+  '🐚 Nigiri vieira','🐟 Nigiri anguila','🥚 Nigiri anguila y foie','🦐 Nigiri gamba mallorquina',
+  '🦑 Nigiri calamar','🐟 Sashimi atún','🐟 Sashimi ventresca de atún','🐟 Sashimi lubina',
+  '🐟 Sashimi salmón','🦆 Dim sum pato y foie','🐟 Bacalao a la mallorquina',
+  '🍄 Setas coco y trufa','🥟 Gyozas','🐷 Callos','🐔 Pollo al limón','🥦 Curry de coliflor',
+  '🦐 Gambas','🍰 Tarta de queso chis','🌶️ Choco blanco mango y curri','🍨 Helado té verde',
+  '🍡 Mayuko’s mochi','🍡 Mochis variados',
+];
 const PREF_POS={
   'Yamaguchi': {x:19,y:68},'Yamagata': {x:68,y:32},'Nagano': {x:57,y:47},
   'Shimane':   {x:24,y:62},'España':   {x:0,y:0},  'Pirineos, España':{x:0,y:0},
@@ -810,6 +845,7 @@ function renderSakes(){
           ${s.tipo?`<div class="det-item"><div class="det-item-label">Tipo</div><div class="det-item-val">${s.tipo}</div></div>`:''}
           ${s.medida_botella?`<div class="det-item"><div class="det-item-label">Formato</div><div class="det-item-val">${s.medida_botella}</div></div>`:''}
         </div>
+        ${s.maridajes&&s.maridajes.length?'<div class="maridaje-section"><div class="maridaje-title">Maridajes</div><div class="maridaje-chips">'+s.maridajes.map(m=>'<span class="maridaje-chip">'+m+'</span>').join('')+'</div></div>':''}
         ${recHtml}
       </div>
     </div>`;
@@ -881,7 +917,7 @@ function actualizarBadgeToggles(){
 function abrirFormNuevo(){
   editandoId=null;imgB64=null;
   document.getElementById('formTitle').textContent='Nuevo sake';
-  limpiarForm();setImgPreview('');
+  limpiarForm();setImgPreview('');renderPlatoSelector([]);
   document.getElementById('iaStatus').style.display='none';
   document.getElementById('adminListView').style.display='none';
   document.getElementById('adminFormView').style.display='block';
@@ -893,7 +929,7 @@ function abrirEdit(id){
   document.getElementById('fNombre').value=s.nombre||'';document.getElementById('fCategoria').value=s.categoria||'';document.getElementById('fTipo').value=s.tipo||'';document.getElementById('fArroz').value=s.arroz||'';document.getElementById('fPulido').value=s.pulido||'';document.getElementById('fRegion').value=s.region||'';document.getElementById('fBodega').value=s.bodega||'';document.getElementById('fAlc').value=s.vol_alc||'';document.getElementById('fNota').value=s.nota_cata||'';document.getElementById('fVista').value=s.vista||'';document.getElementById('fNariz').value=s.nariz||'';document.getElementById('fBoca').value=s.boca||'';document.getElementById('fPrecioCopa').value=s.precio_copa||'';document.getElementById('fPrecioJarra').value=s.precio_jarra||'';document.getElementById('fPrecioBotella').value=s.precio_botella||'';document.getElementById('fMedida').value=s.medida_botella||'';document.getElementById('fActivo').value=s.activo?'1':'0';
   const urlImg=(s.img&&!s.img.startsWith('data:'))?s.img:'';document.getElementById('fImgUrl').value=urlImg;
   setImgPreview(s.img||'');
-  badgeState={rec:!!s.badge_rec,top:!!s.badge_top,lim:!!s.badge_lim};actualizarBadgeToggles();
+  badgeState={rec:!!s.badge_rec,top:!!s.badge_top,lim:!!s.badge_lim};actualizarBadgeToggles();renderPlatoSelector(s.maridajes||[]);
   document.getElementById('iaStatus').style.display='none';
   document.getElementById('adminListView').style.display='none';document.getElementById('adminFormView').style.display='block';
 }
@@ -902,7 +938,7 @@ function guardarSake(){
   const nombre=document.getElementById('fNombre').value.trim();if(!nombre){toast('El nombre es obligatorio');return;}
   const urlImg=document.getElementById('fImgUrl').value.trim();
   const img=imgB64||urlImg||(editandoId?sakes.find(x=>x.id===editandoId)?.img:'')||'';
-  const data={nombre,img,categoria:document.getElementById('fCategoria').value,tipo:document.getElementById('fTipo').value.trim(),arroz:document.getElementById('fArroz').value.trim(),pulido:document.getElementById('fPulido').value.trim(),region:document.getElementById('fRegion').value.trim(),bodega:document.getElementById('fBodega').value.trim(),vol_alc:document.getElementById('fAlc').value.trim(),nota_cata:document.getElementById('fNota').value.trim(),vista:document.getElementById('fVista').value.trim(),nariz:document.getElementById('fNariz').value.trim(),boca:document.getElementById('fBoca').value.trim(),precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,medida_botella:document.getElementById('fMedida').value,activo:document.getElementById('fActivo').value==='1',badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim};
+  const data={nombre,img,categoria:document.getElementById('fCategoria').value,tipo:document.getElementById('fTipo').value.trim(),arroz:document.getElementById('fArroz').value.trim(),pulido:document.getElementById('fPulido').value.trim(),region:document.getElementById('fRegion').value.trim(),bodega:document.getElementById('fBodega').value.trim(),vol_alc:document.getElementById('fAlc').value.trim(),nota_cata:document.getElementById('fNota').value.trim(),vista:document.getElementById('fVista').value.trim(),nariz:document.getElementById('fNariz').value.trim(),boca:document.getElementById('fBoca').value.trim(),precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,medida_botella:document.getElementById('fMedida').value,activo:document.getElementById('fActivo').value==='1',badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim,maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato)};
   if(editandoId){const i=sakes.findIndex(x=>x.id===editandoId);sakes[i]={...sakes[i],...data};}
   else sakes.push({id:uid(),...data});
   guardarLocal();renderAdmin();volverLista();toast(editandoId?'✓ Sake actualizado':'✓ Sake añadido');
@@ -940,6 +976,18 @@ async function buscarImagenIA(){
 }
 function setIA(msg,loading){const el=document.getElementById('iaStatus');el.style.display='block';el.innerHTML=loading?'<span class="spinner"></span>'+msg:msg;}
 function rellenar(d){const m={nombre:'fNombre',categoria:'fCategoria',tipo:'fTipo',arroz:'fArroz',pulido:'fPulido',region:'fRegion',bodega:'fBodega',vol_alc:'fAlc',nota_cata:'fNota',vista:'fVista',nariz:'fNariz',boca:'fBoca',precio_copa:'fPrecioCopa',precio_jarra:'fPrecioJarra',precio_botella:'fPrecioBotella',medida_botella:'fMedida'};Object.entries(m).forEach(([k,id])=>{if(d[k]!=null&&d[k]!==''){const el=document.getElementById(id);if(el)el.value=d[k];}});}
+// ===== MARIDAJES =====
+function renderPlatoSelector(selected){
+  const el=document.getElementById('platoSelector');
+  if(!el)return;
+  el.innerHTML=PLATOS.map(p=>{
+    const on=selected.includes(p);
+    return`<div class="plato-toggle${on?' sel':''}" data-plato="${p}" onclick="togglePlato(this)">${p}</div>`;
+  }).join('');
+}
+function togglePlato(el){
+  el.classList.toggle('sel');
+}
 // ===== OCR =====
 async function procesarOCR(input){
   const f=input.files[0];if(!f)return;
