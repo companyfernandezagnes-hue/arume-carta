@@ -367,13 +367,14 @@ textarea.form-input{resize:vertical;min-height:68px;}
   <div class="admin-content">
     <div class="config-box" id="configBox">
       <div style="font-size:11px;color:var(--rojo);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;">Configuración</div>
-      <div class="config-row"><div><div class="config-label">Gemini API Key</div><div class="config-sub">Para IA y análisis de imágenes</div></div><input class="config-input" type="password" id="cfgGeminiKey" placeholder="AIza..." oninput="guardarConfig()"></div>
-      <div class="config-row"><div><div class="config-label">Supabase URL</div></div><input class="config-input" id="cfgSupaUrl" placeholder="https://xxx.supabase.co" oninput="guardarConfig()"></div>
-      <div class="config-row"><div><div class="config-label">Supabase Anon Key</div></div><input class="config-input" type="password" id="cfgSupaKey" placeholder="eyJ..." oninput="guardarConfig()"></div>
-      <div style="display:flex;gap:8px;margin-top:4px;">
+      <div class="config-row"><div><div class="config-label">Gemini API Key</div><div class="config-sub">Para IA y análisis de imágenes</div></div><input class="config-input" type="password" id="cfgGeminiKey" placeholder="AIza..."></div>
+      <div class="config-row"><div><div class="config-label">Supabase URL</div></div><input class="config-input" id="cfgSupaUrl" placeholder="https://xxx.supabase.co"></div>
+      <div class="config-row"><div><div class="config-label">Supabase Anon Key</div></div><input class="config-input" type="password" id="cfgSupaKey" placeholder="eyJ..."></div>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:2;" onclick="guardarConfigBtn()">💾 Guardar configuración</button>
         <button class="btn-secondary" onclick="testSupabase()">Probar conexión</button>
         <button class="btn-secondary" onclick="sincronizarSupabase()">⬆ Subir sakes</button>
-        <button class="btn-ghost" onclick="toggleConfig()">Cerrar</button>
+        <button class="btn-ghost" style="width:100%;" onclick="toggleConfig()">Cerrar</button>
       </div>
       <div id="supaStatus" style="font-size:12px;color:var(--g3);margin-top:8px;display:none;"></div>
     </div>
@@ -984,6 +985,18 @@ function guardarConfig(){
   config.supaUrl=document.getElementById('cfgSupaUrl').value;
   config.supaKey=document.getElementById('cfgSupaKey').value;
   localStorage.setItem('arume_config',JSON.stringify(config));
+}
+function guardarConfigBtn(){
+  guardarConfig();
+  // Feedback visual en el botón
+  const btn=event.target;
+  const original=btn.textContent;
+  btn.textContent='✓ Guardado';
+  btn.style.background='#2a6a2a';
+  setTimeout(()=>{btn.textContent=original;btn.style.background='';},2000);
+  toast('✓ Configuración guardada');
+  // Si hay Supabase configurado, cargar sakes
+  if(config.supaUrl&&config.supaKey) cargarDesdeSupabase();
 }
 function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=m;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),d);}
 
