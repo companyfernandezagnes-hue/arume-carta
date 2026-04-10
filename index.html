@@ -1242,19 +1242,6 @@ function scoreParaRespuestas(sake,r){
   return score;
 }
 
-function matchReason(sake,r){
-  const razones=[];
-  if(r.sabor==='frutal'&&sake.categoria==='Kun-shu')razones.push('Sus aromas florales y frutales encajan con lo que buscas');
-  if(r.sabor==='fresco'&&sake.categoria==='So-shu')razones.push('Ligero y refrescante, exactamente tu estilo');
-  if(r.sabor==='cuerpo'&&sake.categoria==='Jun-shu')razones.push('Con cuerpo y umami, ideal para lo que describes');
-  if(r.sabor==='complejo'&&sake.categoria==='Juku-shu')razones.push('Complejidad e intensidad, lo que pedías');
-  if(r.exp==='novato'&&sake.badge_rec)razones.push('Es uno de nuestros más recomendados para iniciarse');
-  if(r.exp==='novato'&&sake.badge_top)razones.push('El favorito de los clientes');
-  const mari=sake.maridajes||[];
-  if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri/i.test(m)))razones.push('Marida perfectamente con lo que vas a comer');
-  if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino/i.test(m)))razones.push('Combinación perfecta con mariscos');
-  return razones[0]||'Un sake que te va a sorprender';
-}
 
 function abrirRecomendador(){
   recRespuestas={};recPaso=0;
@@ -1555,16 +1542,73 @@ function volverLista(){document.getElementById('adminFormView').style.display='n
 function guardarSake(){
   const nombre=document.getElementById('fNombre').value.trim();if(!nombre){toast('El nombre es obligatorio');return;}
   const urlImg=document.getElementById('fImgUrl').value.trim();
-  const img=imgB64||urlImg||(editandoId?sakes.find(x=>x.id===editandoId)?.img:'')||'';
-  const data={nombre,img,categoria:document.getElementById('fCategoria').value,tipo:document.getElementById('fTipo').value.trim(),arroz:document.getElementById('fArroz').value.trim(),pulido:document.getElementById('fPulido').value.trim(),region:document.getElementById('fRegion').value.trim(),bodega:document.getElementById('fBodega').value.trim(),vol_alc:document.getElementById('fAlc').value.trim(),nota_cata:document.getElementById('fNota').value.trim(),vista:document.getElementById('fVista').value.trim(),nariz:document.getElementById('fNariz').value.trim(),boca:document.getElementById('fBoca').value.trim(),precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,medida_botella:document.getElementById('fMedida').value,activo:document.getElementById('fActivo').value==='1',badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim,maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato)};
+  const existente=editandoId?sakes.find(x=>x.id===editandoId):null;
+  const img=imgB64||urlImg||(existente?.img)||'';
+  const data={
+    nombre,img,
+    categoria:document.getElementById('fCategoria').value,
+    tipo:document.getElementById('fTipo').value.trim(),
+    arroz:document.getElementById('fArroz').value.trim(),
+    pulido:document.getElementById('fPulido').value.trim(),
+    region:document.getElementById('fRegion').value.trim(),
+    bodega:document.getElementById('fBodega').value.trim(),
+    vol_alc:document.getElementById('fAlc').value.trim(),
+    nota_cata:document.getElementById('fNota').value.trim(),
+    vista:document.getElementById('fVista').value.trim(),
+    nariz:document.getElementById('fNariz').value.trim(),
+    boca:document.getElementById('fBoca').value.trim(),
+    precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,
+    precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,
+    precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,
+    medida_botella:document.getElementById('fMedida').value,
+    activo:document.getElementById('fActivo').value==='1',
+    badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim,
+    maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato)
+  };
   let sakeId;
-  if(editandoId){const i=sakes.findIndex(x=>x.id===editandoId);sakes[i]={...sakes[i],...data};sakeId=editandoId;}
-  else{sakeId=uid();sakes.push({id:sakeId,...data});}
-  guardarLocal();renderAdmin();volverLista();
+  if(editandoId){
+    const i=sakes.findIndex(x=>x.id===editandoId);
+    // Conservar traducciones existentes al editar
+    sakes[i]={...sakes[i],...data};
+    sakeId=editandoId;
+  }else{
+    sakeId=uid();
+    sakes.push({id:sakeId,...data});
+  }
+  guardarLocal();
+  renderAdmin();
+  volverLista();
   toast(editandoId?'✓ Sake guardado':'✓ Sake añadido');
-  sincronizarSupabaseSilencioso();
-  // Traducción automática en segundo plano
+  // Guardar en Supabase este sake individual
+  guardarSakeEnSupabase(sakeId);
+  // Traducción automática si hay Gemini
   if(config.geminiKey) traducirSakeAutomatico(sakeId);
+}
+
+async function guardarSakeEnSupabase(id){
+  if(!config.supaUrl||!config.supaKey)return;
+  const s=sakes.find(x=>x.id===id);
+  if(!s)return;
+  try{
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{
+      method:'POST',
+      headers:{
+        'apikey':config.supaKey,
+        'Authorization':'Bearer '+config.supaKey,
+        'Content-Type':'application/json',
+        'Prefer':'resolution=merge-duplicates'
+      },
+      body:JSON.stringify([{...s,updated_at:new Date().toISOString()}])
+    });
+    if(r.ok||r.status===201){
+      // Silencioso si va bien
+    }else{
+      const err=await r.json().catch(()=>({}));
+      toast('⚠ Error Supabase: '+(err.message||r.status));
+    }
+  }catch(e){
+    toast('⚠ Sin conexión — guardado solo en local');
+  }
 }
 
 async function traducirSakeAutomatico(id){
@@ -1599,7 +1643,8 @@ Mantén el tono elegante y profesional de una carta de restaurante. Si un campo 
       if(i>=0){
         sakes[i]={...sakes[i],...d};
         guardarLocal();
-        sincronizarSupabaseSilencioso();
+        // Guardar traducciones en Supabase
+        guardarSakeEnSupabase(id);
         toast('🌐 Traducido a EN · DE automáticamente');
       }
     }
@@ -1710,8 +1755,23 @@ async function sincronizarSupabaseSilencioso(){
 async function cargarDesdeSupabase(){
   if(!config.supaUrl||!config.supaKey)return;
   try{
-    const r=await fetch(config.supaUrl+'/rest/v1/sakes?select=*&order=nombre',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});
-    if(r.ok){const data=await r.json();if(Array.isArray(data)&&data.length){sakes=data;guardarLocal();renderSakes();}}
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes?select=*&order=nombre',{
+      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}
+    });
+    if(r.ok){
+      const data=await r.json();
+      if(Array.isArray(data)&&data.length){
+        sakes=data;
+        guardarLocal();
+        // Si estamos en la carta, re-renderizar
+        if(document.getElementById('app-carta').classList.contains('visible')) renderSakes();
+        // Traducir los que no tienen traducción (con delay para no saturar)
+        if(config.geminiKey){
+          const sinTraducir=sakes.filter(s=>s.nota_cata&&!s.nota_cata_en);
+          sinTraducir.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2500));
+        }
+      }
+    }
   }catch{}
 }
 
