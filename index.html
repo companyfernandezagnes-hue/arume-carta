@@ -8,7 +8,8 @@
 :root{--negro:#242422;--rojo:#DA3934;--crema:#EFF0EB;--g1:#2e2e2c;--g2:#3a3a38;--g3:#9a9a98;--g4:#1a1a18;--gold:#d4a05a;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:var(--negro);color:var(--crema);overflow-x:hidden;}
-/* ===== PANTALLA INTRO ===== */
+
+/* ===== INTRO ===== */
 #screen-intro{position:fixed;inset:0;background:var(--negro);z-index:200;display:flex;flex-direction:column;overflow-y:auto;}
 #screen-intro.oculto{display:none;}
 .intro-hero{background:var(--g4);padding:40px 24px 32px;text-align:center;border-bottom:1px solid var(--g2);}
@@ -49,6 +50,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .wishlist-btn{position:relative;background:none;border:1px solid var(--g2);color:var(--g3);padding:6px 10px;border-radius:8px;font-size:13px;cursor:pointer;}
 .wishlist-badge{position:absolute;top:-6px;right:-6px;background:var(--rojo);color:var(--crema);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;display:none;}
 .admin-btn{background:none;border:1px solid var(--g2);color:var(--g3);padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer;}
+.rec-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer;}
 .filtros{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
 .filtros::-webkit-scrollbar{display:none;}
 .filtro-btn{background:var(--g2);border:none;color:var(--g3);padding:6px 13px;border-radius:20px;font-size:12px;cursor:pointer;white-space:nowrap;transition:all 0.15s;flex-shrink:0;}
@@ -136,6 +138,37 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .modal-input:focus{border-color:var(--rojo);}
 .modal-btn{width:100%;background:var(--rojo);color:var(--crema);border:none;border-radius:10px;padding:12px;font-size:15px;cursor:pointer;font-weight:500;}
 .modal-error{font-size:12px;color:var(--rojo);margin-bottom:10px;display:none;}
+/* ===== RECOMENDADOR ===== */
+#rec-panel{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:160;display:none;flex-direction:column;overflow-y:auto;}
+#rec-panel.visible{display:flex;}
+.rec-panel-header{background:var(--g4);padding:18px 20px 16px;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between;}
+.rec-panel-body{padding:20px;flex:1;}
+.rec-question{font-size:18px;font-weight:500;margin-bottom:8px;line-height:1.4;}
+.rec-subtitle{font-size:13px;color:var(--g3);margin-bottom:20px;}
+.rec-options{display:flex;flex-direction:column;gap:10px;}
+.rec-option{background:var(--g1);border:1px solid var(--g2);border-radius:14px;padding:16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:14px;}
+.rec-option:active{background:var(--g2);}
+.rec-option.selected{border-color:var(--rojo);background:#2a1515;}
+.rec-option-emoji{font-size:28px;flex-shrink:0;}
+.rec-option-text{flex:1;}
+.rec-option-label{font-size:14px;font-weight:500;margin-bottom:2px;}
+.rec-option-desc{font-size:12px;color:var(--g3);}
+.rec-progress{display:flex;gap:6px;margin-bottom:24px;}
+.rec-dot{width:8px;height:8px;border-radius:50%;background:var(--g2);}
+.rec-dot.active{background:var(--rojo);}
+.rec-dot.done{background:var(--g3);}
+.rec-resultado{padding:20px;}
+.rec-resultado-title{font-size:11px;letter-spacing:0.12em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:16px;}
+.rec-resultado-cards{display:flex;flex-direction:column;gap:10px;}
+.rec-resultado-card{background:var(--g1);border-radius:14px;padding:14px;border:1px solid var(--g2);cursor:pointer;}
+.rec-resultado-rank{font-size:10px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:6px;}
+.rec-resultado-rank.top{color:var(--gold);}
+.rec-resultado-nombre{font-size:15px;font-weight:500;margin-bottom:4px;}
+.rec-resultado-tipo{font-size:11px;color:var(--g3);margin-bottom:6px;}
+.rec-resultado-match{font-size:12px;color:var(--crema);background:var(--g4);border-radius:8px;padding:6px 10px;margin-top:6px;line-height:1.4;}
+.rec-resultado-precios{display:flex;gap:10px;margin-top:8px;}
+.rec-panel-btn{background:var(--rojo);color:var(--crema);border:none;width:calc(100% - 40px);margin:0 20px 30px;padding:14px;border-radius:14px;font-size:15px;font-weight:500;cursor:pointer;}
+/* ===== ADMIN ===== */
 #app-admin{display:none;flex-direction:column;min-height:100vh;}
 #app-admin.visible{display:flex;}
 .admin-header{background:var(--g4);padding:14px 16px;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
@@ -176,7 +209,6 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .ia-panel-title{font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;font-weight:600;}
 .ia-btns{display:flex;gap:8px;flex-wrap:wrap;}
 .btn-ia{background:#2d1f0e;color:var(--gold);border:1px solid #5a3a1a;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer;}
-.btn-ia:hover{background:#3d2f1e;}
 .ia-status{font-size:12px;color:var(--g3);margin-top:10px;display:none;}
 .ocr-zone{border:2px dashed var(--g2);border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;}
 .ocr-zone:hover{border-color:var(--rojo);}
@@ -195,11 +227,6 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .spinner{display:inline-block;width:12px;height:12px;border:2px solid var(--g2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:6px;vertical-align:middle;}
 .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2a2a28;border:1px solid var(--g2);color:var(--crema);padding:10px 20px;border-radius:24px;font-size:13px;z-index:999;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap;}
 .toast.visible{opacity:1;}
-.map-container{position:relative;width:100%;}
-.map-container svg{width:100%;height:auto;}
-.pref-highlight{fill:var(--rojo);opacity:0.85;}
-.map-pin{font-size:10px;fill:var(--crema);text-anchor:middle;pointer-events:none;}
-.map-label{position:absolute;background:var(--g1);border:1px solid var(--rojo);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--crema);pointer-events:none;white-space:nowrap;display:none;}
 .pulido-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:12px;}
 .pulido-table th{font-size:10px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;padding:6px 8px;text-align:left;border-bottom:1px solid var(--g2);}
 .pulido-table td{padding:7px 8px;border-bottom:1px solid #262624;vertical-align:top;line-height:1.4;}
@@ -208,15 +235,8 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .pulido-table .pct{color:var(--gold);font-weight:500;white-space:nowrap;}
 .pulido-table .desc{color:var(--g3);}
 .junmai-note{font-size:11px;color:var(--g3);margin-top:8px;padding:8px 10px;background:var(--g4);border-radius:8px;border-left:2px solid var(--gold);}
-.terminos-grid{display:flex;flex-direction:column;gap:7px;margin-top:12px;}
-.termino-row{display:flex;align-items:flex-start;gap:10px;background:var(--g4);border-radius:10px;padding:10px 12px;}
-.termino-pill{font-size:10px;font-weight:700;letter-spacing:0.04em;padding:3px 8px;border-radius:20px;background:#1e1428;color:#c49fe8;border:1px solid #4a2d8a;white-space:nowrap;flex-shrink:0;margin-top:1px;}
-.termino-info{flex:1;}
-.termino-nombre{font-size:13px;font-weight:500;margin-bottom:2px;}
-.termino-desc{font-size:12px;color:var(--g3);line-height:1.4;}
-.termino-ej{font-size:11px;color:var(--gold);margin-top:3px;}
 .metodo-card{background:var(--g4);border-radius:12px;overflow:hidden;border:1px solid var(--g2);margin-bottom:8px;}
-.metodo-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;-webkit-tap-highlight-color:transparent;}
+.metodo-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;}
 .metodo-icon{font-size:24px;width:36px;text-align:center;flex-shrink:0;}
 .metodo-header-info{flex:1;}
 .metodo-nombre{font-size:13px;font-weight:500;}
@@ -229,243 +249,61 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .metodo-body .en-carta{font-size:12px;color:var(--gold);margin-top:8px;padding:6px 10px;background:#1a1008;border-radius:8px;}
 .rama-header{font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
 .rama-dot{display:inline-block;width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-
-/* Maridaje */
 .maridaje-section{margin-top:12px;padding-top:12px;border-top:1px solid var(--g2);}
 .maridaje-title{font-size:10px;letter-spacing:0.1em;color:var(--rojo);text-transform:uppercase;font-weight:500;margin-bottom:8px;}
 .maridaje-chips{display:flex;gap:6px;flex-wrap:wrap;}
 .maridaje-chip{background:var(--g4);border:1px solid var(--g2);color:var(--crema);font-size:11px;padding:4px 9px;border-radius:20px;white-space:nowrap;}
-/* Maridaje admin selector */
 .plato-selector{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
 .plato-toggle{background:var(--g4);border:1px solid var(--g2);color:var(--g3);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;transition:all 0.15s;}
 .plato-toggle.sel{background:#1a2210;border-color:#4a7a20;color:#9de060;}
+/* kiosco-bar eliminado */
+/* ===== IDIOMAS ===== */
+.lang-selector{display:flex;gap:4px;}
+.lang-btn{background:var(--g2);border:none;color:var(--g3);padding:5px 8px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:all 0.15s;}
+.lang-btn.active{background:var(--rojo);color:var(--crema);}
+.intro-lang{display:flex;justify-content:center;gap:8px;padding:16px 0 4px;}
+.intro-lang .lang-btn{padding:8px 16px;font-size:13px;border-radius:20px;}
 </style>
 </head>
 <body>
 <!-- ===== INTRO ===== -->
 <div id="screen-intro">
   <div class="intro-hero">
+    <div class="intro-lang">
+      <button class="lang-btn active" onclick="setLang('es',this)">ES</button>
+      <button class="lang-btn" onclick="setLang('en',this)">EN</button>
+      <button class="lang-btn" onclick="setLang('de',this)">DE</button>
+    </div>
     <div class="intro-logo">ARUME</div>
     <div class="intro-logo-sub">Sake Bar · Palma de Mallorca</div>
-    <div class="intro-tagline">Bienvenido a una de las cartas de sake<br>más cuidadas de <b>España</b></div>
+    <div class="intro-tagline" id="intro-tagline">Bienvenido a una de las cartas de sake<br>más cuidadas de <b>España</b></div>
   </div>
-  <div class="intro-body">
-    <div class="intro-section">
-      <div class="intro-sec-title">¿Qué es el sake?</div>
-      <div class="intro-text">
-        El sake es la bebida nacional de Japón. A diferencia del vino —donde la uva fermenta directamente— el sake necesita <b>dos fermentaciones simultáneas</b>: primero el koji convierte el almidón del arroz en azúcar, y al mismo tiempo la levadura convierte ese azúcar en alcohol. Este proceso único, llamado <b>fermentación paralela múltiple</b>, no existe en ninguna otra bebida del mundo y es lo que le da su complejidad extraordinaria.
-      </div>
-    </div>
-    <div class="intro-section">
-      <div class="intro-sec-title">Clasificación oficial del sake</div>
-      <div class="intro-text" style="margin-bottom:12px;">Hay dos grandes mundos: el sake <b>Premium</b> (Tokutei Meisho Shu) con ingredientes controlados, y el sake ordinario (Futsū-shu). Dentro del Premium, la primera distinción es si lleva o no alcohol añadido.</div>
-      <div style="background:#1a1008;border-radius:10px;padding:10px 12px;margin-bottom:14px;border-left:3px solid var(--gold);">
-        <div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:4px;">FUTSŪ-SHU — Sake ordinario</div>
-        <div style="font-size:12px;color:var(--g3);">Puede llevar azúcares, colorantes, conservantes. Sin límite de pulido. Sake de mesa, sencillo y económico.</div>
-      </div>
-      <div class="rama-header"><span class="rama-dot" style="background:#7dcc50;"></span><span style="color:#7dcc50;">JUNMAI — Sin alcohol destilado añadido</span></div>
-      <table class="pulido-table" style="margin-bottom:14px;">
-        <thead><tr><th>Categoría</th><th>Pulido</th><th>Perfil</th></tr></thead>
-        <tbody>
-          <tr><td class="nombre">Junmai</td><td class="pct" style="color:var(--g3);">Sin límite*</td><td class="desc">Puro arroz, rico, con cuerpo y umami</td></tr>
-          <tr><td class="nombre">Tokubetsu Junmai</td><td class="pct">≤60%</td><td class="desc">Junmai con pulido especial o técnica única</td></tr>
-          <tr><td class="nombre">Junmai Ginjo</td><td class="pct">≤60%</td><td class="desc">Elegante, floral, cuerpo medio</td></tr>
-          <tr><td class="nombre" style="color:var(--gold);">Junmai Daiginjo</td><td class="pct" style="color:var(--gold);">≤50%</td><td class="desc">Máxima pureza. La cima del sake.</td></tr>
-        </tbody>
-      </table>
-      <div class="rama-header"><span class="rama-dot" style="background:#e07070;"></span><span style="color:#e07070;">NON-JUNMAI — Con alcohol destilado añadido</span></div>
-      <table class="pulido-table" style="margin-bottom:12px;">
-        <thead><tr><th>Categoría</th><th>Pulido</th><th>Perfil</th></tr></thead>
-        <tbody>
-          <tr><td class="nombre">Honjozo</td><td class="pct" style="color:var(--g3);">≤70%</td><td class="desc">Ligero y seco, aromas potenciados</td></tr>
-          <tr><td class="nombre">Tokubetsu Honjozo</td><td class="pct">≤60%</td><td class="desc">Honjozo con pulido especial o técnica única</td></tr>
-          <tr><td class="nombre">Ginjo</td><td class="pct">≤60%</td><td class="desc">Aromático, afrutado y muy refinado</td></tr>
-          <tr><td class="nombre" style="color:var(--gold);">Daiginjo</td><td class="pct" style="color:var(--gold);">≤50%</td><td class="desc">La cumbre del aroma y la sutileza</td></tr>
-        </tbody>
-      </table>
-      <div class="junmai-note">💡 <b>Junmai</b> = puro, sin añadidos. <b>Tokubetsu</b> = "especial". <b>Ginjo/Daiginjo</b> = fermentación lenta a baja temperatura que genera los aromas frutales y florales.</div>
-    </div>
-    <div class="intro-section">
-      <div class="intro-sec-title">Los 4 estilos — Sistema Yon-shun</div>
-      <div class="intro-text" style="margin-bottom:12px;">Clasificación del SSI (Instituto del Sake de Japón). Tu brújula para encontrar lo que buscas.</div>
-      <div class="yon-grid">
-        <div class="yon-card kun"><div class="yon-emoji">🌸</div><div class="yon-name" style="color:#c49fe8;">Kun-shu</div><div class="yon-desc">Aromático, floral y frutal.</div><div class="yon-temp">🌡 8–10°C · copa de vino</div></div>
-        <div class="yon-card so"><div class="yon-emoji">💧</div><div class="yon-name" style="color:#7ab8e8;">So-shu</div><div class="yon-desc">Fresco, limpio y ligero.</div><div class="yon-temp">🌡 5–8°C · muy frío</div></div>
-        <div class="yon-card jun"><div class="yon-emoji">🌾</div><div class="yon-name" style="color:#80c47a;">Jun-shu</div><div class="yon-desc">Con cuerpo, umami y arroz.</div><div class="yon-temp">🌡 15–20°C · versátil</div></div>
-        <div class="yon-card juku"><div class="yon-emoji">🥃</div><div class="yon-name" style="color:#d4a05a;">Juku-shu</div><div class="yon-desc">Añejo y muy complejo.</div><div class="yon-temp">🌡 15–18°C · ambiente</div></div>
-      </div>
-    </div>
-    <div class="intro-section">
-      <div class="intro-sec-title">Términos que verás en la carta</div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('tNigori')">
-          <div class="metodo-icon">🥛</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Nigori</div>
-            <div class="metodo-tagline">Sake turbio</div>
-          </div>
-          <div class="metodo-arrow" id="arr-tNigori">▶</div>
-        </div>
-        <div class="metodo-body" id="tNigori">
-          <p>Filtrado con una malla más gruesa de lo habitual, conserva parte de los sedimentos de arroz (kasu). Aspecto lechoso y blanquecino, sabor cremoso, dulce y con mucho cuerpo.</p>
-          <div class="en-carta">🍶 En tu carta: <b>Dreamy Clouds Tokubetsu Nigori</b></div>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('tGenshu')">
-          <div class="metodo-icon">💪</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Genshu</div>
-            <div class="metodo-tagline">Sin diluir</div>
-          </div>
-          <div class="metodo-arrow" id="arr-tGenshu">▶</div>
-        </div>
-        <div class="metodo-body" id="tGenshu">
-          <p>Al final de la elaboración no se añade agua. La graduación natural de la fermentación es alta (17–20%). Potente, estructurado y con más intensidad de sabor que un sake normal.</p>
-          <div class="en-carta">🍶 En tu carta: <b>Fukugen</b></div>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('tNama')">
-          <div class="metodo-icon">⚡</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Namazake</div>
-            <div class="metodo-tagline">Sin pasteurizar · Sake "vivo"</div>
-          </div>
-          <div class="metodo-arrow" id="arr-tNama">▶</div>
-        </div>
-        <div class="metodo-body" id="tNama">
-          <p>El sake normalmente se pasteuriza dos veces para estabilizarlo. El Namazake omite este proceso: es un sake vivo, con levaduras activas. Muy fresco, punzante y con aromas a levadura joven. Requiere cadena de frío constante, por lo que es difícil de encontrar fuera de Japón.</p>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('tMuroka')">
-          <div class="metodo-icon">🌫️</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Muroka</div>
-            <div class="metodo-tagline">Sin filtrar por carbón activo</div>
-          </div>
-          <div class="metodo-arrow" id="arr-tMuroka">▶</div>
-        </div>
-        <div class="metodo-body" id="tMuroka">
-          <p>La mayoría de sakes pasan por un filtro de carbón activo que los aclara y suaviza. El Muroka omite este paso: conserva un color ligeramente amarillento y sabores más profundos, "reales" y sin pulir.</p>
-          <div class="en-carta">🍶 En tu carta: <b>Fukugen</b></div>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('tKoshu')">
-          <div class="metodo-icon">⏳</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Koshu</div>
-            <div class="metodo-tagline">Sake envejecido</div>
-          </div>
-          <div class="metodo-arrow" id="arr-tKoshu">▶</div>
-        </div>
-        <div class="metodo-body" id="tKoshu">
-          <p>Sake con al menos 3 años de crianza, ya sea en botella, tanque o barrica. El tiempo le aporta notas de frutos secos, miel, caramelo y color ámbar. Corresponde a la categoría Juku-shu del sistema Yon-shun.</p>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('tTaruzake')">
-          <div class="metodo-icon">🪵</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Taruzake</div>
-            <div class="metodo-tagline">Envejecido en barrica de madera</div>
-          </div>
-          <div class="metodo-arrow" id="arr-tTaruzake">▶</div>
-        </div>
-        <div class="metodo-body" id="tTaruzake">
-          <p>Elaborado o envejecido en barricas de madera de cedro japonés (sugi). La madera aporta un toque umami característico, aromas resinosos y una textura especial.</p>
-          <div class="en-carta">🍶 En tu carta: <b>Kikumasamune Tarazuke</b></div>
-        </div>
-      </div>
-    </div>
-    <div class="intro-section">
-      <div class="intro-sec-title">¿Cómo se elabora? — Toca para descubrir</div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('m0')">
-          <div class="metodo-icon">🏺</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Bodaimoto <span style="font-size:10px;color:var(--g3);font-weight:400;">· El más ancestral</span></div>
-            <div class="metodo-tagline">Anterior al Kimoto, prácticamente desaparecido</div>
-          </div>
-          <div class="metodo-arrow" id="arr-m0">▶</div>
-        </div>
-        <div class="metodo-body" id="m0">
-          <p>El método más antiguo conocido, originado en el templo Shoryakuji de Nara en el siglo XV. El arroz crudo se sumerge en agua varios días para crear un caldo ácido natural antes de añadir el koji. Produce sakes con acidez muy alta, sabores terrosos y complejos.</p>
-          <p><b>Resultado:</b> sake de carácter histórico, con mucha acidez y profundidad. Casi imposible de encontrar fuera de Japón.</p>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('mA')">
-          <div class="metodo-icon">🪵</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Kimoto <span style="font-size:10px;color:var(--g3);font-weight:400;">· Siglo XVII</span></div>
-            <div class="metodo-tagline">El método más laborioso</div>
-          </div>
-          <div class="metodo-arrow" id="arr-mA">▶</div>
-        </div>
-        <div class="metodo-body" id="mA">
-          <p>Los maestros cerveceros machacaban el arroz con palos (<i>yama-oroshi</i>) durante horas hasta crear una pasta. No se añade ácido láctico: se espera a que las bacterias naturales del aire lo generen solas. El proceso dura el doble que los métodos modernos.</p>
-          <p><b>Resultado:</b> mucha acidez, notas terrosas y lácticas, personalidad inconfundible.</p>
-          <div class="en-carta">🍶 En tu carta: <b>Daishichi Kimoto</b></div>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('mB')">
-          <div class="metodo-icon">🌿</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Yamahai <span style="font-size:10px;color:var(--g3);font-weight:400;">· 1909</span></div>
-            <div class="metodo-tagline">El Kimoto sin machacar</div>
-          </div>
-          <div class="metodo-arrow" id="arr-mB">▶</div>
-        </div>
-        <div class="metodo-body" id="mB">
-          <p>En 1909 se descubrió que las enzimas podían hacer el trabajo de los palos si se dejaban actuar a mayor temperatura. Se elimina el <i>yama-oroshi</i>. Sigue sin ácido láctico añadido, esperando a la naturaleza.</p>
-          <p><b>Resultado:</b> parecido al Kimoto pero más salvaje, con notas de caza, setas y tierra húmeda.</p>
-        </div>
-      </div>
-      <div class="metodo-card">
-        <div class="metodo-header" onclick="toggleMetodo('mC')">
-          <div class="metodo-icon">⚗️</div>
-          <div class="metodo-header-info">
-            <div class="metodo-nombre">Sokujo <span style="font-size:10px;color:var(--g3);font-weight:400;">· 1911 · 99% del mercado</span></div>
-            <div class="metodo-tagline">El método moderno y controlado</div>
-          </div>
-          <div class="metodo-arrow" id="arr-mC">▶</div>
-        </div>
-        <div class="metodo-body" id="mC">
-          <p>Se añade ácido láctico líquido directamente. Esto protege la fermentación y reduce el proceso de 30 a 15 días, permitiendo un control preciso del resultado.</p>
-          <p><b>Resultado:</b> sakes limpios, directos y con aromas muy controlados — frutales y florales. La base de casi todos los Ginjo y Daiginjo modernos.</p>
-          <div class="en-carta">🍶 En tu carta: <b>Dassai 45, Gekkeikan</b></div>
-        </div>
-      </div>
-    </div>
-    <div class="intro-section">
-      <div class="intro-sec-title">Cómo usar esta carta</div>
-      <div class="intro-text">
-        Toca cualquier sake para ver sus <b>notas de cata completas</b> y su origen en el mapa de Japón.<br><br>
-        Guarda tus favoritos con el <b>❤️</b> y muéstrale tu selección al camarero cuando estés listo.
-      </div>
-    </div>
-    <button class="intro-cta" onclick="entrarCarta()">Explorar la carta →</button>
+  <div class="intro-body" id="introBody">
+    <!-- Generado por renderIntro() según el idioma activo -->
   </div>
 </div>
+
 <!-- ===== CARTA ===== -->
 <div id="app-carta">
   <div class="carta-header">
     <div class="carta-header-top">
-      <div>
+      <div id="logoZone" onclick="secretTap()">
         <div class="logo-sm">ARUME</div>
         <div class="logo-sm-sub">Sake Bar · Palma</div>
       </div>
       <div class="header-btns">
-        <button class="wishlist-btn" onclick="abrirWishlist()">❤️ Mi selección<span class="wishlist-badge" id="wishBadge">0</span></button>
-        <button class="admin-btn" onclick="abrirLogin()">⚙</button>
+        <div class="lang-selector">
+          <button class="lang-btn active" id="hLangEs" onclick="setLang('es',this)">ES</button>
+          <button class="lang-btn" id="hLangEn" onclick="setLang('en',this)">EN</button>
+          <button class="lang-btn" id="hLangDe" onclick="setLang('de',this)">DE</button>
+        </div>
+        <button class="rec-btn" id="btnRec" onclick="abrirRecomendador()">✦ ¿Cuál es el mío?</button>
+        <button class="wishlist-btn" onclick="abrirWishlist()">❤️<span class="wishlist-badge" id="wishBadge">0</span></button>
+        <button class="admin-btn" id="adminBtn" onclick="abrirLogin()">⚙</button>
       </div>
     </div>
     <div class="filtros">
-      <button class="filtro-btn activo" onclick="filtrar(this,'all')">Todos</button>
+      <button class="filtro-btn activo" id="fAll" onclick="filtrar(this,'all')">Todos</button>
       <button class="filtro-btn" onclick="filtrar(this,'Kun-shu')">🌸 Kun-shu</button>
       <button class="filtro-btn" onclick="filtrar(this,'So-shu')">💧 So-shu</button>
       <button class="filtro-btn" onclick="filtrar(this,'Jun-shu')">🌾 Jun-shu</button>
@@ -474,16 +312,30 @@ textarea.form-input{resize:vertical;min-height:68px;}
   </div>
   <div class="carta-content" id="cartaContent"></div>
 </div>
-<!-- ===== WISHLIST PANEL ===== -->
+
+<!-- ===== RECOMENDADOR ===== -->
+<div id="rec-panel">
+  <div class="rec-panel-header">
+    <div>
+      <div style="font-size:15px;font-weight:500;" id="recPanelTitle">✦ ¿Qué sake es para mí?</div>
+      <div style="font-size:11px;color:var(--g3);" id="recPanelSub">3 preguntas · 30 segundos</div>
+    </div>
+    <button style="background:none;border:none;color:var(--g3);font-size:24px;cursor:pointer;" onclick="cerrarRecomendador()">×</button>
+  </div>
+  <div id="rec-content"></div>
+</div>
+
+<!-- ===== WISHLIST ===== -->
 <div id="wishlist-panel" onclick="if(event.target===this)cerrarWishlist()">
   <div class="wishlist-box">
     <div class="wishlist-handle"></div>
-    <div class="wishlist-title">❤️ Mi selección</div>
-    <div class="wishlist-sub">Muestra esto al camarero para pedir</div>
+    <div class="wishlist-title" id="wishTitle">❤️ Mi selección</div>
+    <div class="wishlist-sub" id="wishSub">Muestra esto al camarero para pedir</div>
     <div id="wishlistContent"></div>
-    <button class="wishlist-cta" onclick="cerrarWishlist()">Cerrar</button>
+    <button class="wishlist-cta" id="wishClose" onclick="cerrarWishlist()">Cerrar</button>
   </div>
 </div>
+
 <!-- ===== LOGIN ===== -->
 <div class="modal-overlay oculto" id="loginModal">
   <div class="modal-box">
@@ -496,6 +348,7 @@ textarea.form-input{resize:vertical;min-height:68px;}
     <button class="modal-btn" onclick="verificarPin()">Entrar</button>
   </div>
 </div>
+
 <!-- ===== ADMIN ===== -->
 <div id="app-admin">
   <div class="admin-header">
@@ -517,16 +370,23 @@ textarea.form-input{resize:vertical;min-height:68px;}
       <div class="config-row"><div><div class="config-label">Gemini API Key</div><div class="config-sub">Para IA y análisis de imágenes</div></div><input class="config-input" type="password" id="cfgGeminiKey" placeholder="AIza..." oninput="guardarConfig()"></div>
       <div class="config-row"><div><div class="config-label">Supabase URL</div></div><input class="config-input" id="cfgSupaUrl" placeholder="https://xxx.supabase.co" oninput="guardarConfig()"></div>
       <div class="config-row"><div><div class="config-label">Supabase Anon Key</div></div><input class="config-input" type="password" id="cfgSupaKey" placeholder="eyJ..." oninput="guardarConfig()"></div>
-      <div style="display:flex;gap:8px;margin-top:4px;"><button class="btn-secondary" onclick="testSupabase()">Probar</button><button class="btn-ghost" onclick="toggleConfig()">Cerrar</button></div>
+      <div style="display:flex;gap:8px;margin-top:4px;">
+        <button class="btn-secondary" onclick="testSupabase()">Probar conexión</button>
+        <button class="btn-secondary" onclick="sincronizarSupabase()">⬆ Subir sakes</button>
+        <button class="btn-ghost" onclick="toggleConfig()">Cerrar</button>
+      </div>
+      <div id="supaStatus" style="font-size:12px;color:var(--g3);margin-top:8px;display:none;"></div>
     </div>
     <div id="adminListView">
       <div class="tabs">
         <div class="tab activo" onclick="setTab('lista',this)">Sakes</div>
+        <div class="tab" onclick="setTab('historial',this)">📊 Historial</div>
         <div class="tab" onclick="setTab('ocr',this)">📷 Importar con IA</div>
       </div>
       <div id="tabLista"><div class="admin-list" id="adminList"></div></div>
+      <div id="tabHistorial" style="display:none;"></div>
       <div id="tabOcr" style="display:none;">
-        <p style="font-size:13px;color:var(--g3);margin-bottom:14px;">Sube PDF de proveedor o foto con lista. Gemini extrae todo automáticamente.</p>
+        <p style="font-size:13px;color:var(--g3);margin-bottom:14px;">Sube PDF de proveedor o foto. Gemini extrae todo automáticamente.</p>
         <div class="ocr-zone" onclick="document.getElementById('ocrFile').click()">
           <div style="font-size:34px;margin-bottom:8px;">🍶</div>
           <div style="font-size:14px;">Toca para subir imagen o PDF</div>
@@ -609,36 +469,477 @@ textarea.form-input{resize:vertical;min-height:68px;}
     </div>
   </div>
 </div>
+
+<!-- kiosco-bar eliminado: el admin se oculta automáticamente en modo kiosco -->
+
 <div class="toast" id="toast"></div>
+
 <script>
 const PIN='1234';
-const CAT_INFO={
-  'Kun-shu': {emoji:'🌸',dot:'#8855cc',desc:'Aromático · Floral y frutal',temp:'8–10°C · copa de vino',css:'cat-kun'},
-  'So-shu':  {emoji:'💧',dot:'#4488cc',desc:'Fresco · Ligero y limpio',  temp:'5–8°C · muy frío',     css:'cat-so'},
-  'Jun-shu': {emoji:'🌾',dot:'#44aa55',desc:'Con cuerpo · Umami y arroz',temp:'15–20°C · versátil',   css:'cat-jun'},
-  'Juku-shu':{emoji:'🥃',dot:'#cc8833',desc:'Añejo · Complejo',          temp:'15–18°C · ambiente',   css:'cat-juku'},
+
+// ===== IDIOMAS =====
+let lang='es';
+const LANG={
+  es:{
+    tagline:'Bienvenido a una de las cartas de sake<br>más cuidadas de <b>España</b>',
+    whatSake:'¿Qué es el sake?',
+    whatSakeText:'El sake es la bebida nacional de Japón. A diferencia del vino —donde la uva fermenta directamente— el sake necesita <b>dos fermentaciones simultáneas</b>: primero el koji convierte el almidón del arroz en azúcar, y al mismo tiempo la levadura convierte ese azúcar en alcohol. Este proceso único, llamado <b>fermentación paralela múltiple</b>, no existe en ninguna otra bebida del mundo.',
+    classification:'Clasificación oficial del sake',
+    futsushuDesc:'Puede llevar azúcares, colorantes, conservantes. Sin límite de pulido.',
+    junmaiLabel:'JUNMAI — Sin alcohol destilado añadido',
+    nonJunmaiLabel:'NON-JUNMAI — Con alcohol destilado añadido',
+    thCat:'Categoría',thPol:'Pulido',thProf:'Perfil',
+    junmaiNote:'💡 <b>Junmai</b> = puro. <b>Ginjo/Daiginjo</b> = fermentación lenta a baja temperatura que genera aromas frutales y florales.',
+    styles:'Los 4 estilos — Sistema Yon-shun',
+    terms:'Términos que verás en la carta',
+    howTo:'Cómo usar esta carta',
+    howToText:'Toca cualquier sake para ver sus <b>notas de cata completas</b> y su origen en el mapa de Japón.<br><br>Usa el botón <b>✦ ¿Cuál es el mío?</b> si no sabes por dónde empezar.<br><br>Guarda tus favoritos con el <b>❤️</b> y muéstraselo al camarero.',
+    cta:'Explorar la carta →',
+    recBtn:'✦ ¿Cuál es el mío?',
+    recTitle:'✦ ¿Qué sake es para mí?',
+    recSub:'3 preguntas · 30 segundos',
+    recTopLabel:'✦ Nuestra recomendación para ti',
+    rec2ndLabel:'Segunda opción',
+    rec3rdLabel:'También te puede gustar',
+    recSeeAll:'Ver toda la carta',
+    recRepeat:'↺ Repetir test',
+    wishTitle:'❤️ Mi selección',
+    wishSub:'Muestra esto al camarero para pedir',
+    wishEmpty:'Toca ❤️ en los sakes que quieras probar',
+    wishClose:'Cerrar',
+    filterAll:'Todos',
+    detVista:'Vista',detNariz:'Nariz',detBoca:'Boca',
+    detBodega:'Bodega',detArroz:'Arroz',detPref:'Prefectura',
+    detGrad:'Graduación',detTipo:'Tipo',detFormato:'Formato',
+    maridajes:'Maridajes sugeridos',
+    verMas:'Ver cata completa ↓',verMenos:'Cerrar ↑',
+    recSect:'Si te gusta este, prueba también',
+    copa:'Copa',jarra:'Jarra',botella:'Botella',
+    tempWine:'copa de vino',tempCold:'muy frío',tempVers:'versátil',tempAmb:'ambiente',
+    yon:[
+      {desc:'Aromático, floral y frutal.'},
+      {desc:'Fresco, limpio y ligero.'},
+      {desc:'Con cuerpo, umami y arroz.'},
+      {desc:'Añejo y muy complejo.'},
+    ],
+    terminos:[
+      {nombre:'Nigori',tagline:'Sake turbio',body:'Filtrado con malla gruesa, conserva sedimentos de arroz. Aspecto lechoso, sabor cremoso y dulce.',carta:'🍶 En tu carta: <b>Dreamy Clouds Tokubetsu Nigori</b>'},
+      {nombre:'Genshu',tagline:'Sin diluir',body:'No se añade agua. Graduación 17–20%. Potente y estructurado.',carta:'🍶 En tu carta: <b>Fukugen</b>'},
+      {nombre:'Namazake',tagline:'Sin pasteurizar · Sake "vivo"',body:'Omite la pasteurización. Levaduras activas, muy fresco. Difícil de encontrar fuera de Japón.',carta:''},
+      {nombre:'Koshu',tagline:'Sake envejecido',body:'Mínimo 3 años de crianza. Notas de frutos secos, miel, caramelo y color ámbar.',carta:''},
+      {nombre:'Taruzake',tagline:'Envejecido en barrica de madera',body:'Elaborado en barricas de cedro japonés (sugi). Toque umami resinoso y textura especial.',carta:'🍶 En tu carta: <b>Kikumasamune Tarazuke</b>'},
+    ],
+    tableJunmai:[
+      {nombre:'Junmai',pct:'Sin límite*',desc:'Puro arroz, rico, con cuerpo y umami'},
+      {nombre:'Tokubetsu Junmai',pct:'≤60%',desc:'Junmai con pulido especial'},
+      {nombre:'Junmai Ginjo',pct:'≤60%',desc:'Elegante, floral, cuerpo medio'},
+      {nombre:'Junmai Daiginjo',pct:'≤50%',desc:'Máxima pureza. La cima del sake.',gold:true},
+    ],
+    tableNonJunmai:[
+      {nombre:'Honjozo',pct:'≤70%',desc:'Ligero y seco, aromas potenciados'},
+      {nombre:'Ginjo',pct:'≤60%',desc:'Aromático, afrutado y refinado'},
+      {nombre:'Daiginjo',pct:'≤50%',desc:'La cumbre del aroma y la sutileza',gold:true},
+    ],
+    recPreguntas:[
+      {q:'¿Cómo te gusta tu bebida ideal?',sub:'Piensa en vino, cócteles o lo que más tomes',opciones:[
+        {emoji:'🌸',label:'Aromática y floral',desc:'Fruta blanca, pera, melocotón...',val:'frutal'},
+        {emoji:'🍋',label:'Fresca y ligera',desc:'Limpia, refrescante, nada pesada',val:'fresco'},
+        {emoji:'🌾',label:'Con cuerpo y sabor',desc:'Umami, cereales, algo robusto',val:'cuerpo'},
+        {emoji:'🍯',label:'Compleja e intensa',desc:'Frutos secos, caramelo, crianza',val:'complejo'},
+      ]},
+      {q:'¿Cuánta experiencia tienes con el sake?',sub:'¡No hay respuesta incorrecta!',opciones:[
+        {emoji:'🆕',label:'Primera vez',desc:'Nunca lo he probado o casi nunca',val:'novato'},
+        {emoji:'🍶',label:'He probado algo',desc:'Lo conozco un poco',val:'medio'},
+        {emoji:'🎌',label:'Soy fan del sake',desc:'Lo bebo habitualmente',val:'experto'},
+      ]},
+      {q:'¿Qué vas a pedir de comer?',sub:'Te ayuda a encontrar el maridaje perfecto',opciones:[
+        {emoji:'🐟',label:'Pescado o sushi',desc:'Nigiri, sashimi, rolls...',val:'pescado'},
+        {emoji:'🥩',label:'Carnes o guisos',desc:'Pato, cerdo, callos...',val:'carne'},
+        {emoji:'🥗',label:'Vegetariano / ligero',desc:'Verduras, tofu, edamame...',val:'vegetal'},
+        {emoji:'🦪',label:'Mariscos y ostras',desc:'Gambas, vieira, anguila...',val:'marisco'},
+      ]},
+    ],
+    matchReasons:{
+      frutalKun:'Sus aromas florales y frutales encajan con lo que buscas',
+      frescoSo:'Ligero y refrescante, exactamente tu estilo',
+      cuerpoJun:'Con cuerpo y umami, ideal para lo que describes',
+      complejoJuku:'Complejidad e intensidad, lo que pedías',
+      novatoRec:'Es uno de nuestros más recomendados para iniciarse',
+      novatoTop:'El favorito de los clientes',
+      pescado:'Marida perfectamente con lo que vas a comer',
+      marisco:'Combinación perfecta con mariscos',
+      default:'Un sake que te va a sorprender',
+    },
+  },
+  en:{
+    tagline:'Welcome to one of the most carefully curated sake menus in <b>Spain</b>',
+    whatSake:'What is sake?',
+    whatSakeText:'Sake is Japan\'s national drink. Unlike wine —where the grape ferments directly— sake requires <b>two simultaneous fermentations</b>: first, koji converts rice starch into sugar, and at the same time yeast converts that sugar into alcohol. This unique process, called <b>multiple parallel fermentation</b>, exists in no other drink in the world.',
+    classification:'Official sake classification',
+    futsushuDesc:'May contain sugars, colourants, preservatives. No milling limit.',
+    junmaiLabel:'JUNMAI — No added distilled alcohol',
+    nonJunmaiLabel:'NON-JUNMAI — With added distilled alcohol',
+    thCat:'Category',thPol:'Milling',thProf:'Profile',
+    junmaiNote:'💡 <b>Junmai</b> = pure rice. <b>Ginjo/Daiginjo</b> = slow cold fermentation producing those fruity and floral aromas.',
+    styles:'The 4 styles — Yon-shun System',
+    terms:'Terms you\'ll find on the menu',
+    howTo:'How to use this menu',
+    howToText:'Tap any sake to see its <b>full tasting notes</b> and origin on the Japan map.<br><br>Use the <b>✦ Which one is mine?</b> button if you\'re not sure where to start.<br><br>Save your favourites with <b>❤️</b> and show it to your server.',
+    cta:'Explore the menu →',
+    recBtn:'✦ Which one is mine?',
+    recTitle:'✦ Which sake is right for me?',
+    recSub:'3 questions · 30 seconds',
+    recTopLabel:'✦ Our recommendation for you',
+    rec2ndLabel:'Second option',
+    rec3rdLabel:'You might also like',
+    recSeeAll:'See full menu',
+    recRepeat:'↺ Retake the quiz',
+    wishTitle:'❤️ My selection',
+    wishSub:'Show this to your server to order',
+    wishEmpty:'Tap ❤️ on the sakes you\'d like to try',
+    wishClose:'Close',
+    filterAll:'All',
+    detVista:'Appearance',detNariz:'Nose',detBoca:'Palate',
+    detBodega:'Brewery',detArroz:'Rice',detPref:'Prefecture',
+    detGrad:'Alcohol',detTipo:'Type',detFormato:'Format',
+    maridajes:'Suggested pairings',
+    verMas:'Full tasting notes ↓',verMenos:'Close ↑',
+    recSect:'If you like this, also try',
+    copa:'Glass',jarra:'Carafe',botella:'Bottle',
+    tempWine:'wine glass',tempCold:'very cold',tempVers:'versatile',tempAmb:'room temp',
+    yon:[
+      {desc:'Aromatic, floral and fruity.'},
+      {desc:'Fresh, clean and light.'},
+      {desc:'Full-bodied, umami and rice.'},
+      {desc:'Aged and very complex.'},
+    ],
+    terminos:[
+      {nombre:'Nigori',tagline:'Cloudy sake',body:'Coarsely filtered, retaining rice sediment. Milky appearance, creamy and sweet flavour.',carta:'🍶 On your menu: <b>Dreamy Clouds Tokubetsu Nigori</b>'},
+      {nombre:'Genshu',tagline:'Undiluted',body:'No water added. Natural ABV 17–20%. Powerful and structured.',carta:'🍶 On your menu: <b>Fukugen</b>'},
+      {nombre:'Namazake',tagline:'Unpasteurised · "Living" sake',body:'Skips pasteurisation. Active yeasts, very fresh. Rare outside Japan.',carta:''},
+      {nombre:'Koshu',tagline:'Aged sake',body:'At least 3 years of ageing. Notes of dried fruit, honey, caramel and amber colour.',carta:''},
+      {nombre:'Taruzake',tagline:'Barrel-aged',body:'Aged in Japanese cedar (sugi) barrels. Resinous umami touch and unique texture.',carta:'🍶 On your menu: <b>Kikumasamune Tarazuke</b>'},
+    ],
+    tableJunmai:[
+      {nombre:'Junmai',pct:'No limit*',desc:'Pure rice, rich, full-bodied and umami'},
+      {nombre:'Tokubetsu Junmai',pct:'≤60%',desc:'Junmai with special milling'},
+      {nombre:'Junmai Ginjo',pct:'≤60%',desc:'Elegant, floral, medium body'},
+      {nombre:'Junmai Daiginjo',pct:'≤50%',desc:'Maximum purity. The pinnacle of sake.',gold:true},
+    ],
+    tableNonJunmai:[
+      {nombre:'Honjozo',pct:'≤70%',desc:'Light and dry, enhanced aromas'},
+      {nombre:'Ginjo',pct:'≤60%',desc:'Aromatic, fruity and refined'},
+      {nombre:'Daiginjo',pct:'≤50%',desc:'The summit of aroma and subtlety',gold:true},
+    ],
+    recPreguntas:[
+      {q:'How do you like your ideal drink?',sub:'Think of wine, cocktails or whatever you enjoy most',opciones:[
+        {emoji:'🌸',label:'Aromatic and floral',desc:'White fruit, pear, peach...',val:'frutal'},
+        {emoji:'🍋',label:'Fresh and light',desc:'Clean, refreshing, nothing heavy',val:'fresco'},
+        {emoji:'🌾',label:'Full-bodied and flavourful',desc:'Umami, cereal, something robust',val:'cuerpo'},
+        {emoji:'🍯',label:'Complex and intense',desc:'Dried fruit, caramel, aged notes',val:'complejo'},
+      ]},
+      {q:'How much experience do you have with sake?',sub:'There\'s no wrong answer!',opciones:[
+        {emoji:'🆕',label:'First time',desc:'Never or almost never tried it',val:'novato'},
+        {emoji:'🍶',label:'Tried it a bit',desc:'I know it a little',val:'medio'},
+        {emoji:'🎌',label:'Sake fan',desc:'I drink it regularly',val:'experto'},
+      ]},
+      {q:'What are you ordering to eat?',sub:'Helps find the perfect pairing',opciones:[
+        {emoji:'🐟',label:'Fish or sushi',desc:'Nigiri, sashimi, rolls...',val:'pescado'},
+        {emoji:'🥩',label:'Meat or stews',desc:'Duck, pork, braised dishes...',val:'carne'},
+        {emoji:'🥗',label:'Vegetarian / light',desc:'Vegetables, tofu, edamame...',val:'vegetal'},
+        {emoji:'🦪',label:'Seafood and oysters',desc:'Prawns, scallop, eel...',val:'marisco'},
+      ]},
+    ],
+    matchReasons:{
+      frutalKun:'Its floral and fruity aromas match what you\'re looking for',
+      frescoSo:'Light and refreshing, exactly your style',
+      cuerpoJun:'Full-bodied and umami, ideal for what you described',
+      complejoJuku:'Complexity and intensity, just what you asked for',
+      novatoRec:'One of our most recommended for first-timers',
+      novatoTop:'The crowd favourite',
+      pescado:'Pairs perfectly with what you\'re eating',
+      marisco:'A perfect match with seafood',
+      default:'A sake that will surprise you',
+    },
+  },
+  de:{
+    tagline:'Willkommen bei einer der sorgfältigsten Sake-Karten in <b>Spanien</b>',
+    whatSake:'Was ist Sake?',
+    whatSakeText:'Sake ist Japans Nationalgetränk. Anders als Wein —bei dem die Traube direkt vergärt— braucht Sake <b>zwei gleichzeitige Fermentationen</b>: Zuerst wandelt Koji die Reisstärke in Zucker um, gleichzeitig wandelt Hefe diesen Zucker in Alkohol um. Dieser einzigartige Prozess, <b>multiple parallele Fermentation</b> genannt, existiert bei keinem anderen Getränk der Welt.',
+    classification:'Offizielle Sake-Klassifizierung',
+    futsushuDesc:'Kann Zucker, Farbstoffe, Konservierungsmittel enthalten. Kein Polierlimit.',
+    junmaiLabel:'JUNMAI — Kein zugesetzter Destillationsalkohol',
+    nonJunmaiLabel:'NON-JUNMAI — Mit zugesetztem Destillationsalkohol',
+    thCat:'Kategorie',thPol:'Polierung',thProf:'Profil',
+    junmaiNote:'💡 <b>Junmai</b> = reiner Reis. <b>Ginjo/Daiginjo</b> = langsame Kaltfermentation erzeugt fruchtige und blumige Aromen.',
+    styles:'Die 4 Stile — Yon-shun-System',
+    terms:'Begriffe auf der Karte',
+    howTo:'So nutzen Sie diese Karte',
+    howToText:'Tippen Sie auf einen Sake, um die <b>vollständigen Verkostungsnotizen</b> und die Herkunft auf der Japan-Karte zu sehen.<br><br>Nutzen Sie die Schaltfläche <b>✦ Welcher ist meiner?</b>, wenn Sie nicht wissen, wo Sie anfangen sollen.<br><br>Speichern Sie Ihre Favoriten mit <b>❤️</b> und zeigen Sie die Auswahl dem Servicepersonal.',
+    cta:'Karte erkunden →',
+    recBtn:'✦ Welcher ist meiner?',
+    recTitle:'✦ Welcher Sake ist für mich?',
+    recSub:'3 Fragen · 30 Sekunden',
+    recTopLabel:'✦ Unsere Empfehlung für Sie',
+    rec2ndLabel:'Zweite Option',
+    rec3rdLabel:'Könnte Ihnen auch gefallen',
+    recSeeAll:'Gesamte Karte ansehen',
+    recRepeat:'↺ Quiz wiederholen',
+    wishTitle:'❤️ Meine Auswahl',
+    wishSub:'Zeigen Sie dies dem Servicepersonal',
+    wishEmpty:'Tippen Sie ❤️ bei den Sakes, die Sie probieren möchten',
+    wishClose:'Schließen',
+    filterAll:'Alle',
+    detVista:'Aussehen',detNariz:'Nase',detBoca:'Gaumen',
+    detBodega:'Brauerei',detArroz:'Reis',detPref:'Präfektur',
+    detGrad:'Alkohol',detTipo:'Typ',detFormato:'Format',
+    maridajes:'Empfohlene Speisebegleitungen',
+    verMas:'Vollständige Notizen ↓',verMenos:'Schließen ↑',
+    recSect:'Wenn Ihnen dieser gefällt, probieren Sie auch',
+    copa:'Glas',jarra:'Krug',botella:'Flasche',
+    tempWine:'Weinglas',tempCold:'sehr kalt',tempVers:'vielseitig',tempAmb:'Raumtemperatur',
+    yon:[
+      {desc:'Aromatisch, blumig und fruchtig.'},
+      {desc:'Frisch, klar und leicht.'},
+      {desc:'Vollmundig, Umami und Reis.'},
+      {desc:'Gereift und sehr komplex.'},
+    ],
+    terminos:[
+      {nombre:'Nigori',tagline:'Trüber Sake',body:'Grob gefiltert, behält Reissediment. Milchiges Aussehen, cremiger und süßer Geschmack.',carta:'🍶 Auf Ihrer Karte: <b>Dreamy Clouds Tokubetsu Nigori</b>'},
+      {nombre:'Genshu',tagline:'Unverdünnt',body:'Kein Wasser hinzugefügt. Natürlicher Alkoholgehalt 17–20%. Kraftvoll und strukturiert.',carta:'🍶 Auf Ihrer Karte: <b>Fukugen</b>'},
+      {nombre:'Namazake',tagline:'Nicht pasteurisiert · „Lebendiger" Sake',body:'Überspringt die Pasteurisierung. Aktive Hefen, sehr frisch. Außerhalb Japans selten.',carta:''},
+      {nombre:'Koshu',tagline:'Gereifter Sake',body:'Mindestens 3 Jahre Reifung. Noten von Trockenfrüchten, Honig, Karamell und Bernsteinfarbe.',carta:''},
+      {nombre:'Taruzake',tagline:'In Fässern gereift',body:'In japanischen Zedernholzfässern (Sugi) gereift. Harzig-umami-Note und besondere Textur.',carta:'🍶 Auf Ihrer Karte: <b>Kikumasamune Tarazuke</b>'},
+    ],
+    tableJunmai:[
+      {nombre:'Junmai',pct:'Kein Limit*',desc:'Reiner Reis, reich, vollmundig und Umami'},
+      {nombre:'Tokubetsu Junmai',pct:'≤60%',desc:'Junmai mit besonderer Polierung'},
+      {nombre:'Junmai Ginjo',pct:'≤60%',desc:'Elegant, blumig, mittlerer Körper'},
+      {nombre:'Junmai Daiginjo',pct:'≤50%',desc:'Maximale Reinheit. Der Gipfel des Sake.',gold:true},
+    ],
+    tableNonJunmai:[
+      {nombre:'Honjozo',pct:'≤70%',desc:'Leicht und trocken, verstärkte Aromen'},
+      {nombre:'Ginjo',pct:'≤60%',desc:'Aromatisch, fruchtig und verfeinert'},
+      {nombre:'Daiginjo',pct:'≤50%',desc:'Der Gipfel von Aroma und Feinheit',gold:true},
+    ],
+    recPreguntas:[
+      {q:'Wie mögen Sie Ihr ideales Getränk?',sub:'Denken Sie an Wein, Cocktails oder was Sie am liebsten trinken',opciones:[
+        {emoji:'🌸',label:'Aromatisch und blumig',desc:'Weißes Obst, Birne, Pfirsich...',val:'frutal'},
+        {emoji:'🍋',label:'Frisch und leicht',desc:'Sauber, erfrischend, nicht schwer',val:'fresco'},
+        {emoji:'🌾',label:'Vollmundig und geschmackvoll',desc:'Umami, Getreide, etwas Robustes',val:'cuerpo'},
+        {emoji:'🍯',label:'Komplex und intensiv',desc:'Trockenfrüchte, Karamell, Reifenoten',val:'complejo'},
+      ]},
+      {q:'Wie viel Erfahrung haben Sie mit Sake?',sub:'Es gibt keine falsche Antwort!',opciones:[
+        {emoji:'🆕',label:'Erstes Mal',desc:'Noch nie oder kaum probiert',val:'novato'},
+        {emoji:'🍶',label:'Etwas probiert',desc:'Kenne es ein wenig',val:'medio'},
+        {emoji:'🎌',label:'Sake-Fan',desc:'Trinke es regelmäßig',val:'experto'},
+      ]},
+      {q:'Was bestellen Sie zu essen?',sub:'Hilft die perfekte Begleitung zu finden',opciones:[
+        {emoji:'🐟',label:'Fisch oder Sushi',desc:'Nigiri, Sashimi, Rolls...',val:'pescado'},
+        {emoji:'🥩',label:'Fleisch oder Eintöpfe',desc:'Ente, Schwein, Schmorgericht...',val:'carne'},
+        {emoji:'🥗',label:'Vegetarisch / leicht',desc:'Gemüse, Tofu, Edamame...',val:'vegetal'},
+        {emoji:'🦪',label:'Meeresfrüchte und Austern',desc:'Garnelen, Jakobsmuschel, Aal...',val:'marisco'},
+      ]},
+    ],
+    matchReasons:{
+      frutalKun:'Seine blumigen und fruchtigen Aromen passen zu dem, was Sie suchen',
+      frescoSo:'Leicht und erfrischend, genau Ihr Stil',
+      cuerpoJun:'Vollmundig und Umami, ideal für das, was Sie beschrieben haben',
+      complejoJuku:'Komplexität und Intensität, genau das Gewünschte',
+      novatoRec:'Einer unserer meistempfohlenen für Einsteiger',
+      novatoTop:'Der Liebling unserer Gäste',
+      pescado:'Passt perfekt zu Ihrem Essen',
+      marisco:'Eine perfekte Kombination mit Meeresfrüchten',
+      default:'Ein Sake, der Sie überraschen wird',
+    },
+  },
 };
+
+function t(key){return (LANG[lang]||LANG.es)[key]||key;}
+
+function setLang(l, btn){
+  lang=l;
+  // Actualizar botones activos en intro y header
+  document.querySelectorAll('.lang-btn').forEach(b=>{
+    b.classList.toggle('active', b.textContent.toLowerCase()===l);
+  });
+  // Regenerar intro
+  renderIntro();
+  // Actualizar textos dinámicos de la carta si está visible
+  if(document.getElementById('app-carta').classList.contains('visible')){
+    document.getElementById('intro-tagline').innerHTML=t('tagline');
+    document.getElementById('btnRec').textContent=t('recBtn');
+    document.getElementById('recPanelTitle').textContent=t('recTitle');
+    document.getElementById('recPanelSub').textContent=t('recSub');
+    renderSakes();
+    actualizarFiltrosLang();
+  }
+}
+
+function actualizarFiltrosLang(){
+  const b=document.getElementById('fAll');
+  if(b) b.textContent=t('filterAll');
+}
+
+function renderIntro(){
+  const L=LANG[lang]||LANG.es;
+  // Actualizar tagline
+  const tg=document.getElementById('intro-tagline');
+  if(tg) tg.innerHTML=L.tagline;
+
+  const icons=['🥛','💪','⚡','⏳','🪵'];
+  const terminosHTML=L.terminos.map((tm,i)=>`
+    <div class="metodo-card">
+      <div class="metodo-header" onclick="toggleMetodo('tM${i}')">
+        <div class="metodo-icon">${icons[i]}</div>
+        <div class="metodo-header-info">
+          <div class="metodo-nombre">${tm.nombre}</div>
+          <div class="metodo-tagline">${tm.tagline}</div>
+        </div>
+        <div class="metodo-arrow" id="arr-tM${i}">▶</div>
+      </div>
+      <div class="metodo-body" id="tM${i}">
+        <p>${tm.body}</p>
+        ${tm.carta?`<div class="en-carta">${tm.carta}</div>`:''}
+      </div>
+    </div>`).join('');
+
+  const yonData=[
+    {css:'kun',emoji:'🌸',name:'Kun-shu',color:'#c49fe8',temp:`8–10°C · ${L.tempWine}`},
+    {css:'so', emoji:'💧',name:'So-shu', color:'#7ab8e8',temp:`5–8°C · ${L.tempCold}`},
+    {css:'jun',emoji:'🌾',name:'Jun-shu',color:'#80c47a',temp:`15–20°C · ${L.tempVers}`},
+    {css:'juku',emoji:'🥃',name:'Juku-shu',color:'#d4a05a',temp:`15–18°C · ${L.tempAmb}`},
+  ];
+  const yonHTML=yonData.map((y,i)=>`
+    <div class="yon-card ${y.css}">
+      <div class="yon-emoji">${y.emoji}</div>
+      <div class="yon-name" style="color:${y.color};">${y.name}</div>
+      <div class="yon-desc">${L.yon[i].desc}</div>
+      <div class="yon-temp">🌡 ${y.temp}</div>
+    </div>`).join('');
+
+  const mkTable=(rows)=>rows.map(r=>`
+    <tr>
+      <td class="nombre" ${r.gold?'style="color:var(--gold);"':''}>${r.nombre}</td>
+      <td class="pct" ${r.gold?'style="color:var(--gold);"':r.nombre==='Junmai'||r.nombre.match(/No limit|Kein|Sin limit/)?'style="color:var(--g3);"':''}>${r.pct}</td>
+      <td class="desc">${r.desc}</td>
+    </tr>`).join('');
+
+  document.getElementById('introBody').innerHTML=`
+    <div class="intro-section">
+      <div class="intro-sec-title">${L.whatSake}</div>
+      <div class="intro-text">${L.whatSakeText}</div>
+    </div>
+    <div class="intro-section">
+      <div class="intro-sec-title">${L.classification}</div>
+      <div style="background:#1a1008;border-radius:10px;padding:10px 12px;margin-bottom:14px;border-left:3px solid var(--gold);">
+        <div style="font-size:11px;color:var(--gold);font-weight:600;margin-bottom:4px;">FUTSŪ-SHU — Sake ordinario</div>
+        <div style="font-size:12px;color:var(--g3);">${L.futsushuDesc}</div>
+      </div>
+      <div class="rama-header"><span class="rama-dot" style="background:#7dcc50;"></span><span style="color:#7dcc50;">${L.junmaiLabel}</span></div>
+      <table class="pulido-table" style="margin-bottom:14px;">
+        <thead><tr><th>${L.thCat}</th><th>${L.thPol}</th><th>${L.thProf}</th></tr></thead>
+        <tbody>${mkTable(L.tableJunmai)}</tbody>
+      </table>
+      <div class="rama-header"><span class="rama-dot" style="background:#e07070;"></span><span style="color:#e07070;">${L.nonJunmaiLabel}</span></div>
+      <table class="pulido-table" style="margin-bottom:12px;">
+        <thead><tr><th>${L.thCat}</th><th>${L.thPol}</th><th>${L.thProf}</th></tr></thead>
+        <tbody>${mkTable(L.tableNonJunmai)}</tbody>
+      </table>
+      <div class="junmai-note">${L.junmaiNote}</div>
+    </div>
+    <div class="intro-section">
+      <div class="intro-sec-title">${L.styles}</div>
+      <div class="yon-grid">${yonHTML}</div>
+    </div>
+    <div class="intro-section">
+      <div class="intro-sec-title">${L.terms}</div>
+      ${terminosHTML}
+    </div>
+    <div class="intro-section">
+      <div class="intro-sec-title">${L.howTo}</div>
+      <div class="intro-text">${L.howToText}</div>
+    </div>
+    <button class="intro-cta" onclick="entrarCarta()">${L.cta}</button>
+  `;
+}
+const CAT_INFO={
+  'Kun-shu': {emoji:'🌸',dot:'#8855cc',get desc(){return(LANG[lang]||LANG.es).yon[0].desc},get temp(){return`8–10°C · ${(LANG[lang]||LANG.es).tempWine}`},css:'cat-kun'},
+  'So-shu':  {emoji:'💧',dot:'#4488cc',get desc(){return(LANG[lang]||LANG.es).yon[1].desc},get temp(){return`5–8°C · ${(LANG[lang]||LANG.es).tempCold}`},css:'cat-so'},
+  'Jun-shu': {emoji:'🌾',dot:'#44aa55',get desc(){return(LANG[lang]||LANG.es).yon[2].desc},get temp(){return`15–20°C · ${(LANG[lang]||LANG.es).tempVers}`},css:'cat-jun'},
+  'Juku-shu':{emoji:'🥃',dot:'#cc8833',get desc(){return(LANG[lang]||LANG.es).yon[3].desc},get temp(){return`15–18°C · ${(LANG[lang]||LANG.es).tempAmb}`},css:'cat-juku'},
+};
+
+// Carta de comida real de Arume (sin unidades ni precios)
 const PLATOS=[
-  '🌱 Edamame picante','🌱 Edamame natural','🥗 Ensalada algas vegetal','🦐 Langostinos',
-  '🍜 Sopa pescado con pescado','🍜 Sopa vegetal con tofu','🐟 Atún','🐟 Tún nido de atún',
-  '🐟 Nido de salmón','🥩 Carpaccio de salmón','🦐 Saam de gambas','🌿 Saam de seitán',
-  '🌿 Shisho y gambas','🦐 Katsu sandwich gambas','🌿 Katsu sandwich Heura','🐷 Katsu sandwich cerdo',
-  '🍋 Yuzucoshu ventresca atún','🍚 Sunomono de blancos','🐟 Lubina kimchee yuzu trufa',
-  '🍋 Cebiche corvina maracuyá','🦐 Croqueta gamba y kimchi','🐟 Anguila ahumada y encurtidos',
-  '🦐 Cigarroll pollo Karaage','🦪 Ostras natural','🦪 Ostras en tempura',
-  '🥣 Roll atún aguacate vinagreta mango chili','🥣 Roll salmón mango pepino miso',
-  '🦐 Roll langostino tempura y espárrago','🍆 Roll berenjena tempura shitake espárrago',
-  '🦐 Roll langostino pepino aguacate','🐟 Roll salmón ahumado tomate seco rúcula pesto',
-  '🥚 Roll foie membrillo','🥚 Roll tamago aguacate langostino','🌿 Roll tamago aguacate tofu',
-  '🐟 Maki atún','🐟 Maki salmón','🐟 Maki lubina','🥑 Maki aguacate',
-  '🐟 Nigiri atún','🐟 Nigiri ventresca de atún','🐟 Nigiri salmón','🐟 Nigiri lubina con trufa',
-  '🐚 Nigiri vieira','🐟 Nigiri anguila','🥚 Nigiri anguila y foie','🦐 Nigiri gamba mallorquina',
-  '🦑 Nigiri calamar','🐟 Sashimi atún','🐟 Sashimi ventresca de atún','🐟 Sashimi lubina',
-  '🐟 Sashimi salmón','🦆 Dim sum pato y foie','🐟 Bacalao a la mallorquina',
-  '🍄 Setas coco y trufa','🥟 Gyozas','🐷 Callos','🐔 Pollo al limón','🥦 Curry de coliflor',
-  '🦐 Gambas','🍰 Tarta de queso chis','🌶️ Choco blanco mango y curri','🍨 Helado té verde',
-  '🍡 Mayuko’s mochi','🍡 Mochis variados',
+  {cat:'Tapas',nombre:'Edamame picante'},
+  {cat:'Tapas',nombre:'Edamame natural'},
+  {cat:'Tapas',nombre:'Ensalada de algas vegetal'},
+  {cat:'Tapas',nombre:'Ensalada de algas con langostinos'},
+  {cat:'Tapas',nombre:'Sopa de pescado'},
+  {cat:'Tapas',nombre:'Sopa vegetal con tofu'},
+  {cat:'Tapas',nombre:'Atún'},
+  {cat:'Tapas',nombre:'Nido de atún'},
+  {cat:'Tapas',nombre:'Nido de salmón'},
+  {cat:'Tapas',nombre:'Carpaccio de salmón'},
+  {cat:'Tapas',nombre:'Saam de gambas'},
+  {cat:'Tapas',nombre:'Saam de seitán'},
+  {cat:'Tapas',nombre:'Shisho y gambas'},
+  {cat:'Tapas',nombre:'Katsu sandwich de gambas'},
+  {cat:'Tapas',nombre:'Katsu sandwich de Heura'},
+  {cat:'Tapas',nombre:'Katsu sandwich de cerdo'},
+  {cat:'Tapas',nombre:'Yuzucoshu ventresca de atún'},
+  {cat:'Tapas',nombre:'Sunomono de blancos'},
+  {cat:'Tapas',nombre:'Lubina, kimchee, yuzu y trufa'},
+  {cat:'Tapas',nombre:'Cebiche corvina y maracuyá'},
+  {cat:'Tapas',nombre:'Croqueta gamba y kimchi'},
+  {cat:'Tapas',nombre:'Anguila ahumada y encurtidos'},
+  {cat:'Tapas',nombre:'Cigarroll'},
+  {cat:'Tapas',nombre:'Pollo Karaage'},
+  {cat:'Ostras',nombre:'Ostras natural'},
+  {cat:'Ostras',nombre:'Ostras en tempura'},
+  {cat:'Rolls',nombre:'Roll atún, aguacate y vinagreta mango chili'},
+  {cat:'Rolls',nombre:'Roll salmón, mango, pepino y miso'},
+  {cat:'Rolls',nombre:'Roll langostino tempura y espárrago'},
+  {cat:'Rolls',nombre:'Roll berenjena tempura, shitake y espárrago'},
+  {cat:'Rolls',nombre:'Roll langostino, pepino y aguacate'},
+  {cat:'Rolls',nombre:'Roll salmón ahumado, tomate seco, rúcula y pesto'},
+  {cat:'Rolls',nombre:'Roll foie y membrillo'},
+  {cat:'Rolls',nombre:'Roll tamago, aguacate y langostino'},
+  {cat:'Rolls',nombre:'Roll tamago, aguacate y tofu'},
+  {cat:'Makis',nombre:'Maki atún'},
+  {cat:'Makis',nombre:'Maki salmón'},
+  {cat:'Makis',nombre:'Maki lubina'},
+  {cat:'Makis',nombre:'Maki aguacate'},
+  {cat:'Nigiris',nombre:'Nigiri atún'},
+  {cat:'Nigiris',nombre:'Nigiri ventresca de atún'},
+  {cat:'Nigiris',nombre:'Nigiri salmón'},
+  {cat:'Nigiris',nombre:'Nigiri lubina con trufa'},
+  {cat:'Nigiris',nombre:'Nigiri vieira'},
+  {cat:'Nigiris',nombre:'Nigiri anguila'},
+  {cat:'Nigiris',nombre:'Nigiri anguila y foie'},
+  {cat:'Nigiris',nombre:'Nigiri gamba mallorquina'},
+  {cat:'Nigiris',nombre:'Nigiri calamar'},
+  {cat:'Sashimi',nombre:'Sashimi atún'},
+  {cat:'Sashimi',nombre:'Sashimi ventresca de atún'},
+  {cat:'Sashimi',nombre:'Sashimi lubina'},
+  {cat:'Sashimi',nombre:'Sashimi salmón'},
+  {cat:'Sashimi',nombre:'Sashimi omakase'},
+  {cat:'Dim Sums',nombre:'Dim sum pato y foie'},
+  {cat:'Otros',nombre:'Bacalao a la mallorquina'},
+  {cat:'Otros',nombre:'Setas, coco y trufa'},
+  {cat:'Otros',nombre:'Gyozas'},
+  {cat:'Otros',nombre:'Callos'},
+  {cat:'Otros',nombre:'Pollo al limón'},
+  {cat:'Otros',nombre:'Curry de coliflor'},
+  {cat:'Otros',nombre:'Gambas'},
+  {cat:'Postres',nombre:'Tarta de queso Chis'},
+  {cat:'Postres',nombre:'Choco blanco, mango y curry'},
+  {cat:'Postres',nombre:'Helado de té verde'},
+  {cat:'Postres',nombre:"Mayuko's Mochi"},
+  {cat:'Postres',nombre:'Mochis variados'},
 ];
+
 const PREF_POS={
   'Yamaguchi': {x:19,y:68},'Yamagata': {x:68,y:32},'Nagano': {x:57,y:47},
   'Shimane':   {x:24,y:62},'España':   {x:0,y:0},  'Pirineos, España':{x:0,y:0},
@@ -648,12 +949,33 @@ const PREF_POS={
   'Hokkaido':  {x:78,y:8}, 'Tokyo':    {x:70,y:50},'Osaka': {x:40,y:57},
   'Aichi':     {x:48,y:54},'Shizuoka': {x:54,y:55},'Tochigi':{x:67,y:44},
   'Ibaraki':   {x:70,y:46},'Kanagawa': {x:66,y:51},'Saitama':{x:67,y:48},
+  'Nara':      {x:40,y:58},'Mie':      {x:44,y:58},'Wakayama':{x:40,y:61},
+  'Okayama':   {x:28,y:62},'Tottori':  {x:28,y:58},'Yamanashi':{x:60,y:50},
+  'Fukuoka':   {x:16,y:70},'Saga':     {x:14,y:72},'Kumamoto':{x:16,y:74},
+  'Nagasaki':  {x:12,y:72},'Oita':     {x:20,y:72},'Miyazaki':{x:20,y:76},
+  'Kagoshima': {x:18,y:80},'Ehime':    {x:26,y:68},'Kochi':   {x:30,y:72},
+  'Tokushima': {x:34,y:68},'Kagawa':   {x:32,y:66},'Fukui':   {x:44,y:48},
+  'Ishikawa':  {x:46,y:44},'Toyama':   {x:50,y:44},'Gifu':    {x:50,y:50},
+  'Shiga':     {x:42,y:54},'Gunma':    {x:64,y:46},'Chiba':   {x:70,y:52},
+  'Saga':      {x:14,y:72},'Okinawa':  {x:20,y:90},'Tochigi': {x:67,y:44},
 };
+
+// Acceso secreto al admin: 5 toques rápidos en el logo
+// 1 toque en el logo abre el login de admin
+function secretTap(){
+  abrirLogin();
+}
+
 let config=JSON.parse(localStorage.getItem('arume_config')||'{}');
 let sakes=JSON.parse(localStorage.getItem('arume_sakes')||'null');
 let wishlist=JSON.parse(localStorage.getItem('arume_wish')||'[]');
 let editandoId=null,filtroActual='all',imgB64=null;
 let badgeState={rec:false,top:false,lim:false};
+let modoKiosco=false;
+// Recomendador
+let recRespuestas={};
+let recPaso=0;
+
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
 function guardarLocal(){localStorage.setItem('arume_sakes',JSON.stringify(sakes));}
 function guardarWish(){localStorage.setItem('arume_wish',JSON.stringify(wishlist));actualizarBadgeWish();}
@@ -664,48 +986,78 @@ function guardarConfig(){
   localStorage.setItem('arume_config',JSON.stringify(config));
 }
 function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=m;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),d);}
+
 const INIT=[
-  {id:uid(),nombre:'Dassai 45',arroz:'Yamada Nishiki',categoria:'Kun-shu',tipo:'Junmai Daiginjo',pulido:'45%',region:'Yamaguchi',bodega:'Asahi Shuzo',vol_alc:'16%',vista:'Color ámbar dorado, brillante.',nariz:'Fruta blanca —uvas, peras—, notas verdes y exóticas como la piña.',boca:'Arroz inflado, castañas y sandía. Final fresco con ligera acidez y fruta de hueso.',nota_cata:'La entrada perfecta al sake: floral, elegante y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false},
-  {id:uid(),nombre:'Dewasakura',arroz:'Dewasansan',categoria:'Kun-shu',tipo:'Junmai Ginjo',pulido:'50%',region:'Yamagata',bodega:'Dewasakura Shuzo',vol_alc:'15.5%',vista:'',nariz:'Notas cítricas de lima y corteza de piña. Muy expresivo.',boca:'Acidez refrescante, seco, con final ligeramente cálido y perfumado.',nota_cata:'Fresco y frutal con una elegancia muy característica del estilo Ginjo.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false},
-  {id:uid(),nombre:'Fukugen',arroz:'Hitogocochi',categoria:'Jun-shu',tipo:'Junmai Genshu Nama Muroka',pulido:'56%',region:'Nagano',bodega:'Fukugen Shuzo',vol_alc:'16%',vista:'',nariz:'Cereal y notas de arroz fresco. Intenso y directo.',boca:'Tradicional, con mucha presencia de cereal y umami potente.',nota_cata:'El sake más tradicional de la carta: cereal, umami y mucho carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true},
-  {id:uid(),nombre:'Dreamy Clouds Nigori',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Nigori Tokubetsu',pulido:'58%',region:'Shimane',bodega:'Rihaku Shuzo',vol_alc:'15%',vista:'Turbio y lechoso, aspecto característico del Nigori.',nariz:'Jugo de arroz fresco, acento anisado y punto lácteo.',boca:'Suave y cremoso, con final que recuerda a la golosina.',nota_cata:'Nigori cremoso y goloso: el sake más diferente e impactante visualmente.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false},
-  {id:uid(),nombre:'Sugoi',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Futsūshu',pulido:'90%',region:'Pirineos, España',bodega:'Seda Líquida',vol_alc:'14%',vista:'',nariz:'Flores blancas, plátano maduro y piña en sazón.',boca:'Sabroso, sutil y muy agradable. Notas lácticas y de arroz potentes.',nota_cata:'El único sake español de la carta. Sorprendente, estructurado y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'750ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false},
-  {id:uid(),nombre:'Misaki',arroz:'Mezcla local',categoria:'So-shu',tipo:'Junmai Daiginjo',pulido:'65%',region:'Hyogo',bodega:'Nihon Sakari',vol_alc:'14.5%',vista:'',nariz:'Pera blanca y melón maduro. Limpio y fresco.',boca:'Ligero, limpio y muy fácil de beber. Altamente refrescante.',nota_cata:'El más ligero y refrescante. Ideal para quien empieza con el sake.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false},
-  {id:uid(),nombre:'Daishichi Kimoto',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Kimoto',pulido:'69%',region:'Fukushima',bodega:'Daishichi Shuzo',vol_alc:'15%',vista:'',nariz:'Notas terrosas, de tierra mojada y cereal tostado.',boca:'Denso, terroso y con alta acidez. Largo y persistente.',nota_cata:'Elaborado con el método Kimoto más antiguo. Complejo, profundo y con carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false},
-  {id:uid(),nombre:'Kikumasamune Tarazuke',arroz:'Mezcla local',categoria:'Jun-shu',tipo:'Junmai',pulido:'70%',region:'Hyogo',bodega:'Kikumasamune',vol_alc:'15%',vista:'',nariz:'Madera de cedro, umami y notas de salsa de soja.',boca:'Robusto, con un toque rugoso. Acabado refrescante y crujiente.',nota_cata:'Envejecido en barricas de cedro de 100 años. Potente, umami y muy singular.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true},
-  {id:uid(),nombre:'Gekkeikan Honjozo',arroz:'Mezcla local',categoria:'So-shu',tipo:'Honjozo',pulido:'65%',region:'Kyoto',bodega:'Gekkeikan',vol_alc:'15.5%',vista:'Brillante y transparente.',nariz:'Dulce, con notas de manzana fresca y plátano verde.',boca:'Seco, corto y muy ligero. El alcohol destilado lo hace muy accesible.',nota_cata:'El clásico de Kyoto. Seco, limpio y sin complicaciones. Un sake para cada día.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false},
+  {id:uid(),nombre:'Dassai 45',arroz:'Yamada Nishiki',categoria:'Kun-shu',tipo:'Junmai Daiginjo',pulido:'45%',region:'Yamaguchi',bodega:'Asahi Shuzo',vol_alc:'16%',vista:'Color ámbar dorado, brillante.',nariz:'Fruta blanca —uvas, peras—, notas verdes y exóticas.',boca:'Arroz inflado, castañas y sandía. Final fresco con ligera acidez.',nota_cata:'La entrada perfecta al sake: floral, elegante y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false,maridajes:['Nigiri salmón','Nigiri ventresca de atún','Sashimi atún','Ostras natural']},
+  {id:uid(),nombre:'Dewasakura',arroz:'Dewasansan',categoria:'Kun-shu',tipo:'Junmai Ginjo',pulido:'50%',region:'Yamagata',bodega:'Dewasakura Shuzo',vol_alc:'15.5%',vista:'',nariz:'Notas cítricas de lima y corteza de piña. Muy expresivo.',boca:'Acidez refrescante, seco, con final ligeramente cálido.',nota_cata:'Fresco y frutal con una elegancia muy característica del estilo Ginjo.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Cebiche corvina y maracuyá','Saam de gambas','Edamame picante']},
+  {id:uid(),nombre:'Fukugen',arroz:'Hitogocochi',categoria:'Jun-shu',tipo:'Junmai Genshu Nama Muroka',pulido:'56%',region:'Nagano',bodega:'Fukugen Shuzo',vol_alc:'16%',vista:'',nariz:'Cereal y notas de arroz fresco. Intenso y directo.',boca:'Tradicional, con mucha presencia de cereal y umami potente.',nota_cata:'El sake más tradicional de la carta: cereal, umami y mucho carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true,maridajes:['Sashimi omakase','Bacalao a la mallorquina','Nigiri anguila','Dim sum pato y foie']},
+  {id:uid(),nombre:'Dreamy Clouds Nigori',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Nigori Tokubetsu',pulido:'58%',region:'Shimane',bodega:'Rihaku Shuzo',vol_alc:'15%',vista:'Turbio y lechoso, aspecto característico del Nigori.',nariz:'Jugo de arroz fresco, acento anisado y punto lácteo.',boca:'Suave y cremoso, con final que recuerda a la golosina.',nota_cata:'Nigori cremoso y goloso: el sake más diferente e impactante visualmente.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false,maridajes:["Mayuko's Mochi",'Choco blanco, mango y curry','Helado de té verde','Curry de coliflor']},
+  {id:uid(),nombre:'Sugoi',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Futsūshu',pulido:'90%',region:'Pirineos, España',bodega:'Seda Líquida',vol_alc:'14%',vista:'',nariz:'Flores blancas, plátano maduro y piña.',boca:'Sabroso, sutil y muy agradable. Notas lácticas y de arroz.',nota_cata:'El único sake español de la carta. Sorprendente y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'750ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Gyozas','Edamame natural','Roll salmón, mango, pepino y miso']},
+  {id:uid(),nombre:'Misaki',arroz:'Mezcla local',categoria:'So-shu',tipo:'Junmai Daiginjo',pulido:'65%',region:'Hyogo',bodega:'Nihon Sakari',vol_alc:'14.5%',vista:'',nariz:'Pera blanca y melón maduro. Limpio y fresco.',boca:'Ligero, limpio y muy fácil de beber.',nota_cata:'El más ligero y refrescante. Ideal para quien empieza con el sake.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Ostras natural','Sashimi lubina','Maki aguacate']},
+  {id:uid(),nombre:'Daishichi Kimoto',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Kimoto',pulido:'69%',region:'Fukushima',bodega:'Daishichi Shuzo',vol_alc:'15%',vista:'',nariz:'Notas terrosas, de tierra mojada y cereal tostado.',boca:'Denso, terroso y con alta acidez. Largo y persistente.',nota_cata:'Elaborado con el método Kimoto más antiguo. Complejo, profundo y con carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false,maridajes:['Anguila ahumada y encurtidos','Callos','Setas, coco y trufa','Pollo Karaage']},
+  {id:uid(),nombre:'Kikumasamune Tarazuke',arroz:'Mezcla local',categoria:'Jun-shu',tipo:'Junmai',pulido:'70%',region:'Hyogo',bodega:'Kikumasamune',vol_alc:'15%',vista:'',nariz:'Madera de cedro, umami y notas de salsa de soja.',boca:'Robusto, con un toque rugoso. Acabado refrescante.',nota_cata:'Envejecido en barricas de cedro de 100 años. Potente, umami y muy singular.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true,maridajes:['Callos','Sashimi omakase','Nigiri anguila y foie']},
+  {id:uid(),nombre:'Gekkeikan Honjozo',arroz:'Mezcla local',categoria:'So-shu',tipo:'Honjozo',pulido:'65%',region:'Kyoto',bodega:'Gekkeikan',vol_alc:'15.5%',vista:'Brillante y transparente.',nariz:'Dulce, manzana fresca y plátano verde.',boca:'Seco, corto y muy ligero.',nota_cata:'El clásico de Kyoto. Seco, limpio y sin complicaciones.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false,maridajes:['Sopa de pescado','Maki salmón','Nigiri calamar']},
 ];
 if(!sakes){sakes=INIT;guardarLocal();}
+
+// Arranque: renderizar intro en idioma por defecto
+renderIntro();
+actualizarBadgeWish();
+if(config.supaUrl&&config.supaKey){cargarDesdeSupabase();}
+// Traducir sakes existentes que no tengan traducción (silencioso)
+if(config.geminiKey){
+  setTimeout(()=>{
+    const sinTraducir=sakes.filter(s=>s.activo&&s.nota_cata&&!s.nota_cata_en);
+    sinTraducir.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2000));
+  },3000);
+}
+
 // ===== INTRO =====
 function toggleMetodo(id){
-  const body=document.getElementById(id);
+  const body=document.getElementById(id);if(!body)return;
   const arr=document.getElementById('arr-'+id);
   const open=body.classList.toggle('visible');
-  arr.classList.toggle('open',open);
+  if(arr)arr.classList.toggle('open',open);
 }
 function entrarCarta(){
   document.getElementById('screen-intro').classList.add('oculto');
   document.getElementById('app-carta').classList.add('visible');
+  document.getElementById('btnRec').textContent=t('recBtn');
+  document.getElementById('recPanelTitle').textContent=t('recTitle');
+  document.getElementById('recPanelSub').textContent=t('recSub');
+  actualizarFiltrosLang();
   renderSakes();
   actualizarBadgeWish();
 }
+
 // ===== WISHLIST =====
 function toggleWish(id,btn){
   const inWish=wishlist.includes(id);
-  if(inWish){wishlist=wishlist.filter(x=>x!==id);}
-  else{wishlist.push(id);}
-  guardarWish();
-  btn.classList.toggle('active',!inWish);
-  btn.textContent=inWish?'🤍':'❤️';
+  if(inWish){
+    wishlist=wishlist.filter(x=>x!==id);
+  }else{
+    wishlist.push(id);
+    // Registrar en historial
+    registrarInteres(id);
+  }
+  guardarWish();btn.classList.toggle('active',!inWish);btn.textContent=inWish?'🤍':'❤️';
+  if(navigator.vibrate)navigator.vibrate(30);
   toast(inWish?'Eliminado de tu selección':'❤️ Añadido a tu selección');
 }
-function actualizarBadgeWish(){
-  const b=document.getElementById('wishBadge');
-  if(!b)return;
-  b.style.display=wishlist.length?'flex':'none';
-  b.textContent=wishlist.length;
+
+function registrarInteres(sakeId){
+  const stats=JSON.parse(localStorage.getItem('arume_stats')||'{}');
+  const hoy=new Date().toISOString().slice(0,10);
+  if(!stats[sakeId])stats[sakeId]={total:0,dias:{}};
+  stats[sakeId].total=(stats[sakeId].total||0)+1;
+  stats[sakeId].dias[hoy]=(stats[sakeId].dias[hoy]||0)+1;
+  localStorage.setItem('arume_stats',JSON.stringify(stats));
 }
+function actualizarBadgeWish(){const b=document.getElementById('wishBadge');if(!b)return;b.style.display=wishlist.length?'flex':'none';b.textContent=wishlist.length;}
 function abrirWishlist(){
+  document.getElementById('wishTitle').textContent=t('wishTitle');
+  document.getElementById('wishSub').textContent=t('wishSub');
+  document.getElementById('wishClose').textContent=t('wishClose');
   document.getElementById('wishlist-panel').classList.add('visible');
   renderWishlist();
 }
@@ -713,7 +1065,7 @@ function cerrarWishlist(){document.getElementById('wishlist-panel').classList.re
 function renderWishlist(){
   const el=document.getElementById('wishlistContent');
   const mis=sakes.filter(s=>wishlist.includes(s.id));
-  if(!mis.length){el.innerHTML='<div class="wishlist-empty">Toca ❤️ en los sakes que quieras probar</div>';return;}
+  if(!mis.length){el.innerHTML=`<div class="wishlist-empty">${t('wishEmpty')}</div>`;return;}
   el.innerHTML=mis.map(s=>{
     const cat=CAT_INFO[s.categoria]||{emoji:'🍶'};
     return`<div class="wishlist-item">
@@ -721,24 +1073,22 @@ function renderWishlist(){
       <div class="wishlist-item-info">
         <div class="wishlist-item-name">${s.nombre}</div>
         <div class="wishlist-item-tipo">${s.categoria||''} · ${s.tipo||''}</div>
-        ${s.precio_copa?'<div style="font-size:12px;color:var(--gold);margin-top:2px;">Copa '+s.precio_copa+'€</div>':''}
+        ${s.precio_copa?`<div style="font-size:12px;color:var(--gold);margin-top:2px;">${t('copa')} ${s.precio_copa}€</div>`:''}
       </div>
       <button class="wishlist-item-rm" onclick="toggleWishFromPanel('${s.id}')">✕</button>
     </div>`;
   }).join('');
 }
 function toggleWishFromPanel(id){
-  wishlist=wishlist.filter(x=>x!==id);
-  guardarWish();
-  renderWishlist();
+  wishlist=wishlist.filter(x=>x!==id);guardarWish();renderWishlist();
   const btn=document.getElementById('heart-'+id);
   if(btn){btn.classList.remove('active');btn.textContent='🤍';}
 }
-// ===== MAPA JAPÓN SVG =====
+
+// ===== MAPA =====
 function mapaSVG(region){
   if(!region||region.toLowerCase().includes('españa'))return'';
-  const pos=PREF_POS[region];
-  if(!pos||pos.x===0)return'';
+  const pos=PREF_POS[region];if(!pos||pos.x===0)return'';
   return`<div class="det-map-row">
     <div class="det-map">
       <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" style="display:block;width:110px;height:80px;">
@@ -750,54 +1100,44 @@ function mapaSVG(region){
         <circle cx="${pos.x}" cy="${pos.y}" r="5" fill="none" stroke="#DA3934" stroke-width="0.8" opacity="0.4"/>
       </svg>
     </div>
-    <div class="det-map-info">
-      <div style="color:var(--crema);font-weight:500;margin-bottom:3px;">🗾 ${region}</div>
-      <div style="font-size:11px;">Prefectura de elaboración</div>
-    </div>
+    <div class="det-map-info"><div style="color:var(--crema);font-weight:500;margin-bottom:3px;">🗾 ${region}</div><div style="font-size:11px;">Prefectura de elaboración</div></div>
   </div>`;
 }
-// ===== RECOMENDACIONES CRUZADAS =====
+
+// ===== RECOMENDACIONES =====
 function getRecomendaciones(sake){
   const otros=sakes.filter(s=>s.activo&&s.id!==sake.id);
-  const mismaCat=otros.filter(s=>s.categoria===sake.categoria).slice(0,2);
-  const distinta=otros.filter(s=>s.categoria!==sake.categoria).slice(0,2);
-  return [...mismaCat,...distinta].slice(0,3);
+  return [...otros.filter(s=>s.categoria===sake.categoria).slice(0,2),...otros.filter(s=>s.categoria!==sake.categoria).slice(0,2)].slice(0,3);
 }
+
 // ===== CARTA =====
 function filtrar(btn,f){
   filtroActual=f;
   document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('activo'));
-  btn.classList.add('activo');
-  renderSakes();
+  btn.classList.add('activo');renderSakes();
 }
 function renderSakes(){
   const lista=sakes.filter(s=>s.activo&&(filtroActual==='all'||s.categoria===filtroActual));
   const el=document.getElementById('cartaContent');
   if(!lista.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--g3);">No hay sakes en esta categoría.</div>';return;}
   const leyenda=filtroActual==='all'?`
-    <div class="leyenda">
-      <div class="leyenda-title">Sistema Yon-shun · 4 estilos</div>
-      <div class="leyenda-grid">${Object.entries(CAT_INFO).map(([k,v])=>`
-        <div class="leyenda-item"><div class="leyenda-dot" style="background:${v.dot}"></div>
-        <div><div class="leyenda-name">${v.emoji} ${k}</div><div class="leyenda-desc">${v.desc}</div></div></div>`).join('')}
-      </div>
-    </div>`:`<div style="padding:4px 2px 2px;font-size:12px;color:var(--g3);">
-      ${CAT_INFO[filtroActual]?.emoji} <b style="color:var(--crema)">${filtroActual}</b> · ${CAT_INFO[filtroActual]?.desc} &nbsp;·&nbsp; 🌡 ${CAT_INFO[filtroActual]?.temp}</div>`;
+    <div class="leyenda"><div class="leyenda-title">Sistema Yon-shun · 4 estilos</div>
+    <div class="leyenda-grid">${Object.entries(CAT_INFO).map(([k,v])=>`
+      <div class="leyenda-item"><div class="leyenda-dot" style="background:${v.dot}"></div>
+      <div><div class="leyenda-name">${v.emoji} ${k}</div><div class="leyenda-desc">${v.desc}</div></div></div>`).join('')}
+    </div></div>`:
+    `<div style="padding:4px 2px 2px;font-size:12px;color:var(--g3);">${CAT_INFO[filtroActual]?.emoji} <b style="color:var(--crema)">${filtroActual}</b> · ${CAT_INFO[filtroActual]?.desc} &nbsp;·&nbsp; 🌡 ${CAT_INFO[filtroActual]?.temp}</div>`;
   el.innerHTML=leyenda+lista.map(s=>{
     const cat=CAT_INFO[s.categoria]||{emoji:'🍶',css:'',dot:'#666',temp:''};
     const inWish=wishlist.includes(s.id);
     const thumb=s.img?`<img src="${s.img}" alt="${s.nombre}" onerror="this.parentNode.innerHTML='${cat.emoji}'">`:cat.emoji;
     const detImg=s.img?`<img src="${s.img}" class="det-img" onerror="this.style.display='none'">`:'';
     const recs=getRecomendaciones(s);
-    const recHtml=recs.length?`<div class="rec-section">
-      <div class="rec-title">Si te gusta este, prueba también</div>
+    const recHtml=recs.length?`<div class="rec-section"><div class="rec-title">${t('recSect')}</div>
       <div class="rec-cards">${recs.map(r=>{const rc=CAT_INFO[r.categoria]||{emoji:'🍶'};return`
         <div class="rec-card" onclick="scrollToSake('${r.id}')">
-          <div class="rec-card-emoji">${rc.emoji}</div>
-          <div class="rec-card-name">${r.nombre}</div>
-          <div class="rec-card-tipo">${r.categoria||''}</div>
-        </div>`;}).join('')}
-      </div></div>`:'';
+          <div class="rec-card-emoji">${rc.emoji}</div><div class="rec-card-name">${r.nombre}</div><div class="rec-card-tipo">${r.categoria||''}</div>
+        </div>`;}).join('')}</div></div>`:'';
     return`<div class="sake-card" id="card-${s.id}" data-cat="${s.categoria||''}">
       <div class="sake-card-header" onclick="toggleDet('det-${s.id}')">
         <div class="sake-img-wrap">${thumb}</div>
@@ -815,7 +1155,7 @@ function renderSakes(){
             ${s.categoria?`<span class="cat-badge ${cat.css}">${s.categoria}</span>`:''}
             ${s.pulido?`<span style="font-size:10px;color:var(--g3);">Pulido ${s.pulido}</span>`:''}
           </div>
-          <div class="sake-nota">${s.nota_cata||''}</div>
+          <div class="sake-nota">${(lang!=='es'&&s['nota_cata_'+lang])||s.nota_cata||''}</div>
         </div>
       </div>
       <div class="sake-footer" onclick="toggleDet('det-${s.id}')">
@@ -825,53 +1165,201 @@ function renderSakes(){
           ${s.region&&s.region.includes('España')?`<span class="sake-tag">🇪🇸 ${s.region}</span>`:''}
         </div>
         <div class="sake-precios">
-          ${s.precio_copa?`<div class="precio-item"><div class="precio-label">Copa</div><div class="precio-val">${s.precio_copa}€</div></div>`:''}
-          ${s.precio_jarra?`<div class="precio-item"><div class="precio-label">Jarra</div><div class="precio-val">${s.precio_jarra}€</div></div>`:''}
-          ${s.precio_botella?`<div class="precio-item"><div class="precio-label">Botella</div><div class="precio-val">${s.precio_botella}€</div></div>`:''}
+          ${s.precio_copa?`<div class="precio-item"><div class="precio-label">${t('copa')}</div><div class="precio-val">${s.precio_copa}€</div></div>`:''}
+          ${s.precio_jarra?`<div class="precio-item"><div class="precio-label">${t('jarra')}</div><div class="precio-val">${s.precio_jarra}€</div></div>`:''}
+          ${s.precio_botella?`<div class="precio-item"><div class="precio-label">${t('botella')}</div><div class="precio-val">${s.precio_botella}€</div></div>`:''}
         </div>
       </div>
-      <div class="ver-mas" onclick="toggleDet('det-${s.id}')">Ver cata completa ↓</div>
+      <div class="ver-mas" onclick="toggleDet('det-${s.id}')">${t('verMas')}</div>
       <div class="sake-detalle" id="det-${s.id}">
         ${detImg}
         ${mapaSVG(s.region)}
-        ${s.vista?`<div class="det-section"><div class="det-label">Vista</div><div class="det-text">${s.vista}</div></div>`:''}
-        ${s.nariz?`<div class="det-section"><div class="det-label">Nariz</div><div class="det-text">${s.nariz}</div></div>`:''}
-        ${s.boca?`<div class="det-section"><div class="det-label">Boca</div><div class="det-text">${s.boca}</div></div>`:''}
+        ${s.vista?`<div class="det-section"><div class="det-label">${t('detVista')}</div><div class="det-text">${(lang!=='es'&&s['vista_'+lang])||s.vista}</div></div>`:''}
+        ${s.nariz?`<div class="det-section"><div class="det-label">${t('detNariz')}</div><div class="det-text">${(lang!=='es'&&s['nariz_'+lang])||s.nariz}</div></div>`:''}
+        ${s.boca?`<div class="det-section"><div class="det-label">${t('detBoca')}</div><div class="det-text">${(lang!=='es'&&s['boca_'+lang])||s.boca}</div></div>`:''}
         <div class="det-grid">
-          ${s.bodega?`<div class="det-item"><div class="det-item-label">Bodega</div><div class="det-item-val">${s.bodega}</div></div>`:''}
-          ${s.arroz?`<div class="det-item"><div class="det-item-label">Arroz</div><div class="det-item-val">${s.arroz}</div></div>`:''}
-          ${s.region?`<div class="det-item"><div class="det-item-label">Prefectura</div><div class="det-item-val">${s.region}</div></div>`:''}
-          ${s.vol_alc?`<div class="det-item"><div class="det-item-label">Graduación</div><div class="det-item-val">${s.vol_alc}</div></div>`:''}
-          ${s.tipo?`<div class="det-item"><div class="det-item-label">Tipo</div><div class="det-item-val">${s.tipo}</div></div>`:''}
-          ${s.medida_botella?`<div class="det-item"><div class="det-item-label">Formato</div><div class="det-item-val">${s.medida_botella}</div></div>`:''}
+          ${s.bodega?`<div class="det-item"><div class="det-item-label">${t('detBodega')}</div><div class="det-item-val">${s.bodega}</div></div>`:''}
+          ${s.arroz?`<div class="det-item"><div class="det-item-label">${t('detArroz')}</div><div class="det-item-val">${s.arroz}</div></div>`:''}
+          ${s.region?`<div class="det-item"><div class="det-item-label">${t('detPref')}</div><div class="det-item-val">${s.region}</div></div>`:''}
+          ${s.vol_alc?`<div class="det-item"><div class="det-item-label">${t('detGrad')}</div><div class="det-item-val">${s.vol_alc}</div></div>`:''}
+          ${s.tipo?`<div class="det-item"><div class="det-item-label">${t('detTipo')}</div><div class="det-item-val">${s.tipo}</div></div>`:''}
+          ${s.medida_botella?`<div class="det-item"><div class="det-item-label">${t('detFormato')}</div><div class="det-item-val">${s.medida_botella}</div></div>`:''}
         </div>
-        ${s.maridajes&&s.maridajes.length?'<div class="maridaje-section"><div class="maridaje-title">Maridajes</div><div class="maridaje-chips">'+s.maridajes.map(m=>'<span class="maridaje-chip">'+m+'</span>').join('')+'</div></div>':''}
+        ${s.maridajes&&s.maridajes.length?`<div class="maridaje-section"><div class="maridaje-title">${t('maridajes')}</div><div class="maridaje-chips">${s.maridajes.map(m=>'<span class="maridaje-chip">'+m+'</span>').join('')}</div></div>`:''}
         ${recHtml}
       </div>
     </div>`;
   }).join('');
 }
 function toggleDet(id){
-  const el=document.getElementById(id);
-  const wasOpen=el.classList.contains('visible');
+  const el=document.getElementById(id);const wasOpen=el.classList.contains('visible');
   document.querySelectorAll('.sake-detalle.visible').forEach(d=>d.classList.remove('visible'));
-  document.querySelectorAll('.ver-mas').forEach(v=>v.textContent='Ver cata completa ↓');
-  if(!wasOpen){
-    el.classList.add('visible');
-    const vm=el.previousElementSibling;
-    if(vm&&vm.classList.contains('ver-mas'))vm.textContent='Cerrar ↑';
-  }
+  document.querySelectorAll('.ver-mas').forEach(v=>v.textContent=t('verMas'));
+  if(!wasOpen){el.classList.add('visible');const vm=el.previousElementSibling;if(vm&&vm.classList.contains('ver-mas'))vm.textContent=t('verMenos');}
 }
 function scrollToSake(id){
   const card=document.getElementById('card-'+id);
   if(card){card.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>toggleDet('det-'+id),400);}
 }
+
+// ===== RECOMENDADOR =====
+function scoreParaRespuestas(sake,r){
+  let score=0;
+  const cat=sake.categoria;
+  // Por sabor
+  if(r.sabor==='frutal'&&cat==='Kun-shu')score+=3;
+  if(r.sabor==='fresco'&&cat==='So-shu')score+=3;
+  if(r.sabor==='cuerpo'&&cat==='Jun-shu')score+=3;
+  if(r.sabor==='complejo'&&cat==='Juku-shu')score+=3;
+  if(r.sabor==='frutal'&&cat==='So-shu')score+=1;
+  if(r.sabor==='fresco'&&cat==='Kun-shu')score+=1;
+  // Por experiencia
+  if(r.exp==='novato'&&(sake.badge_rec||sake.badge_top))score+=2;
+  if(r.exp==='novato'&&(cat==='So-shu'||cat==='Kun-shu'))score+=1;
+  if(r.exp==='experto'&&(cat==='Jun-shu'||cat==='Juku-shu'))score+=1;
+  if(r.exp==='medio')score+=0.5;
+  // Por comida
+  const mari=sake.maridajes||[];
+  if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri/i.test(m)))score+=2;
+  if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino/i.test(m)))score+=2;
+  if(r.comida==='vegetal'&&mari.some(m=>/tofu|aguacate|edamame|vegetal|seitán|verdura/i.test(m)))score+=2;
+  if(r.comida==='carne'&&mari.some(m=>/pato|cerdo|pollo|callo|foie/i.test(m)))score+=2;
+  // Badge rec suma
+  if(sake.badge_rec)score+=0.5;
+  return score;
+}
+
+function matchReason(sake,r){
+  const razones=[];
+  if(r.sabor==='frutal'&&sake.categoria==='Kun-shu')razones.push('Sus aromas florales y frutales encajan con lo que buscas');
+  if(r.sabor==='fresco'&&sake.categoria==='So-shu')razones.push('Ligero y refrescante, exactamente tu estilo');
+  if(r.sabor==='cuerpo'&&sake.categoria==='Jun-shu')razones.push('Con cuerpo y umami, ideal para lo que describes');
+  if(r.sabor==='complejo'&&sake.categoria==='Juku-shu')razones.push('Complejidad e intensidad, lo que pedías');
+  if(r.exp==='novato'&&sake.badge_rec)razones.push('Es uno de nuestros más recomendados para iniciarse');
+  if(r.exp==='novato'&&sake.badge_top)razones.push('El favorito de los clientes');
+  const mari=sake.maridajes||[];
+  if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri/i.test(m)))razones.push('Marida perfectamente con lo que vas a comer');
+  if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino/i.test(m)))razones.push('Combinación perfecta con mariscos');
+  return razones[0]||'Un sake que te va a sorprender';
+}
+
+function abrirRecomendador(){
+  recRespuestas={};recPaso=0;
+  document.getElementById('rec-panel').classList.add('visible');
+  renderRecPaso();
+}
+function cerrarRecomendador(){document.getElementById('rec-panel').classList.remove('visible');}
+function renderRecPaso(){
+  const el=document.getElementById('rec-content');
+  if(recPaso>=(LANG[lang]||LANG.es).recPreguntas.length){renderRecResultado();return;}
+  const preguntas=(LANG[lang]||LANG.es).recPreguntas;
+  const p=preguntas[recPaso];
+  const claves=['sabor','exp','comida'];
+  const clave=claves[recPaso];
+  el.innerHTML=`
+    <div class="rec-panel-body">
+      <div class="rec-progress">${preguntas.map((_,i)=>`<div class="rec-dot ${i<recPaso?'done':i===recPaso?'active':''}"></div>`).join('')}</div>
+      <div class="rec-question">${p.q}</div>
+      <div class="rec-subtitle">${p.sub}</div>
+      <div class="rec-options">
+        ${p.opciones.map(o=>`
+          <div class="rec-option" onclick="elegirRec('${clave}','${o.val}')">
+            <div class="rec-option-emoji">${o.emoji}</div>
+            <div class="rec-option-text">
+              <div class="rec-option-label">${o.label}</div>
+              <div class="rec-option-desc">${o.desc}</div>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+function elegirRec(clave,val){
+  recRespuestas[clave]=val;recPaso++;renderRecPaso();
+}
+function matchReason(sake,r){
+  const M=(LANG[lang]||LANG.es).matchReasons;
+  if(r.sabor==='frutal'&&sake.categoria==='Kun-shu')return M.frutalKun;
+  if(r.sabor==='fresco'&&sake.categoria==='So-shu')return M.frescoSo;
+  if(r.sabor==='cuerpo'&&sake.categoria==='Jun-shu')return M.cuerpoJun;
+  if(r.sabor==='complejo'&&sake.categoria==='Juku-shu')return M.complejoJuku;
+  if(r.exp==='novato'&&sake.badge_rec)return M.novatoRec;
+  if(r.exp==='novato'&&sake.badge_top)return M.novatoTop;
+  const mari=sake.maridajes||[];
+  if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri|salmon|tuna|sea bass/i.test(m)))return M.pescado;
+  if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino|prawn|scallop|oyster|eel|shrimp/i.test(m)))return M.marisco;
+  return M.default;
+}
+
+function renderRecResultado(){
+  const scoredSakes=sakes.filter(s=>s.activo).map(s=>({...s,score:scoreParaRespuestas(s,recRespuestas)})).sort((a,b)=>b.score-a.score);
+  const top=scoredSakes.slice(0,3);
+  const el=document.getElementById('rec-content');
+  const L=LANG[lang]||LANG.es;
+  el.innerHTML=`
+    <div class="rec-resultado">
+      <div class="rec-resultado-title">${L.recTopLabel}</div>
+      <div class="rec-resultado-cards">
+        ${top.map((s,i)=>{
+          const cat=CAT_INFO[s.categoria]||{emoji:'🍶'};
+          const reason=matchReason(s,recRespuestas);
+          const rankLabel=i===0?L.recTopLabel:i===1?L.rec2ndLabel:L.rec3rdLabel;
+          return`<div class="rec-resultado-card" onclick="irASake('${s.id}')">
+            <div class="rec-resultado-rank ${i===0?'top':''}">${rankLabel}</div>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="font-size:32px;">${s.img?`<img src="${s.img}" style="width:40px;height:54px;object-fit:cover;border-radius:6px;">`:cat.emoji}</div>
+              <div>
+                <div class="rec-resultado-nombre">${s.nombre}</div>
+                <div class="rec-resultado-tipo">${cat.emoji} ${s.categoria||''} · ${s.tipo||''}</div>
+              </div>
+            </div>
+            <div class="rec-resultado-match">💡 ${reason}</div>
+            ${s.precio_copa||s.precio_botella?`<div class="rec-resultado-precios">
+              ${s.precio_copa?`<span style="font-size:12px;color:var(--gold);">${L.copa} ${s.precio_copa}€</span>`:''}
+              ${s.precio_botella?`<span style="font-size:12px;color:var(--g3);">${L.botella} ${s.precio_botella}€</span>`:''}
+            </div>`:''}
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+    <button class="rec-panel-btn" onclick="cerrarRecomendador()">${L.recSeeAll}</button>
+    <button style="background:none;border:none;color:var(--g3);font-size:13px;cursor:pointer;display:block;margin:0 auto 30px;" onclick="recRespuestas={};recPaso=0;renderRecPaso()">${L.recRepeat}</button>`;
+}
+function irASake(id){
+  cerrarRecomendador();
+  filtroActual='all';
+  document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('activo'));
+  document.querySelectorAll('.filtro-btn')[0].classList.add('activo');
+  renderSakes();
+  setTimeout(()=>scrollToSake(id),200);
+}
+
 // ===== LOGIN =====
 function abrirLogin(){document.getElementById('loginModal').classList.remove('oculto');document.getElementById('pinInput').focus();}
 function cerrarLogin(){document.getElementById('loginModal').classList.add('oculto');document.getElementById('loginError').style.display='none';document.getElementById('pinInput').value='';}
 function verificarPin(){if(document.getElementById('pinInput').value===PIN){cerrarLogin();entrarAdmin();}else document.getElementById('loginError').style.display='block';}
+
+// ===== KIOSCO =====
+function activarKiosco(){
+  modoKiosco=true;
+  // Ocultar botón ⚙ al cliente
+  const btn=document.getElementById('adminBtn');
+  if(btn)btn.style.display='none';
+  // Pantalla completa si el navegador lo permite
+  if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+  toast('Modo kiosco activado');
+}
+function desactivarKiosco(){
+  modoKiosco=false;
+  const btn=document.getElementById('adminBtn');
+  if(btn)btn.style.display='';
+  if(document.exitFullscreen)document.exitFullscreen();
+  toast('Modo kiosco desactivado');
+}
+
 // ===== ADMIN =====
 function entrarAdmin(){
+  // Si estaba en modo kiosco, salimos de él temporalmente
+  if(modoKiosco) desactivarKiosco();
   document.getElementById('app-carta').classList.remove('visible');
   document.getElementById('app-carta').style.display='none';
   document.getElementById('screen-intro').classList.add('oculto');
@@ -888,7 +1376,13 @@ function salirAdmin(){
   renderSakes();
 }
 function toggleConfig(){const b=document.getElementById('configBox');b.style.display=b.style.display==='none'?'block':'none';}
-function setTab(tab,btn){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('activo'));btn.classList.add('activo');document.getElementById('tabLista').style.display=tab==='lista'?'block':'none';document.getElementById('tabOcr').style.display=tab==='ocr'?'block':'none';}
+function setTab(tab,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('activo'));btn.classList.add('activo');
+  document.getElementById('tabLista').style.display=tab==='lista'?'block':'none';
+  document.getElementById('tabHistorial').style.display=tab==='historial'?'block':'none';
+  document.getElementById('tabOcr').style.display=tab==='ocr'?'block':'none';
+  if(tab==='historial')renderHistorial();
+}
 function renderAdmin(){
   document.getElementById('countLabel').textContent=sakes.length+' sakes';
   document.getElementById('adminList').innerHTML=sakes.map(s=>{
@@ -901,18 +1395,129 @@ function renderAdmin(){
       <div class="admin-row-btns"><button class="btn-sm btn-sm-edit" onclick="abrirEdit('${s.id}')">Editar</button><button class="btn-sm btn-sm-del" onclick="eliminar('${s.id}')">✕</button></div>
     </div>`;
   }).join('');
+  // Botón kiosco — siempre recrear para estado fresco
+  const old=document.getElementById('btnKiosco');if(old)old.remove();
+  const k=document.createElement('button');k.id='btnKiosco';k.className='btn-secondary';k.style.cssText='width:100%;margin-top:14px;';
+  k.textContent='📱 Activar modo kiosco (tablet)';
+  k.onclick=()=>{salirAdmin();setTimeout(activarKiosco,300);};
+  document.getElementById('adminListView').appendChild(k);
 }
-// ===== FORM =====
+
+// ===== HISTORIAL =====
+function renderHistorial(){
+  const el=document.getElementById('tabHistorial');
+  const stats=JSON.parse(localStorage.getItem('arume_stats')||'{}');
+  const hoy=new Date().toISOString().slice(0,10);
+
+  // Construir ranking
+  const ranking=Object.entries(stats)
+    .map(([id,data])=>{
+      const sake=sakes.find(s=>s.id===id);
+      return{id,sake,total:data.total||0,hoy:data.dias?.[hoy]||0,dias:data.dias||{}};
+    })
+    .filter(r=>r.sake)
+    .sort((a,b)=>b.total-a.total);
+
+  if(!ranking.length){
+    el.innerHTML=`<div style="text-align:center;padding:40px;color:var(--g3);">
+      <div style="font-size:32px;margin-bottom:12px;">📊</div>
+      <div style="font-size:14px;">Todavía no hay datos.</div>
+      <div style="font-size:12px;margin-top:6px;">Los ❤️ que marquen los clientes aparecerán aquí.</div>
+    </div>`;
+    return;
+  }
+
+  const maxTotal=ranking[0].total||1;
+
+  // Últimos 7 días para la mini gráfica global
+  const ultimos7=[];
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const key=d.toISOString().slice(0,10);
+    const label=d.toLocaleDateString('es',{weekday:'short'}).slice(0,3);
+    const total=Object.values(stats).reduce((s,v)=>s+(v.dias?.[key]||0),0);
+    ultimos7.push({key,label,total});
+  }
+  const maxDia=Math.max(...ultimos7.map(d=>d.total),1);
+
+  const totalGeneral=ranking.reduce((s,r)=>s+r.total,0);
+  const totalHoy=ranking.reduce((s,r)=>s+r.hoy,0);
+
+  el.innerHTML=`
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
+      <div style="background:var(--g4);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--g2);">
+        <div style="font-size:11px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">Total histórico</div>
+        <div style="font-size:28px;font-weight:300;color:var(--crema);">${totalGeneral}</div>
+        <div style="font-size:10px;color:var(--g3);">❤️ guardados</div>
+      </div>
+      <div style="background:var(--g4);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--g2);">
+        <div style="font-size:11px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">Hoy</div>
+        <div style="font-size:28px;font-weight:300;color:var(--gold);">${totalHoy}</div>
+        <div style="font-size:10px;color:var(--g3);">❤️ guardados</div>
+      </div>
+    </div>
+
+    <div style="background:var(--g4);border-radius:10px;padding:12px;margin-bottom:16px;border:1px solid var(--g2);">
+      <div style="font-size:10px;color:var(--g3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Últimos 7 días</div>
+      <div style="display:flex;align-items:flex-end;gap:6px;height:50px;">
+        ${ultimos7.map(d=>{
+          const h=d.total?Math.max(4,Math.round((d.total/maxDia)*50)):2;
+          const isHoy=d.key===hoy;
+          return`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
+            ${d.total?`<div style="font-size:9px;color:${isHoy?'var(--gold)':'var(--g3)'};">${d.total}</div>`:'<div style="font-size:9px;color:transparent;">0</div>'}
+            <div style="width:100%;height:${h}px;background:${isHoy?'var(--gold)':'var(--g2)'};border-radius:3px 3px 0 0;"></div>
+          </div>`;
+        }).join('')}
+      </div>
+      <div style="display:flex;gap:6px;margin-top:4px;">
+        ${ultimos7.map(d=>`<div style="flex:1;text-align:center;font-size:9px;color:var(--g3);">${d.label}</div>`).join('')}
+      </div>
+    </div>
+
+    <div style="font-size:10px;color:var(--g3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Ranking de sakes</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
+      ${ranking.map((r,i)=>{
+        const cat=CAT_INFO[r.sake.categoria]||{emoji:'🍶',dot:'#666'};
+        const barW=Math.round((r.total/maxTotal)*100);
+        const medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'';
+        return`<div style="background:var(--g1);border-radius:10px;padding:10px 12px;border:1px solid var(--g2);">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+            <div style="font-size:18px;width:24px;text-align:center;">${medal||`<span style="font-size:11px;color:var(--g3);">${i+1}</span>`}</div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.sake.nombre}</div>
+              <div style="font-size:10px;color:var(--g3);">${r.sake.categoria||''}</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0;">
+              <div style="font-size:16px;font-weight:500;color:var(--crema);">${r.total}</div>
+              ${r.hoy?`<div style="font-size:10px;color:var(--gold);">+${r.hoy} hoy</div>`:'<div style="font-size:10px;color:var(--g3);">—</div>'}
+            </div>
+          </div>
+          <div style="height:4px;background:var(--g2);border-radius:2px;overflow:hidden;">
+            <div style="height:100%;width:${barW}%;background:${cat.dot};border-radius:2px;"></div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <button onclick="resetStats()" style="background:none;border:1px solid #5a2020;color:#e07070;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;width:100%;">
+      🗑 Resetear estadísticas del servicio
+    </button>
+  `;
+}
+
+function resetStats(){
+  if(!confirm('¿Resetear todas las estadísticas? Esto no se puede deshacer.'))return;
+  localStorage.removeItem('arume_stats');
+  renderHistorial();
+  toast('Estadísticas reseteadas');
+}
 function setImgPreview(src){document.getElementById('imgPreview').innerHTML=src?`<img src="${src}" style="width:100%;height:100%;object-fit:contain;">`:'<span style="font-size:36px;">🍶</span>';}
 function limpiarForm(){['fNombre','fTipo','fArroz','fPulido','fRegion','fBodega','fAlc','fNota','fVista','fNariz','fBoca','fPrecioCopa','fPrecioJarra','fPrecioBotella','fImgUrl'].forEach(id=>document.getElementById(id).value='');document.getElementById('fCategoria').value='';document.getElementById('fMedida').value='';document.getElementById('fActivo').value='1';badgeState={rec:false,top:false,lim:false};actualizarBadgeToggles();}
-function toggleBadge(b){
-  badgeState[b]=!badgeState[b];actualizarBadgeToggles();
-}
+function toggleBadge(b){badgeState[b]=!badgeState[b];actualizarBadgeToggles();}
 function actualizarBadgeToggles(){
-  const tr=document.getElementById('togRec');const tt=document.getElementById('togTop');const tl=document.getElementById('togLim');
-  tr.className='badge-toggle'+(badgeState.rec?' on-rec':'');
-  tt.className='badge-toggle'+(badgeState.top?' on-top':'');
-  tl.className='badge-toggle'+(badgeState.lim?' on-lim':'');
+  document.getElementById('togRec').className='badge-toggle'+(badgeState.rec?' on-rec':'');
+  document.getElementById('togTop').className='badge-toggle'+(badgeState.top?' on-top':'');
+  document.getElementById('togLim').className='badge-toggle'+(badgeState.lim?' on-lim':'');
 }
 function abrirFormNuevo(){
   editandoId=null;imgB64=null;
@@ -939,15 +1544,64 @@ function guardarSake(){
   const urlImg=document.getElementById('fImgUrl').value.trim();
   const img=imgB64||urlImg||(editandoId?sakes.find(x=>x.id===editandoId)?.img:'')||'';
   const data={nombre,img,categoria:document.getElementById('fCategoria').value,tipo:document.getElementById('fTipo').value.trim(),arroz:document.getElementById('fArroz').value.trim(),pulido:document.getElementById('fPulido').value.trim(),region:document.getElementById('fRegion').value.trim(),bodega:document.getElementById('fBodega').value.trim(),vol_alc:document.getElementById('fAlc').value.trim(),nota_cata:document.getElementById('fNota').value.trim(),vista:document.getElementById('fVista').value.trim(),nariz:document.getElementById('fNariz').value.trim(),boca:document.getElementById('fBoca').value.trim(),precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,medida_botella:document.getElementById('fMedida').value,activo:document.getElementById('fActivo').value==='1',badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim,maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato)};
-  if(editandoId){const i=sakes.findIndex(x=>x.id===editandoId);sakes[i]={...sakes[i],...data};}
-  else sakes.push({id:uid(),...data});
-  guardarLocal();renderAdmin();volverLista();toast(editandoId?'✓ Sake actualizado':'✓ Sake añadido');
+  let sakeId;
+  if(editandoId){const i=sakes.findIndex(x=>x.id===editandoId);sakes[i]={...sakes[i],...data};sakeId=editandoId;}
+  else{sakeId=uid();sakes.push({id:sakeId,...data});}
+  guardarLocal();renderAdmin();volverLista();
+  toast(editandoId?'✓ Sake guardado':'✓ Sake añadido');
+  sincronizarSupabaseSilencioso();
+  // Traducción automática en segundo plano
+  if(config.geminiKey) traducirSakeAutomatico(sakeId);
 }
-function eliminar(id){if(!confirm('¿Eliminar?'))return;sakes=sakes.filter(x=>x.id!==id);guardarLocal();renderAdmin();toast('Eliminado');}
+
+async function traducirSakeAutomatico(id){
+  const s=sakes.find(x=>x.id===id);
+  if(!s)return;
+  // Solo traducir si hay texto que traducir
+  const textos=[s.nota_cata,s.vista,s.nariz,s.boca].filter(Boolean);
+  if(!textos.length)return;
+  try{
+    const prompt=`Eres un experto en sake y sumiller. Traduce estos textos de cata de sake del español al inglés y al alemán.
+Devuelve SOLO JSON sin markdown:
+{
+  "nota_cata_en": "...",
+  "nota_cata_de": "...",
+  "vista_en": "...",
+  "vista_de": "...",
+  "nariz_en": "...",
+  "nariz_de": "...",
+  "boca_en": "...",
+  "boca_de": "..."
+}
+Textos a traducir:
+- nota_cata: "${s.nota_cata||''}"
+- vista: "${s.vista||''}"
+- nariz: "${s.nariz||''}"
+- boca: "${s.boca||''}"
+Mantén el tono elegante y profesional de una carta de restaurante. Si un campo está vacío, devuelve cadena vacía.`;
+    const res=await geminiTxt(prompt);
+    const d=parseJ(res);
+    if(d){
+      const i=sakes.findIndex(x=>x.id===id);
+      if(i>=0){
+        sakes[i]={...sakes[i],...d};
+        guardarLocal();
+        sincronizarSupabaseSilencioso();
+        toast('🌐 Traducido a EN · DE automáticamente');
+      }
+    }
+  }catch(e){
+    // Silencioso — no interrumpir al usuario
+    console.warn('Auto-traducción fallida:',e.message);
+  }
+}
+function eliminar(id){if(!confirm('¿Eliminar?'))return;sakes=sakes.filter(x=>x.id!==id);guardarLocal();renderAdmin();toast('Eliminado');sincronizarSupabaseSilencioso();}
+
 // ===== IMAGEN =====
 function subirImagen(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{imgB64=e.target.result;setImgPreview(imgB64);document.getElementById('fImgUrl').value='';};r.readAsDataURL(f);}
 function previsualizarUrl(){const url=document.getElementById('fImgUrl').value.trim();if(url){imgB64=null;setImgPreview(url);}}
-// ===== IA FOTO =====
+
+// ===== IA =====
 async function analizarFotoIA(input){
   const f=input.files[0];if(!f)return;
   if(!config.geminiKey){toast('Configura Gemini API Key en ⚙ Config');return;}
@@ -961,33 +1615,37 @@ async function analizarFotoIA(input){
   }catch(e){setIA('Error: '+e.message,false);}
   input.value='';
 }
-// ===== IA IMAGEN =====
 async function buscarImagenIA(){
-  const nombre=document.getElementById('fNombre').value.trim();const bodega=document.getElementById('fBodega').value.trim();
+  const nombre=document.getElementById('fNombre').value.trim();
   if(!nombre){toast('Escribe primero el nombre del sake');return;}
   if(!config.geminiKey){toast('Configura Gemini API Key en ⚙ Config');return;}
   setIA('Buscando imagen de "'+nombre+'"...',true);
   try{
-    const prompt=`Necesito URL directa a foto real de la botella del sake "${nombre}"${bodega?' de "'+bodega+'"':''}.\nDevuelve SOLO JSON: {"url":"URL_imagen_directa","alt":"URL_alternativa"}\nUsa saketime.com, tippsy.com, thewhiskyexchange.com o web de la bodega. Solo JSON.`;
+    const prompt=`Necesito URL directa a foto real de la botella del sake "${nombre}".\nDevuelve SOLO JSON: {"url":"URL_imagen_directa"}\nUsa saketime.com, tippsy.com o thewhiskyexchange.com. Solo JSON.`;
     const res=await geminiTxt(prompt);const d=parseJ(res);
-    if(d?.url){document.getElementById('fImgUrl').value=d.url;imgB64=null;document.getElementById('imgPreview').innerHTML=`<img src="${d.url}" style="width:100%;height:100%;object-fit:contain;" onerror="this.src='${d.alt||''}';this.onerror=null;">`;setIA('✓ Imagen encontrada. Si no carga, pega otra URL.',false);}
+    if(d?.url){document.getElementById('fImgUrl').value=d.url;imgB64=null;setImgPreview(d.url);setIA('✓ Imagen encontrada. Si no carga, pega otra URL.',false);}
     else setIA('No encontré imagen. Pega una URL manualmente.',false);
   }catch(e){setIA('Error buscando imagen.',false);}
 }
 function setIA(msg,loading){const el=document.getElementById('iaStatus');el.style.display='block';el.innerHTML=loading?'<span class="spinner"></span>'+msg:msg;}
 function rellenar(d){const m={nombre:'fNombre',categoria:'fCategoria',tipo:'fTipo',arroz:'fArroz',pulido:'fPulido',region:'fRegion',bodega:'fBodega',vol_alc:'fAlc',nota_cata:'fNota',vista:'fVista',nariz:'fNariz',boca:'fBoca',precio_copa:'fPrecioCopa',precio_jarra:'fPrecioJarra',precio_botella:'fPrecioBotella',medida_botella:'fMedida'};Object.entries(m).forEach(([k,id])=>{if(d[k]!=null&&d[k]!==''){const el=document.getElementById(id);if(el)el.value=d[k];}});}
+
 // ===== MARIDAJES =====
 function renderPlatoSelector(selected){
-  const el=document.getElementById('platoSelector');
-  if(!el)return;
-  el.innerHTML=PLATOS.map(p=>{
-    const on=selected.includes(p);
-    return`<div class="plato-toggle${on?' sel':''}" data-plato="${p}" onclick="togglePlato(this)">${p}</div>`;
-  }).join('');
+  const el=document.getElementById('platoSelector');if(!el)return;
+  // Agrupar por categoría
+  const cats=[...new Set(PLATOS.map(p=>p.cat))];
+  el.innerHTML=cats.map(cat=>`
+    <div style="width:100%;margin-top:8px;margin-bottom:4px;">
+      <div style="font-size:10px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">${cat}</div>
+    </div>
+    ${PLATOS.filter(p=>p.cat===cat).map(p=>{
+      const on=selected.includes(p.nombre);
+      return`<div class="plato-toggle${on?' sel':''}" data-plato="${p.nombre}" onclick="togglePlato(this)">${p.nombre}</div>`;
+    }).join('')}`).join('');
 }
-function togglePlato(el){
-  el.classList.toggle('sel');
-}
+function togglePlato(el){el.classList.toggle('sel');}
+
 // ===== OCR =====
 async function procesarOCR(input){
   const f=input.files[0];if(!f)return;
@@ -995,22 +1653,62 @@ async function procesarOCR(input){
   const st=document.getElementById('ocrStatus');st.style.display='block';st.innerHTML='<span class="spinner"></span>Analizando con Gemini...';
   try{
     const b64=await f2b(f);
-    const prompt=`Eres un experto Kikisake-shi. Analiza este documento y extrae TODOS los sakes.\nPara cada uno: nombre, arroz, categoria(Kun-shu/Jun-shu/So-shu/Juku-shu), tipo, pulido, region, bodega, vol_alc, vista, nariz, boca, nota_cata(1 frase español cliente no experto), precio_copa(null si no hay), precio_jarra(null), precio_botella(null), medida_botella.\nSOLO array JSON. Sin texto.`;
+    const prompt=`Eres un experto Kikisake-shi. Analiza este documento y extrae TODOS los sakes.\nPara cada uno: nombre, arroz, categoria(Kun-shu/Jun-shu/So-shu/Juku-shu), tipo, pulido, region, bodega, vol_alc, vista, nariz, boca, nota_cata(1 frase español cliente no experto), precio_copa(null), precio_jarra(null), precio_botella(null), medida_botella.\nSOLO array JSON. Sin texto.`;
     const res=await geminiImg(prompt,b64,f.type);const data=parseJ(res);
-    if(Array.isArray(data)&&data.length){data.forEach(s=>sakes.push({id:uid(),activo:true,img:'',badge_rec:false,badge_top:false,badge_lim:false,...s}));guardarLocal();renderAdmin();st.innerHTML='✓ '+data.length+' sakes importados';setTab('lista',document.querySelectorAll('.tab')[0]);toast('✓ '+data.length+' sakes importados');}
+    if(Array.isArray(data)&&data.length){data.forEach(s=>sakes.push({id:uid(),activo:true,img:'',badge_rec:false,badge_top:false,badge_lim:false,maridajes:[],...s}));guardarLocal();renderAdmin();st.innerHTML='✓ '+data.length+' sakes importados';setTab('lista',document.querySelectorAll('.tab')[0]);toast('✓ '+data.length+' sakes importados');}
     else st.innerHTML='No se encontraron sakes.';
   }catch(e){st.innerHTML='Error: '+e.message;}
   input.value='';
 }
+
+// ===== SUPABASE =====
+async function testSupabase(){
+  if(!config.supaUrl||!config.supaKey){toast('Rellena URL y Key');return;}
+  const st=document.getElementById('supaStatus');st.style.display='block';st.textContent='Probando conexión...';
+  try{
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes?limit=1',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});
+    st.textContent=r.ok?'✓ Conexión OK ('+r.status+')':'✗ Error '+r.status+' — comprueba credenciales';
+  }catch{st.textContent='✗ No se pudo conectar — comprueba la URL';}
+}
+async function sincronizarSupabase(){
+  if(!config.supaUrl||!config.supaKey){toast('Configura Supabase primero');return;}
+  const st=document.getElementById('supaStatus');st.style.display='block';st.textContent='Subiendo sakes...';
+  try{
+    // Upsert todos los sakes
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{
+      method:'POST',
+      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))
+    });
+    if(r.ok||r.status===201){st.textContent='✓ '+sakes.length+' sakes sincronizados';toast('✓ Supabase actualizado');}
+    else{const err=await r.json();st.textContent='✗ Error: '+(err.message||r.status);}
+  }catch(e){st.textContent='✗ Error de red: '+e.message;}
+}
+async function sincronizarSupabaseSilencioso(){
+  if(!config.supaUrl||!config.supaKey)return;
+  try{
+    await fetch(config.supaUrl+'/rest/v1/sakes',{
+      method:'POST',
+      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))
+    });
+  }catch{}
+}
+async function cargarDesdeSupabase(){
+  if(!config.supaUrl||!config.supaKey)return;
+  try{
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes?select=*&order=nombre',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});
+    if(r.ok){const data=await r.json();if(Array.isArray(data)&&data.length){sakes=data;guardarLocal();renderSakes();}}
+  }catch{}
+}
+
 // ===== API =====
 async function geminiImg(p,b64,mime){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';}
 async function geminiTxt(p){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}]})});const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';}
 function parseJ(t){try{return JSON.parse(t.replace(/```json|```/g,'').trim());}catch{return null;}}
 function f2b(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(f);});}
-// ===== SUPABASE =====
-async function testSupabase(){if(!config.supaUrl||!config.supaKey){toast('Rellena URL y Key');return;}try{const r=await fetch(config.supaUrl+'/rest/v1/sakes?limit=1',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});toast(r.ok?'✓ Supabase OK':'Error '+r.status);}catch{toast('No se pudo conectar');}}
-// ===== INIT =====
-actualizarBadgeWish();
+
+
 </script>
 </body>
 </html>
