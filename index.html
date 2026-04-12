@@ -8,8 +8,6 @@
 :root{--negro:#242422;--rojo:#DA3934;--crema:#EFF0EB;--g1:#2e2e2c;--g2:#3a3a38;--g3:#9a9a98;--g4:#1a1a18;--gold:#d4a05a;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
 html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:var(--negro);color:var(--crema);overflow-x:hidden;}
-
-/* ===== INTRO ===== */
 #screen-intro{position:fixed;inset:0;background:var(--negro);z-index:200;display:flex;flex-direction:column;overflow-y:auto;}
 #screen-intro.oculto{display:none;}
 .intro-hero{background:var(--g4);padding:40px 24px 32px;text-align:center;border-bottom:1px solid var(--g2);}
@@ -32,14 +30,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .yon-name{font-size:12px;font-weight:600;margin-bottom:3px;}
 .yon-desc{font-size:11px;color:var(--g3);line-height:1.4;}
 .yon-temp{font-size:10px;margin-top:5px;opacity:0.7;}
-.pulido-bar-wrap{margin-top:12px;}
-.pulido-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
-.pulido-label{font-size:11px;color:var(--g3);width:80px;flex-shrink:0;}
-.pulido-bar-bg{flex:1;height:6px;background:var(--g2);border-radius:3px;overflow:hidden;}
-.pulido-bar{height:100%;background:var(--rojo);border-radius:3px;}
-.pulido-val{font-size:11px;color:var(--gold);width:30px;text-align:right;flex-shrink:0;}
 .intro-cta{background:var(--rojo);color:var(--crema);border:none;width:100%;padding:16px;border-radius:14px;font-size:16px;font-weight:500;cursor:pointer;letter-spacing:0.04em;margin-top:8px;margin-bottom:32px;}
-/* ===== CARTA ===== */
 #app-carta{display:none;flex-direction:column;min-height:100vh;}
 #app-carta.visible{display:flex;}
 .carta-header{background:var(--g4);padding:14px 16px 12px;border-bottom:1px solid var(--g2);position:sticky;top:0;z-index:10;}
@@ -138,7 +129,6 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .modal-input:focus{border-color:var(--rojo);}
 .modal-btn{width:100%;background:var(--rojo);color:var(--crema);border:none;border-radius:10px;padding:12px;font-size:15px;cursor:pointer;font-weight:500;}
 .modal-error{font-size:12px;color:var(--rojo);margin-bottom:10px;display:none;}
-/* ===== RECOMENDADOR ===== */
 #rec-panel{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:160;display:none;flex-direction:column;overflow-y:auto;}
 #rec-panel.visible{display:flex;}
 .rec-panel-header{background:var(--g4);padding:18px 20px 16px;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between;}
@@ -148,7 +138,6 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .rec-options{display:flex;flex-direction:column;gap:10px;}
 .rec-option{background:var(--g1);border:1px solid var(--g2);border-radius:14px;padding:16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:14px;}
 .rec-option:active{background:var(--g2);}
-.rec-option.selected{border-color:var(--rojo);background:#2a1515;}
 .rec-option-emoji{font-size:28px;flex-shrink:0;}
 .rec-option-text{flex:1;}
 .rec-option-label{font-size:14px;font-weight:500;margin-bottom:2px;}
@@ -168,7 +157,6 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .rec-resultado-match{font-size:12px;color:var(--crema);background:var(--g4);border-radius:8px;padding:6px 10px;margin-top:6px;line-height:1.4;}
 .rec-resultado-precios{display:flex;gap:10px;margin-top:8px;}
 .rec-panel-btn{background:var(--rojo);color:var(--crema);border:none;width:calc(100% - 40px);margin:0 20px 30px;padding:14px;border-radius:14px;font-size:15px;font-weight:500;cursor:pointer;}
-/* ===== ADMIN ===== */
 #app-admin{display:none;flex-direction:column;min-height:100vh;}
 #app-admin.visible{display:flex;}
 .admin-header{background:var(--g4);padding:14px 16px;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
@@ -195,7 +183,6 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .tab.activo{color:var(--rojo);border-bottom-color:var(--rojo);}
 .form-grid{display:flex;flex-direction:column;gap:12px;}
 .form-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
 .form-group{display:flex;flex-direction:column;gap:5px;}
 .form-label{font-size:11px;color:var(--g3);letter-spacing:0.04em;}
 .form-input{background:var(--g4);border:1px solid var(--g2);border-radius:8px;color:var(--crema);padding:10px 12px;font-size:13px;outline:none;width:100%;font-family:inherit;}
@@ -256,16 +243,15 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .plato-selector{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
 .plato-toggle{background:var(--g4);border:1px solid var(--g2);color:var(--g3);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;transition:all 0.15s;}
 .plato-toggle.sel{background:#1a2210;border-color:#4a7a20;color:#9de060;}
-/* kiosco-bar eliminado */
-/* ===== IDIOMAS ===== */
 .lang-selector{display:flex;gap:4px;}
-.lang-btn{background:var(--g2);border:none;color:var(--g3);padding:5px 8px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;letter-spacing:0.04em;transition:all 0.15s;}
+.lang-btn{background:var(--g2);border:none;color:var(--g3);padding:5px 8px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;}
 .lang-btn.active{background:var(--rojo);color:var(--crema);}
 .intro-lang{display:flex;justify-content:center;gap:8px;padding:16px 0 4px;}
 .intro-lang .lang-btn{padding:8px 16px;font-size:13px;border-radius:20px;}
 </style>
 </head>
 <body>
+
 <!-- ===== INTRO ===== -->
 <div id="screen-intro">
   <div class="intro-hero">
@@ -278,9 +264,7 @@ textarea.form-input{resize:vertical;min-height:68px;}
     <div class="intro-logo-sub">Sake Bar · Palma de Mallorca</div>
     <div class="intro-tagline" id="intro-tagline">Bienvenido a una de las cartas de sake<br>más cuidadas de <b>España</b></div>
   </div>
-  <div class="intro-body" id="introBody">
-    <!-- Generado por renderIntro() según el idioma activo -->
-  </div>
+  <div class="intro-body" id="introBody"></div>
 </div>
 
 <!-- ===== CARTA ===== -->
@@ -434,10 +418,8 @@ textarea.form-input{resize:vertical;min-height:68px;}
           <div class="form-group"><label class="form-label">REGIÓN / PREFECTURA</label><input class="form-input" id="fRegion" placeholder="Yamaguchi"></div>
           <div class="form-group"><label class="form-label">BODEGA</label><input class="form-input" id="fBodega" placeholder="Asahi Shuzo"></div>
         </div>
-        <div class="form-row2">
-          <div class="form-group"><label class="form-label">GRADUACIÓN</label><input class="form-input" id="fAlc" placeholder="16%"></div>
-          <div class="form-group"><label class="form-label">FORMATO</label><select class="form-input" id="fMedida"><option value="">-</option><option>300ml</option><option>720ml</option><option>1.8L</option></select></div>
-        </div>
+        <!-- PATCH 1: GRADUACIÓN solo, sin FORMATO -->
+        <div class="form-group"><label class="form-label">GRADUACIÓN</label><input class="form-input" id="fAlc" placeholder="16%"></div>
         <div class="form-group"><label class="form-label">NOTA DE CATA (1 frase para el cliente)</label><input class="form-input" id="fNota" placeholder="Floral y elegante, la entrada perfecta al sake aromático."></div>
         <div class="form-group"><label class="form-label">VISTA</label><input class="form-input" id="fVista" placeholder="Transparente y brillante"></div>
         <div class="form-group"><label class="form-label">NARIZ</label><textarea class="form-input" id="fNariz" placeholder="Fruta blanca, flores, pera..."></textarea></div>
@@ -454,11 +436,24 @@ textarea.form-input{resize:vertical;min-height:68px;}
             <div class="badge-toggle" id="togLim" onclick="toggleBadge('lim')">🔴 Edición limitada</div>
           </div>
         </div>
-        <div class="form-group"><label class="form-label">PRECIOS</label>
-          <div class="form-row3">
+        <!-- PATCH 2: PRECIOS con Copa / 200ml / Botella+tamaño -->
+        <div class="form-group">
+          <label class="form-label">PRECIOS</label>
+          <div class="form-row2">
             <div class="form-group"><label class="form-label">Copa €</label><input class="form-input" id="fPrecioCopa" type="number" step="0.5" placeholder="-"></div>
-            <div class="form-group"><label class="form-label">Jarra €</label><input class="form-input" id="fPrecioJarra" type="number" step="0.5" placeholder="-"></div>
-            <div class="form-group"><label class="form-label">Botella €</label><input class="form-input" id="fPrecioBotella" type="number" step="0.5" placeholder="-"></div>
+            <div class="form-group"><label class="form-label">200 ml €</label><input class="form-input" id="fPrecioJarra" type="number" step="0.5" placeholder="-"></div>
+          </div>
+          <div style="margin-top:10px;">
+            <label class="form-label" style="display:block;margin-bottom:5px;">Botella €</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+              <input class="form-input" id="fPrecioBotella" type="number" step="0.5" placeholder="Precio">
+              <select class="form-input" id="fMedida">
+                <option value="">Tamaño</option>
+                <option value="300ml">300 ml</option>
+                <option value="720ml">720 ml</option>
+                <option value="1.8L">1.8 L</option>
+              </select>
+            </div>
           </div>
         </div>
         <div class="form-group"><label class="form-label">ESTADO</label><select class="form-input" id="fActivo"><option value="1">Activo (visible)</option><option value="0">Oculto</option></select></div>
@@ -470,8 +465,6 @@ textarea.form-input{resize:vertical;min-height:68px;}
     </div>
   </div>
 </div>
-
-<!-- kiosco-bar eliminado: el admin se oculta automáticamente en modo kiosco -->
 
 <div class="toast" id="toast"></div>
 
@@ -515,7 +508,7 @@ const LANG={
     maridajes:'Maridajes sugeridos',
     verMas:'Ver cata completa ↓',verMenos:'Cerrar ↑',
     recSect:'Si te gusta este, prueba también',
-    copa:'Copa',jarra:'Jarra',botella:'Botella',
+    copa:'Copa',jarra:'200 ml',botella:'Botella',
     tempWine:'copa de vino',tempCold:'muy frío',tempVers:'versátil',tempAmb:'ambiente',
     yon:[
       {desc:'Aromático, floral y frutal.'},
@@ -606,7 +599,7 @@ const LANG={
     maridajes:'Suggested pairings',
     verMas:'Full tasting notes ↓',verMenos:'Close ↑',
     recSect:'If you like this, also try',
-    copa:'Glass',jarra:'Carafe',botella:'Bottle',
+    copa:'Glass',jarra:'200 ml',botella:'Bottle',
     tempWine:'wine glass',tempCold:'very cold',tempVers:'versatile',tempAmb:'room temp',
     yon:[
       {desc:'Aromatic, floral and fruity.'},
@@ -697,7 +690,7 @@ const LANG={
     maridajes:'Empfohlene Speisebegleitungen',
     verMas:'Vollständige Notizen ↓',verMenos:'Schließen ↑',
     recSect:'Wenn Ihnen dieser gefällt, probieren Sie auch',
-    copa:'Glas',jarra:'Krug',botella:'Flasche',
+    copa:'Glas',jarra:'200 ml',botella:'Flasche',
     tempWine:'Weinglas',tempCold:'sehr kalt',tempVers:'vielseitig',tempAmb:'Raumtemperatur',
     yon:[
       {desc:'Aromatisch, blumig und fruchtig.'},
@@ -760,13 +753,10 @@ function t(key){return (LANG[lang]||LANG.es)[key]||key;}
 
 function setLang(l, btn){
   lang=l;
-  // Actualizar botones activos en intro y header
   document.querySelectorAll('.lang-btn').forEach(b=>{
     b.classList.toggle('active', b.textContent.toLowerCase()===l);
   });
-  // Regenerar intro
   renderIntro();
-  // Actualizar textos dinámicos de la carta si está visible
   if(document.getElementById('app-carta').classList.contains('visible')){
     document.getElementById('intro-tagline').innerHTML=t('tagline');
     document.getElementById('btnRec').textContent=t('recBtn');
@@ -784,10 +774,8 @@ function actualizarFiltrosLang(){
 
 function renderIntro(){
   const L=LANG[lang]||LANG.es;
-  // Actualizar tagline
   const tg=document.getElementById('intro-tagline');
   if(tg) tg.innerHTML=L.tagline;
-
   const icons=['🥛','💪','⚡','⏳','🪵'];
   const terminosHTML=L.terminos.map((tm,i)=>`
     <div class="metodo-card">
@@ -804,7 +792,6 @@ function renderIntro(){
         ${tm.carta?`<div class="en-carta">${tm.carta}</div>`:''}
       </div>
     </div>`).join('');
-
   const yonData=[
     {css:'kun',emoji:'🌸',name:'Kun-shu',color:'#c49fe8',temp:`8–10°C · ${L.tempWine}`},
     {css:'so', emoji:'💧',name:'So-shu', color:'#7ab8e8',temp:`5–8°C · ${L.tempCold}`},
@@ -818,14 +805,12 @@ function renderIntro(){
       <div class="yon-desc">${L.yon[i].desc}</div>
       <div class="yon-temp">🌡 ${y.temp}</div>
     </div>`).join('');
-
   const mkTable=(rows)=>rows.map(r=>`
     <tr>
       <td class="nombre" ${r.gold?'style="color:var(--gold);"':''}>${r.nombre}</td>
       <td class="pct" ${r.gold?'style="color:var(--gold);"':r.nombre==='Junmai'||r.nombre.match(/No limit|Kein|Sin limit/)?'style="color:var(--g3);"':''}>${r.pct}</td>
       <td class="desc">${r.desc}</td>
     </tr>`).join('');
-
   document.getElementById('introBody').innerHTML=`
     <div class="intro-section">
       <div class="intro-sec-title">${L.whatSake}</div>
@@ -864,6 +849,7 @@ function renderIntro(){
     <button class="intro-cta" onclick="entrarCarta()">${L.cta}</button>
   `;
 }
+
 const CAT_INFO={
   'Kun-shu': {emoji:'🌸',dot:'#8855cc',get desc(){return(LANG[lang]||LANG.es).yon[0].desc},get temp(){return`8–10°C · ${(LANG[lang]||LANG.es).tempWine}`},css:'cat-kun'},
   'So-shu':  {emoji:'💧',dot:'#4488cc',get desc(){return(LANG[lang]||LANG.es).yon[1].desc},get temp(){return`5–8°C · ${(LANG[lang]||LANG.es).tempCold}`},css:'cat-so'},
@@ -871,7 +857,7 @@ const CAT_INFO={
   'Juku-shu':{emoji:'🥃',dot:'#cc8833',get desc(){return(LANG[lang]||LANG.es).yon[3].desc},get temp(){return`15–18°C · ${(LANG[lang]||LANG.es).tempAmb}`},css:'cat-juku'},
 };
 
-// Carta de comida real de Arume (sin unidades ni precios)
+// PATCH 5: PLATOS con Dim Sums y Gyozas correctos
 const PLATOS=[
   {cat:'Tapas',nombre:'Edamame picante'},
   {cat:'Tapas',nombre:'Edamame natural'},
@@ -927,17 +913,16 @@ const PLATOS=[
   {cat:'Sashimi',nombre:'Sashimi salmón'},
   {cat:'Sashimi',nombre:'Sashimi omakase'},
   {cat:'Dim Sums',nombre:'Dim sum pato y foie'},
-  {cat:'Otros',nombre:'Bacalao a la mallorquina'},
-  {cat:'Otros',nombre:'Setas, coco y trufa'},
-  {cat:'Otros',nombre:'Gyozas'},
-  {cat:'Otros',nombre:'Callos'},
-  {cat:'Otros',nombre:'Pollo al limón'},
-  {cat:'Otros',nombre:'Curry de coliflor'},
-  {cat:'Otros',nombre:'Gambas'},
+  {cat:'Dim Sums',nombre:'Dim sum bacalao a la mallorquina'},
+  {cat:'Dim Sums',nombre:'Dim sum setas, coco y trufa'},
+  {cat:'Gyozas',nombre:'Gyozas pollo al limón'},
+  {cat:'Gyozas',nombre:'Gyozas callos'},
+  {cat:'Gyozas',nombre:'Gyozas curry de coliflor'},
+  {cat:'Gyozas',nombre:'Gyozas gambas'},
   {cat:'Postres',nombre:'Tarta de queso Chis'},
   {cat:'Postres',nombre:'Choco blanco, mango y curry'},
   {cat:'Postres',nombre:'Helado de té verde'},
-  {cat:'Postres',nombre:"Mayuko's Mochi"},
+  {cat:'Postres',nombre:"Mayuko’s Mochi"},
   {cat:'Postres',nombre:'Mochis variados'},
 ];
 
@@ -958,14 +943,10 @@ const PREF_POS={
   'Tokushima': {x:34,y:68},'Kagawa':   {x:32,y:66},'Fukui':   {x:44,y:48},
   'Ishikawa':  {x:46,y:44},'Toyama':   {x:50,y:44},'Gifu':    {x:50,y:50},
   'Shiga':     {x:42,y:54},'Gunma':    {x:64,y:46},'Chiba':   {x:70,y:52},
-  'Saga':      {x:14,y:72},'Okinawa':  {x:20,y:90},'Tochigi': {x:67,y:44},
+  'Okinawa':   {x:20,y:90},
 };
 
-// Acceso secreto al admin: 5 toques rápidos en el logo
-// 1 toque en el logo abre el login de admin
-function secretTap(){
-  abrirLogin();
-}
+function secretTap(){abrirLogin();}
 
 let config=JSON.parse(localStorage.getItem('arume_config')||'{}');
 let sakes=JSON.parse(localStorage.getItem('arume_sakes')||'null');
@@ -973,7 +954,6 @@ let wishlist=JSON.parse(localStorage.getItem('arume_wish')||'[]');
 let editandoId=null,filtroActual='all',imgB64=null;
 let badgeState={rec:false,top:false,lim:false};
 let modoKiosco=false;
-// Recomendador
 let recRespuestas={};
 let recPaso=0;
 
@@ -988,14 +968,10 @@ function guardarConfig(){
 }
 function guardarConfigBtn(){
   guardarConfig();
-  // Feedback visual en el botón
-  const btn=event.target;
-  const original=btn.textContent;
-  btn.textContent='✓ Guardado';
-  btn.style.background='#2a6a2a';
+  const btn=event.target;const original=btn.textContent;
+  btn.textContent='✓ Guardado';btn.style.background='#2a6a2a';
   setTimeout(()=>{btn.textContent=original;btn.style.background='';},2000);
   toast('✓ Configuración guardada');
-  // Si hay Supabase configurado, cargar sakes
   if(config.supaUrl&&config.supaKey) cargarDesdeSupabase();
 }
 function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=m;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),d);}
@@ -1003,21 +979,19 @@ function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=
 const INIT=[
   {id:uid(),nombre:'Dassai 45',arroz:'Yamada Nishiki',categoria:'Kun-shu',tipo:'Junmai Daiginjo',pulido:'45%',region:'Yamaguchi',bodega:'Asahi Shuzo',vol_alc:'16%',vista:'Color ámbar dorado, brillante.',nariz:'Fruta blanca —uvas, peras—, notas verdes y exóticas.',boca:'Arroz inflado, castañas y sandía. Final fresco con ligera acidez.',nota_cata:'La entrada perfecta al sake: floral, elegante y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false,maridajes:['Nigiri salmón','Nigiri ventresca de atún','Sashimi atún','Ostras natural']},
   {id:uid(),nombre:'Dewasakura',arroz:'Dewasansan',categoria:'Kun-shu',tipo:'Junmai Ginjo',pulido:'50%',region:'Yamagata',bodega:'Dewasakura Shuzo',vol_alc:'15.5%',vista:'',nariz:'Notas cítricas de lima y corteza de piña. Muy expresivo.',boca:'Acidez refrescante, seco, con final ligeramente cálido.',nota_cata:'Fresco y frutal con una elegancia muy característica del estilo Ginjo.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Cebiche corvina y maracuyá','Saam de gambas','Edamame picante']},
-  {id:uid(),nombre:'Fukugen',arroz:'Hitogocochi',categoria:'Jun-shu',tipo:'Junmai Genshu Nama Muroka',pulido:'56%',region:'Nagano',bodega:'Fukugen Shuzo',vol_alc:'16%',vista:'',nariz:'Cereal y notas de arroz fresco. Intenso y directo.',boca:'Tradicional, con mucha presencia de cereal y umami potente.',nota_cata:'El sake más tradicional de la carta: cereal, umami y mucho carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true,maridajes:['Sashimi omakase','Bacalao a la mallorquina','Nigiri anguila','Dim sum pato y foie']},
-  {id:uid(),nombre:'Dreamy Clouds Nigori',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Nigori Tokubetsu',pulido:'58%',region:'Shimane',bodega:'Rihaku Shuzo',vol_alc:'15%',vista:'Turbio y lechoso, aspecto característico del Nigori.',nariz:'Jugo de arroz fresco, acento anisado y punto lácteo.',boca:'Suave y cremoso, con final que recuerda a la golosina.',nota_cata:'Nigori cremoso y goloso: el sake más diferente e impactante visualmente.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false,maridajes:["Mayuko's Mochi",'Choco blanco, mango y curry','Helado de té verde','Curry de coliflor']},
-  {id:uid(),nombre:'Sugoi',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Futsūshu',pulido:'90%',region:'Pirineos, España',bodega:'Seda Líquida',vol_alc:'14%',vista:'',nariz:'Flores blancas, plátano maduro y piña.',boca:'Sabroso, sutil y muy agradable. Notas lácticas y de arroz.',nota_cata:'El único sake español de la carta. Sorprendente y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'750ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Gyozas','Edamame natural','Roll salmón, mango, pepino y miso']},
+  {id:uid(),nombre:'Fukugen',arroz:'Hitogocochi',categoria:'Jun-shu',tipo:'Junmai Genshu Nama Muroka',pulido:'56%',region:'Nagano',bodega:'Fukugen Shuzo',vol_alc:'16%',vista:'',nariz:'Cereal y notas de arroz fresco. Intenso y directo.',boca:'Tradicional, con mucha presencia de cereal y umami potente.',nota_cata:'El sake más tradicional de la carta: cereal, umami y mucho carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true,maridajes:['Sashimi omakase','Dim sum bacalao a la mallorquina','Nigiri anguila','Dim sum pato y foie']},
+  {id:uid(),nombre:'Dreamy Clouds Nigori',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Nigori Tokubetsu',pulido:'58%',region:'Shimane',bodega:'Rihaku Shuzo',vol_alc:'15%',vista:'Turbio y lechoso, aspecto característico del Nigori.',nariz:'Jugo de arroz fresco, acento anisado y punto lácteo.',boca:'Suave y cremoso, con final que recuerda a la golosina.',nota_cata:'Nigori cremoso y goloso: el sake más diferente e impactante visualmente.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false,maridajes:["Mayuko’s Mochi",'Choco blanco, mango y curry','Helado de té verde','Gyozas curry de coliflor']},
+  {id:uid(),nombre:'Sugoi',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Futsūshu',pulido:'90%',region:'Pirineos, España',bodega:'Seda Líquida',vol_alc:'14%',vista:'',nariz:'Flores blancas, plátano maduro y piña.',boca:'Sabroso, sutil y muy agradable. Notas lácticas y de arroz.',nota_cata:'El único sake español de la carta. Sorprendente y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'750ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Gyozas pollo al limón','Edamame natural','Roll salmón, mango, pepino y miso']},
   {id:uid(),nombre:'Misaki',arroz:'Mezcla local',categoria:'So-shu',tipo:'Junmai Daiginjo',pulido:'65%',region:'Hyogo',bodega:'Nihon Sakari',vol_alc:'14.5%',vista:'',nariz:'Pera blanca y melón maduro. Limpio y fresco.',boca:'Ligero, limpio y muy fácil de beber.',nota_cata:'El más ligero y refrescante. Ideal para quien empieza con el sake.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Ostras natural','Sashimi lubina','Maki aguacate']},
-  {id:uid(),nombre:'Daishichi Kimoto',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Kimoto',pulido:'69%',region:'Fukushima',bodega:'Daishichi Shuzo',vol_alc:'15%',vista:'',nariz:'Notas terrosas, de tierra mojada y cereal tostado.',boca:'Denso, terroso y con alta acidez. Largo y persistente.',nota_cata:'Elaborado con el método Kimoto más antiguo. Complejo, profundo y con carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false,maridajes:['Anguila ahumada y encurtidos','Callos','Setas, coco y trufa','Pollo Karaage']},
-  {id:uid(),nombre:'Kikumasamune Tarazuke',arroz:'Mezcla local',categoria:'Jun-shu',tipo:'Junmai',pulido:'70%',region:'Hyogo',bodega:'Kikumasamune',vol_alc:'15%',vista:'',nariz:'Madera de cedro, umami y notas de salsa de soja.',boca:'Robusto, con un toque rugoso. Acabado refrescante.',nota_cata:'Envejecido en barricas de cedro de 100 años. Potente, umami y muy singular.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true,maridajes:['Callos','Sashimi omakase','Nigiri anguila y foie']},
+  {id:uid(),nombre:'Daishichi Kimoto',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Kimoto',pulido:'69%',region:'Fukushima',bodega:'Daishichi Shuzo',vol_alc:'15%',vista:'',nariz:'Notas terrosas, de tierra mojada y cereal tostado.',boca:'Denso, terroso y con alta acidez. Largo y persistente.',nota_cata:'Elaborado con el método Kimoto más antiguo. Complejo, profundo y con carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false,maridajes:['Anguila ahumada y encurtidos','Gyozas callos','Dim sum setas, coco y trufa','Pollo Karaage']},
+  {id:uid(),nombre:'Kikumasamune Tarazuke',arroz:'Mezcla local',categoria:'Jun-shu',tipo:'Junmai',pulido:'70%',region:'Hyogo',bodega:'Kikumasamune',vol_alc:'15%',vista:'',nariz:'Madera de cedro, umami y notas de salsa de soja.',boca:'Robusto, con un toque rugoso. Acabado refrescante.',nota_cata:'Envejecido en barricas de cedro de 100 años. Potente, umami y muy singular.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true,maridajes:['Gyozas callos','Sashimi omakase','Nigiri anguila y foie']},
   {id:uid(),nombre:'Gekkeikan Honjozo',arroz:'Mezcla local',categoria:'So-shu',tipo:'Honjozo',pulido:'65%',region:'Kyoto',bodega:'Gekkeikan',vol_alc:'15.5%',vista:'Brillante y transparente.',nariz:'Dulce, manzana fresca y plátano verde.',boca:'Seco, corto y muy ligero.',nota_cata:'El clásico de Kyoto. Seco, limpio y sin complicaciones.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false,maridajes:['Sopa de pescado','Maki salmón','Nigiri calamar']},
 ];
 if(!sakes){sakes=INIT;guardarLocal();}
 
-// Arranque: renderizar intro en idioma por defecto
 renderIntro();
 actualizarBadgeWish();
 if(config.supaUrl&&config.supaKey){cargarDesdeSupabase();}
-// Traducir sakes existentes que no tengan traducción (silencioso)
 if(config.geminiKey){
   setTimeout(()=>{
     const sinTraducir=sakes.filter(s=>s.activo&&s.nota_cata&&!s.nota_cata_en);
@@ -1025,7 +999,6 @@ if(config.geminiKey){
   },3000);
 }
 
-// ===== INTRO =====
 function toggleMetodo(id){
   const body=document.getElementById(id);if(!body)return;
   const arr=document.getElementById('arr-'+id);
@@ -1043,21 +1016,14 @@ function entrarCarta(){
   actualizarBadgeWish();
 }
 
-// ===== WISHLIST =====
 function toggleWish(id,btn){
   const inWish=wishlist.includes(id);
-  if(inWish){
-    wishlist=wishlist.filter(x=>x!==id);
-  }else{
-    wishlist.push(id);
-    // Registrar en historial
-    registrarInteres(id);
-  }
+  if(inWish){wishlist=wishlist.filter(x=>x!==id);}
+  else{wishlist.push(id);registrarInteres(id);}
   guardarWish();btn.classList.toggle('active',!inWish);btn.textContent=inWish?'🤍':'❤️';
   if(navigator.vibrate)navigator.vibrate(30);
   toast(inWish?'Eliminado de tu selección':'❤️ Añadido a tu selección');
 }
-
 function registrarInteres(sakeId){
   const stats=JSON.parse(localStorage.getItem('arume_stats')||'{}');
   const hoy=new Date().toISOString().slice(0,10);
@@ -1098,7 +1064,6 @@ function toggleWishFromPanel(id){
   if(btn){btn.classList.remove('active');btn.textContent='🤍';}
 }
 
-// ===== MAPA =====
 function mapaSVG(region){
   if(!region||region.toLowerCase().includes('españa'))return'';
   const pos=PREF_POS[region];if(!pos||pos.x===0)return'';
@@ -1117,13 +1082,11 @@ function mapaSVG(region){
   </div>`;
 }
 
-// ===== RECOMENDACIONES =====
 function getRecomendaciones(sake){
   const otros=sakes.filter(s=>s.activo&&s.id!==sake.id);
   return [...otros.filter(s=>s.categoria===sake.categoria).slice(0,2),...otros.filter(s=>s.categoria!==sake.categoria).slice(0,2)].slice(0,3);
 }
 
-// ===== CARTA =====
 function filtrar(btn,f){
   filtroActual=f;
   document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('activo'));
@@ -1179,8 +1142,8 @@ function renderSakes(){
         </div>
         <div class="sake-precios">
           ${s.precio_copa?`<div class="precio-item"><div class="precio-label">${t('copa')}</div><div class="precio-val">${s.precio_copa}€</div></div>`:''}
-          ${s.precio_jarra?`<div class="precio-item"><div class="precio-label">${t('jarra')}</div><div class="precio-val">${s.precio_jarra}€</div></div>`:''}
-          ${s.precio_botella?`<div class="precio-item"><div class="precio-label">${t('botella')}</div><div class="precio-val">${s.precio_botella}€</div></div>`:''}
+          ${s.precio_jarra?`<div class="precio-item"><div class="precio-label">200 ml</div><div class="precio-val">${s.precio_jarra}€</div></div>`:''}
+          ${s.precio_botella?`<div class="precio-item"><div class="precio-label">${s.medida_botella||t('botella')}</div><div class="precio-val">${s.precio_botella}€</div></div>`:''}
         </div>
       </div>
       <div class="ver-mas" onclick="toggleDet('det-${s.id}')">${t('verMas')}</div>
@@ -1215,39 +1178,28 @@ function scrollToSake(id){
   if(card){card.scrollIntoView({behavior:'smooth',block:'start'});setTimeout(()=>toggleDet('det-'+id),400);}
 }
 
-// ===== RECOMENDADOR =====
 function scoreParaRespuestas(sake,r){
-  let score=0;
-  const cat=sake.categoria;
-  // Por sabor
+  let score=0;const cat=sake.categoria;
   if(r.sabor==='frutal'&&cat==='Kun-shu')score+=3;
   if(r.sabor==='fresco'&&cat==='So-shu')score+=3;
   if(r.sabor==='cuerpo'&&cat==='Jun-shu')score+=3;
   if(r.sabor==='complejo'&&cat==='Juku-shu')score+=3;
   if(r.sabor==='frutal'&&cat==='So-shu')score+=1;
   if(r.sabor==='fresco'&&cat==='Kun-shu')score+=1;
-  // Por experiencia
   if(r.exp==='novato'&&(sake.badge_rec||sake.badge_top))score+=2;
   if(r.exp==='novato'&&(cat==='So-shu'||cat==='Kun-shu'))score+=1;
   if(r.exp==='experto'&&(cat==='Jun-shu'||cat==='Juku-shu'))score+=1;
   if(r.exp==='medio')score+=0.5;
-  // Por comida
   const mari=sake.maridajes||[];
   if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri/i.test(m)))score+=2;
   if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino/i.test(m)))score+=2;
   if(r.comida==='vegetal'&&mari.some(m=>/tofu|aguacate|edamame|vegetal|seitán|verdura/i.test(m)))score+=2;
   if(r.comida==='carne'&&mari.some(m=>/pato|cerdo|pollo|callo|foie/i.test(m)))score+=2;
-  // Badge rec suma
   if(sake.badge_rec)score+=0.5;
   return score;
 }
 
-
-function abrirRecomendador(){
-  recRespuestas={};recPaso=0;
-  document.getElementById('rec-panel').classList.add('visible');
-  renderRecPaso();
-}
+function abrirRecomendador(){recRespuestas={};recPaso=0;document.getElementById('rec-panel').classList.add('visible');renderRecPaso();}
 function cerrarRecomendador(){document.getElementById('rec-panel').classList.remove('visible');}
 function renderRecPaso(){
   const el=document.getElementById('rec-content');
@@ -1273,9 +1225,7 @@ function renderRecPaso(){
       </div>
     </div>`;
 }
-function elegirRec(clave,val){
-  recRespuestas[clave]=val;recPaso++;renderRecPaso();
-}
+function elegirRec(clave,val){recRespuestas[clave]=val;recPaso++;renderRecPaso();}
 function matchReason(sake,r){
   const M=(LANG[lang]||LANG.es).matchReasons;
   if(r.sabor==='frutal'&&sake.categoria==='Kun-shu')return M.frutalKun;
@@ -1289,7 +1239,6 @@ function matchReason(sake,r){
   if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino|prawn|scallop|oyster|eel|shrimp/i.test(m)))return M.marisco;
   return M.default;
 }
-
 function renderRecResultado(){
   const scoredSakes=sakes.filter(s=>s.activo).map(s=>({...s,score:scoreParaRespuestas(s,recRespuestas)})).sort((a,b)=>b.score-a.score);
   const top=scoredSakes.slice(0,3);
@@ -1315,7 +1264,7 @@ function renderRecResultado(){
             <div class="rec-resultado-match">💡 ${reason}</div>
             ${s.precio_copa||s.precio_botella?`<div class="rec-resultado-precios">
               ${s.precio_copa?`<span style="font-size:12px;color:var(--gold);">${L.copa} ${s.precio_copa}€</span>`:''}
-              ${s.precio_botella?`<span style="font-size:12px;color:var(--g3);">${L.botella} ${s.precio_botella}€</span>`:''}
+              ${s.precio_botella?`<span style="font-size:12px;color:var(--g3);">${s.medida_botella||L.botella} ${s.precio_botella}€</span>`:''}
             </div>`:''}
           </div>`;
         }).join('')}
@@ -1325,41 +1274,30 @@ function renderRecResultado(){
     <button style="background:none;border:none;color:var(--g3);font-size:13px;cursor:pointer;display:block;margin:0 auto 30px;" onclick="recRespuestas={};recPaso=0;renderRecPaso()">${L.recRepeat}</button>`;
 }
 function irASake(id){
-  cerrarRecomendador();
-  filtroActual='all';
+  cerrarRecomendador();filtroActual='all';
   document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('activo'));
   document.querySelectorAll('.filtro-btn')[0].classList.add('activo');
-  renderSakes();
-  setTimeout(()=>scrollToSake(id),200);
+  renderSakes();setTimeout(()=>scrollToSake(id),200);
 }
 
-// ===== LOGIN =====
 function abrirLogin(){document.getElementById('loginModal').classList.remove('oculto');document.getElementById('pinInput').focus();}
 function cerrarLogin(){document.getElementById('loginModal').classList.add('oculto');document.getElementById('loginError').style.display='none';document.getElementById('pinInput').value='';}
 function verificarPin(){if(document.getElementById('pinInput').value===PIN){cerrarLogin();entrarAdmin();}else document.getElementById('loginError').style.display='block';}
 
-// ===== KIOSCO =====
 function activarKiosco(){
   modoKiosco=true;
-  // Ocultar botón ⚙ al cliente
-  const btn=document.getElementById('adminBtn');
-  if(btn)btn.style.display='none';
-  // Pantalla completa si el navegador lo permite
-  if(document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+  const btn=document.getElementById('adminBtn');if(btn)btn.style.display='none';
+  if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{});
   toast('Modo kiosco activado');
 }
 function desactivarKiosco(){
   modoKiosco=false;
-  const btn=document.getElementById('adminBtn');
-  if(btn)btn.style.display='';
+  const btn=document.getElementById('adminBtn');if(btn)btn.style.display='';
   if(document.exitFullscreen)document.exitFullscreen();
   toast('Modo kiosco desactivado');
 }
-
-// ===== ADMIN =====
 function entrarAdmin(){
-  // Si estaba en modo kiosco, salimos de él temporalmente
-  if(modoKiosco) desactivarKiosco();
+  if(modoKiosco)desactivarKiosco();
   document.getElementById('app-carta').classList.remove('visible');
   document.getElementById('app-carta').style.display='none';
   document.getElementById('screen-intro').classList.add('oculto');
@@ -1395,7 +1333,6 @@ function renderAdmin(){
       <div class="admin-row-btns"><button class="btn-sm btn-sm-edit" onclick="abrirEdit('${s.id}')">Editar</button><button class="btn-sm btn-sm-del" onclick="eliminar('${s.id}')">✕</button></div>
     </div>`;
   }).join('');
-  // Botón kiosco — siempre recrear para estado fresco
   const old=document.getElementById('btnKiosco');if(old)old.remove();
   const k=document.createElement('button');k.id='btnKiosco';k.className='btn-secondary';k.style.cssText='width:100%;margin-top:14px;';
   k.textContent='📱 Activar modo kiosco (tablet)';
@@ -1403,33 +1340,19 @@ function renderAdmin(){
   document.getElementById('adminListView').appendChild(k);
 }
 
-// ===== HISTORIAL =====
 function renderHistorial(){
   const el=document.getElementById('tabHistorial');
   const stats=JSON.parse(localStorage.getItem('arume_stats')||'{}');
   const hoy=new Date().toISOString().slice(0,10);
-
-  // Construir ranking
-  const ranking=Object.entries(stats)
-    .map(([id,data])=>{
-      const sake=sakes.find(s=>s.id===id);
-      return{id,sake,total:data.total||0,hoy:data.dias?.[hoy]||0,dias:data.dias||{}};
-    })
-    .filter(r=>r.sake)
-    .sort((a,b)=>b.total-a.total);
-
+  const ranking=Object.entries(stats).map(([id,data])=>{
+    const sake=sakes.find(s=>s.id===id);
+    return{id,sake,total:data.total||0,hoy:data.dias?.[hoy]||0,dias:data.dias||{}};
+  }).filter(r=>r.sake).sort((a,b)=>b.total-a.total);
   if(!ranking.length){
-    el.innerHTML=`<div style="text-align:center;padding:40px;color:var(--g3);">
-      <div style="font-size:32px;margin-bottom:12px;">📊</div>
-      <div style="font-size:14px;">Todavía no hay datos.</div>
-      <div style="font-size:12px;margin-top:6px;">Los ❤️ que marquen los clientes aparecerán aquí.</div>
-    </div>`;
+    el.innerHTML=`<div style="text-align:center;padding:40px;color:var(--g3);"><div style="font-size:32px;margin-bottom:12px;">📊</div><div style="font-size:14px;">Todavía no hay datos.</div><div style="font-size:12px;margin-top:6px;">Los ❤️ que marquen los clientes aparecerán aquí.</div></div>`;
     return;
   }
-
   const maxTotal=ranking[0].total||1;
-
-  // Últimos 7 días para la mini gráfica global
   const ultimos7=[];
   for(let i=6;i>=0;i--){
     const d=new Date();d.setDate(d.getDate()-i);
@@ -1439,10 +1362,8 @@ function renderHistorial(){
     ultimos7.push({key,label,total});
   }
   const maxDia=Math.max(...ultimos7.map(d=>d.total),1);
-
   const totalGeneral=ranking.reduce((s,r)=>s+r.total,0);
   const totalHoy=ranking.reduce((s,r)=>s+r.hoy,0);
-
   el.innerHTML=`
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;">
       <div style="background:var(--g4);border-radius:10px;padding:12px;text-align:center;border:1px solid var(--g2);">
@@ -1456,24 +1377,17 @@ function renderHistorial(){
         <div style="font-size:10px;color:var(--g3);">❤️ guardados</div>
       </div>
     </div>
-
     <div style="background:var(--g4);border-radius:10px;padding:12px;margin-bottom:16px;border:1px solid var(--g2);">
       <div style="font-size:10px;color:var(--g3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Últimos 7 días</div>
       <div style="display:flex;align-items:flex-end;gap:6px;height:50px;">
-        ${ultimos7.map(d=>{
-          const h=d.total?Math.max(4,Math.round((d.total/maxDia)*50)):2;
-          const isHoy=d.key===hoy;
+        ${ultimos7.map(d=>{const h=d.total?Math.max(4,Math.round((d.total/maxDia)*50)):2;const isHoy=d.key===hoy;
           return`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;">
             ${d.total?`<div style="font-size:9px;color:${isHoy?'var(--gold)':'var(--g3)'};">${d.total}</div>`:'<div style="font-size:9px;color:transparent;">0</div>'}
             <div style="width:100%;height:${h}px;background:${isHoy?'var(--gold)':'var(--g2)'};border-radius:3px 3px 0 0;"></div>
-          </div>`;
-        }).join('')}
+          </div>`;}).join('')}
       </div>
-      <div style="display:flex;gap:6px;margin-top:4px;">
-        ${ultimos7.map(d=>`<div style="flex:1;text-align:center;font-size:9px;color:var(--g3);">${d.label}</div>`).join('')}
-      </div>
+      <div style="display:flex;gap:6px;margin-top:4px;">${ultimos7.map(d=>`<div style="flex:1;text-align:center;font-size:9px;color:var(--g3);">${d.label}</div>`).join('')}</div>
     </div>
-
     <div style="font-size:10px;color:var(--g3);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;">Ranking de sakes</div>
     <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:20px;">
       ${ranking.map((r,i)=>{
@@ -1483,34 +1397,17 @@ function renderHistorial(){
         return`<div style="background:var(--g1);border-radius:10px;padding:10px 12px;border:1px solid var(--g2);">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <div style="font-size:18px;width:24px;text-align:center;">${medal||`<span style="font-size:11px;color:var(--g3);">${i+1}</span>`}</div>
-            <div style="flex:1;min-width:0;">
-              <div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.sake.nombre}</div>
-              <div style="font-size:10px;color:var(--g3);">${r.sake.categoria||''}</div>
-            </div>
-            <div style="text-align:right;flex-shrink:0;">
-              <div style="font-size:16px;font-weight:500;color:var(--crema);">${r.total}</div>
-              ${r.hoy?`<div style="font-size:10px;color:var(--gold);">+${r.hoy} hoy</div>`:'<div style="font-size:10px;color:var(--g3);">—</div>'}
-            </div>
+            <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.sake.nombre}</div><div style="font-size:10px;color:var(--g3);">${r.sake.categoria||''}</div></div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:16px;font-weight:500;color:var(--crema);">${r.total}</div>${r.hoy?`<div style="font-size:10px;color:var(--gold);">+${r.hoy} hoy</div>`:'<div style="font-size:10px;color:var(--g3);">—</div>'}</div>
           </div>
-          <div style="height:4px;background:var(--g2);border-radius:2px;overflow:hidden;">
-            <div style="height:100%;width:${barW}%;background:${cat.dot};border-radius:2px;"></div>
-          </div>
+          <div style="height:4px;background:var(--g2);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${barW}%;background:${cat.dot};border-radius:2px;"></div></div>
         </div>`;
       }).join('')}
     </div>
-
-    <button onclick="resetStats()" style="background:none;border:1px solid #5a2020;color:#e07070;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;width:100%;">
-      🗑 Resetear estadísticas del servicio
-    </button>
-  `;
+    <button onclick="resetStats()" style="background:none;border:1px solid #5a2020;color:#e07070;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;width:100%;">🗑 Resetear estadísticas del servicio</button>`;
 }
+function resetStats(){if(!confirm('¿Resetear todas las estadísticas? Esto no se puede deshacer.'))return;localStorage.removeItem('arume_stats');renderHistorial();toast('Estadísticas reseteadas');}
 
-function resetStats(){
-  if(!confirm('¿Resetear todas las estadísticas? Esto no se puede deshacer.'))return;
-  localStorage.removeItem('arume_stats');
-  renderHistorial();
-  toast('Estadísticas reseteadas');
-}
 function setImgPreview(src){document.getElementById('imgPreview').innerHTML=src?`<img src="${src}" style="width:100%;height:100%;object-fit:contain;">`:'<span style="font-size:36px;">🍶</span>';}
 function limpiarForm(){['fNombre','fTipo','fArroz','fPulido','fRegion','fBodega','fAlc','fNota','fVista','fNariz','fBoca','fPrecioCopa','fPrecioJarra','fPrecioBotella','fImgUrl'].forEach(id=>document.getElementById(id).value='');document.getElementById('fCategoria').value='';document.getElementById('fMedida').value='';document.getElementById('fActivo').value='1';badgeState={rec:false,top:false,lim:false};actualizarBadgeToggles();}
 function toggleBadge(b){badgeState[b]=!badgeState[b];actualizarBadgeToggles();}
@@ -1544,129 +1441,44 @@ function guardarSake(){
   const urlImg=document.getElementById('fImgUrl').value.trim();
   const existente=editandoId?sakes.find(x=>x.id===editandoId):null;
   const img=imgB64||urlImg||(existente?.img)||'';
-  const data={
-    nombre,img,
-    categoria:document.getElementById('fCategoria').value,
-    tipo:document.getElementById('fTipo').value.trim(),
-    arroz:document.getElementById('fArroz').value.trim(),
-    pulido:document.getElementById('fPulido').value.trim(),
-    region:document.getElementById('fRegion').value.trim(),
-    bodega:document.getElementById('fBodega').value.trim(),
-    vol_alc:document.getElementById('fAlc').value.trim(),
-    nota_cata:document.getElementById('fNota').value.trim(),
-    vista:document.getElementById('fVista').value.trim(),
-    nariz:document.getElementById('fNariz').value.trim(),
-    boca:document.getElementById('fBoca').value.trim(),
-    precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,
-    precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,
-    precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,
-    medida_botella:document.getElementById('fMedida').value,
-    activo:document.getElementById('fActivo').value==='1',
-    badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim,
-    maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato)
-  };
+  const data={nombre,img,categoria:document.getElementById('fCategoria').value,tipo:document.getElementById('fTipo').value.trim(),arroz:document.getElementById('fArroz').value.trim(),pulido:document.getElementById('fPulido').value.trim(),region:document.getElementById('fRegion').value.trim(),bodega:document.getElementById('fBodega').value.trim(),vol_alc:document.getElementById('fAlc').value.trim(),nota_cata:document.getElementById('fNota').value.trim(),vista:document.getElementById('fVista').value.trim(),nariz:document.getElementById('fNariz').value.trim(),boca:document.getElementById('fBoca').value.trim(),precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,medida_botella:document.getElementById('fMedida').value,activo:document.getElementById('fActivo').value==='1',badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim,maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato)};
   let sakeId;
-  if(editandoId){
-    const i=sakes.findIndex(x=>x.id===editandoId);
-    // Conservar traducciones existentes al editar
-    sakes[i]={...sakes[i],...data};
-    sakeId=editandoId;
-  }else{
-    sakeId=uid();
-    sakes.push({id:sakeId,...data});
-  }
-  guardarLocal();
-  renderAdmin();
-  volverLista();
+  if(editandoId){const i=sakes.findIndex(x=>x.id===editandoId);sakes[i]={...sakes[i],...data};sakeId=editandoId;}
+  else{sakeId=uid();sakes.push({id:sakeId,...data});}
+  guardarLocal();renderAdmin();volverLista();
   toast(editandoId?'✓ Sake guardado':'✓ Sake añadido');
-  // Guardar en Supabase este sake individual
   guardarSakeEnSupabase(sakeId);
-  // Traducción automática si hay Gemini
-  if(config.geminiKey) traducirSakeAutomatico(sakeId);
+  if(config.geminiKey)traducirSakeAutomatico(sakeId);
 }
-
 async function guardarSakeEnSupabase(id){
   if(!config.supaUrl||!config.supaKey)return;
-  const s=sakes.find(x=>x.id===id);
-  if(!s)return;
+  const s=sakes.find(x=>x.id===id);if(!s)return;
   try{
-    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{
-      method:'POST',
-      headers:{
-        'apikey':config.supaKey,
-        'Authorization':'Bearer '+config.supaKey,
-        'Content-Type':'application/json',
-        'Prefer':'resolution=merge-duplicates'
-      },
-      body:JSON.stringify([{...s,updated_at:new Date().toISOString()}])
-    });
-    if(r.ok||r.status===201){
-      // Silencioso si va bien
-    }else{
-      const err=await r.json().catch(()=>({}));
-      toast('⚠ Error Supabase: '+(err.message||r.status));
-    }
-  }catch(e){
-    toast('⚠ Sin conexión — guardado solo en local');
-  }
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{method:'POST',headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify([{...s,updated_at:new Date().toISOString()}])});
+    if(!r.ok&&r.status!==201){const err=await r.json().catch(()=>({}));toast('⚠ Error Supabase: '+(err.message||r.status));}
+  }catch{toast('⚠ Sin conexión — guardado solo en local');}
 }
-
 async function traducirSakeAutomatico(id){
-  const s=sakes.find(x=>x.id===id);
-  if(!s)return;
-  // Solo traducir si hay texto que traducir
-  const textos=[s.nota_cata,s.vista,s.nariz,s.boca].filter(Boolean);
-  if(!textos.length)return;
+  const s=sakes.find(x=>x.id===id);if(!s)return;
+  const textos=[s.nota_cata,s.vista,s.nariz,s.boca].filter(Boolean);if(!textos.length)return;
   try{
-    const prompt=`Eres un experto en sake y sumiller. Traduce estos textos de cata de sake del español al inglés y al alemán.
-Devuelve SOLO JSON sin markdown:
-{
-  "nota_cata_en": "...",
-  "nota_cata_de": "...",
-  "vista_en": "...",
-  "vista_de": "...",
-  "nariz_en": "...",
-  "nariz_de": "...",
-  "boca_en": "...",
-  "boca_de": "..."
-}
-Textos a traducir:
-- nota_cata: "${s.nota_cata||''}"
-- vista: "${s.vista||''}"
-- nariz: "${s.nariz||''}"
-- boca: "${s.boca||''}"
-Mantén el tono elegante y profesional de una carta de restaurante. Si un campo está vacío, devuelve cadena vacía.`;
-    const res=await geminiTxt(prompt);
-    const d=parseJ(res);
-    if(d){
-      const i=sakes.findIndex(x=>x.id===id);
-      if(i>=0){
-        sakes[i]={...sakes[i],...d};
-        guardarLocal();
-        // Guardar traducciones en Supabase
-        guardarSakeEnSupabase(id);
-        toast('🌐 Traducido a EN · DE automáticamente');
-      }
-    }
-  }catch(e){
-    // Silencioso — no interrumpir al usuario
-    console.warn('Auto-traducción fallida:',e.message);
-  }
+    const prompt=`Eres un experto en sake y sumiller. Traduce estos textos de cata de sake del español al inglés y al alemán.\nDevuelve SOLO JSON sin markdown:\n{"nota_cata_en":"...","nota_cata_de":"...","vista_en":"...","vista_de":"...","nariz_en":"...","nariz_de":"...","boca_en":"...","boca_de":"..."}\nTextos:\n- nota_cata: "${s.nota_cata||''}"\n- vista: "${s.vista||''}"\n- nariz: "${s.nariz||''}"\n- boca: "${s.boca||''}"\nTono elegante de carta de restaurante.`;
+    const res=await geminiTxt(prompt);const d=parseJ(res);
+    if(d){const i=sakes.findIndex(x=>x.id===id);if(i>=0){sakes[i]={...sakes[i],...d};guardarLocal();guardarSakeEnSupabase(id);toast('🌐 Traducido a EN · DE automáticamente');}}
+  }catch(e){console.warn('Auto-traducción fallida:',e.message);}
 }
 function eliminar(id){if(!confirm('¿Eliminar?'))return;sakes=sakes.filter(x=>x.id!==id);guardarLocal();renderAdmin();toast('Eliminado');sincronizarSupabaseSilencioso();}
 
-// ===== IMAGEN =====
 function subirImagen(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{imgB64=e.target.result;setImgPreview(imgB64);document.getElementById('fImgUrl').value='';};r.readAsDataURL(f);}
 function previsualizarUrl(){const url=document.getElementById('fImgUrl').value.trim();if(url){imgB64=null;setImgPreview(url);}}
 
-// ===== IA =====
 async function analizarFotoIA(input){
   const f=input.files[0];if(!f)return;
   if(!config.geminiKey){toast('Configura Gemini API Key en ⚙ Config');return;}
   setIA('Analizando imagen con Gemini...',true);
   try{
     const b64=await f2b(f);imgB64=b64;setImgPreview(b64);
-    const prompt=`Eres un experto Kikisake-shi. Analiza esta imagen de botella de sake y extrae toda la información.\nDevuelve SOLO JSON con: nombre, arroz, categoria(Kun-shu|Jun-shu|So-shu|Juku-shu), tipo, pulido, region(prefectura japonesa), bodega, vol_alc, vista, nariz, boca, nota_cata(1 frase en español para cliente no experto), precio_copa(null), precio_jarra(null), precio_botella(null), medida_botella.\nSolo JSON, sin markdown.`;
+    const prompt=`Eres un experto Kikisake-shi. Analiza esta imagen de botella de sake.\nDevuelve SOLO JSON: nombre,arroz,categoria(Kun-shu|Jun-shu|So-shu|Juku-shu),tipo,pulido,region,bodega,vol_alc,vista,nariz,boca,nota_cata(1 frase español),precio_copa(null),precio_jarra(null),precio_botella(null),medida_botella.\nSin markdown.`;
     const res=await geminiImg(prompt,b64,f.type);
     const d=parseJ(res);if(d){rellenar(d);setIA('✓ Formulario rellenado. Revisa y guarda.',false);}
     else setIA('No se pudo extraer. Rellena manualmente.',false);
@@ -1674,24 +1486,21 @@ async function analizarFotoIA(input){
   input.value='';
 }
 async function buscarImagenIA(){
-  const nombre=document.getElementById('fNombre').value.trim();
-  if(!nombre){toast('Escribe primero el nombre del sake');return;}
+  const nombre=document.getElementById('fNombre').value.trim();if(!nombre){toast('Escribe primero el nombre del sake');return;}
   if(!config.geminiKey){toast('Configura Gemini API Key en ⚙ Config');return;}
   setIA('Buscando imagen de "'+nombre+'"...',true);
   try{
-    const prompt=`Necesito URL directa a foto real de la botella del sake "${nombre}".\nDevuelve SOLO JSON: {"url":"URL_imagen_directa"}\nUsa saketime.com, tippsy.com o thewhiskyexchange.com. Solo JSON.`;
+    const prompt=`URL directa foto botella sake "${nombre}". Solo JSON: {"url":"..."}. Usa saketime.com, tippsy.com o thewhiskyexchange.com.`;
     const res=await geminiTxt(prompt);const d=parseJ(res);
-    if(d?.url){document.getElementById('fImgUrl').value=d.url;imgB64=null;setImgPreview(d.url);setIA('✓ Imagen encontrada. Si no carga, pega otra URL.',false);}
+    if(d?.url){document.getElementById('fImgUrl').value=d.url;imgB64=null;setImgPreview(d.url);setIA('✓ Imagen encontrada.',false);}
     else setIA('No encontré imagen. Pega una URL manualmente.',false);
-  }catch(e){setIA('Error buscando imagen.',false);}
+  }catch{setIA('Error buscando imagen.',false);}
 }
 function setIA(msg,loading){const el=document.getElementById('iaStatus');el.style.display='block';el.innerHTML=loading?'<span class="spinner"></span>'+msg:msg;}
 function rellenar(d){const m={nombre:'fNombre',categoria:'fCategoria',tipo:'fTipo',arroz:'fArroz',pulido:'fPulido',region:'fRegion',bodega:'fBodega',vol_alc:'fAlc',nota_cata:'fNota',vista:'fVista',nariz:'fNariz',boca:'fBoca',precio_copa:'fPrecioCopa',precio_jarra:'fPrecioJarra',precio_botella:'fPrecioBotella',medida_botella:'fMedida'};Object.entries(m).forEach(([k,id])=>{if(d[k]!=null&&d[k]!==''){const el=document.getElementById(id);if(el)el.value=d[k];}});}
 
-// ===== MARIDAJES =====
 function renderPlatoSelector(selected){
   const el=document.getElementById('platoSelector');if(!el)return;
-  // Agrupar por categoría
   const cats=[...new Set(PLATOS.map(p=>p.cat))];
   el.innerHTML=cats.map(cat=>`
     <div style="width:100%;margin-top:8px;margin-bottom:4px;">
@@ -1704,14 +1513,13 @@ function renderPlatoSelector(selected){
 }
 function togglePlato(el){el.classList.toggle('sel');}
 
-// ===== OCR =====
 async function procesarOCR(input){
   const f=input.files[0];if(!f)return;
   if(!config.geminiKey){toast('Configura Gemini API Key primero');return;}
   const st=document.getElementById('ocrStatus');st.style.display='block';st.innerHTML='<span class="spinner"></span>Analizando con Gemini...';
   try{
     const b64=await f2b(f);
-    const prompt=`Eres un experto Kikisake-shi. Analiza este documento y extrae TODOS los sakes.\nPara cada uno: nombre, arroz, categoria(Kun-shu/Jun-shu/So-shu/Juku-shu), tipo, pulido, region, bodega, vol_alc, vista, nariz, boca, nota_cata(1 frase español cliente no experto), precio_copa(null), precio_jarra(null), precio_botella(null), medida_botella.\nSOLO array JSON. Sin texto.`;
+    const prompt=`Analiza este documento y extrae TODOS los sakes. Para cada uno: nombre,arroz,categoria,tipo,pulido,region,bodega,vol_alc,vista,nariz,boca,nota_cata,precio_copa(null),precio_jarra(null),precio_botella(null),medida_botella. SOLO array JSON.`;
     const res=await geminiImg(prompt,b64,f.type);const data=parseJ(res);
     if(Array.isArray(data)&&data.length){data.forEach(s=>sakes.push({id:uid(),activo:true,img:'',badge_rec:false,badge_top:false,badge_lim:false,maridajes:[],...s}));guardarLocal();renderAdmin();st.innerHTML='✓ '+data.length+' sakes importados';setTab('lista',document.querySelectorAll('.tab')[0]);toast('✓ '+data.length+' sakes importados');}
     else st.innerHTML='No se encontraron sakes.';
@@ -1719,69 +1527,37 @@ async function procesarOCR(input){
   input.value='';
 }
 
-// ===== SUPABASE =====
 async function testSupabase(){
   if(!config.supaUrl||!config.supaKey){toast('Rellena URL y Key');return;}
   const st=document.getElementById('supaStatus');st.style.display='block';st.textContent='Probando conexión...';
-  try{
-    const r=await fetch(config.supaUrl+'/rest/v1/sakes?limit=1',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});
-    st.textContent=r.ok?'✓ Conexión OK ('+r.status+')':'✗ Error '+r.status+' — comprueba credenciales';
-  }catch{st.textContent='✗ No se pudo conectar — comprueba la URL';}
+  try{const r=await fetch(config.supaUrl+'/rest/v1/sakes?limit=1',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});st.textContent=r.ok?'✓ Conexión OK ('+r.status+')':'✗ Error '+r.status;}
+  catch{st.textContent='✗ No se pudo conectar';}
 }
 async function sincronizarSupabase(){
   if(!config.supaUrl||!config.supaKey){toast('Configura Supabase primero');return;}
   const st=document.getElementById('supaStatus');st.style.display='block';st.textContent='Subiendo sakes...';
   try{
-    // Upsert todos los sakes
-    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{
-      method:'POST',
-      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
-      body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))
-    });
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{method:'POST',headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))});
     if(r.ok||r.status===201){st.textContent='✓ '+sakes.length+' sakes sincronizados';toast('✓ Supabase actualizado');}
     else{const err=await r.json();st.textContent='✗ Error: '+(err.message||r.status);}
   }catch(e){st.textContent='✗ Error de red: '+e.message;}
 }
 async function sincronizarSupabaseSilencioso(){
   if(!config.supaUrl||!config.supaKey)return;
-  try{
-    await fetch(config.supaUrl+'/rest/v1/sakes',{
-      method:'POST',
-      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
-      body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))
-    });
-  }catch{}
+  try{await fetch(config.supaUrl+'/rest/v1/sakes',{method:'POST',headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))});}catch{}
 }
 async function cargarDesdeSupabase(){
   if(!config.supaUrl||!config.supaKey)return;
   try{
-    const r=await fetch(config.supaUrl+'/rest/v1/sakes?select=*&order=nombre',{
-      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}
-    });
-    if(r.ok){
-      const data=await r.json();
-      if(Array.isArray(data)&&data.length){
-        sakes=data;
-        guardarLocal();
-        // Si estamos en la carta, re-renderizar
-        if(document.getElementById('app-carta').classList.contains('visible')) renderSakes();
-        // Traducir los que no tienen traducción (con delay para no saturar)
-        if(config.geminiKey){
-          const sinTraducir=sakes.filter(s=>s.nota_cata&&!s.nota_cata_en);
-          sinTraducir.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2500));
-        }
-      }
-    }
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes?select=*&order=nombre',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});
+    if(r.ok){const data=await r.json();if(Array.isArray(data)&&data.length){sakes=data;guardarLocal();if(document.getElementById('app-carta').classList.contains('visible'))renderSakes();if(config.geminiKey){const st=sakes.filter(s=>s.nota_cata&&!s.nota_cata_en);st.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2500));}}}
   }catch{}
 }
 
-// ===== API =====
 async function geminiImg(p,b64,mime){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';}
 async function geminiTxt(p){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}]})});const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';}
 function parseJ(t){try{return JSON.parse(t.replace(/```json|```/g,'').trim());}catch{return null;}}
 function f2b(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(f);});}
-
-
 </script>
 </body>
 </html>
