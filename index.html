@@ -2,13 +2,15 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Arume Sake Bar · Carta</title>
 <style>
 :root{--negro:#242422;--rojo:#DA3934;--crema:#EFF0EB;--g1:#2e2e2c;--g2:#3a3a38;--g3:#9a9a98;--g4:#1a1a18;--gold:#d4a05a;}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:var(--negro);color:var(--crema);overflow-x:hidden;}
-#screen-intro{position:fixed;inset:0;background:var(--negro);z-index:200;display:flex;flex-direction:column;overflow-y:auto;}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:rgba(218,57,52,0.15);touch-action:manipulation;}
+html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:var(--negro);color:var(--crema);overflow-x:hidden;-webkit-text-size-adjust:100%;}
+
+/* ===== INTRO ===== */
+#screen-intro{position:fixed;inset:0;background:var(--negro);z-index:200;display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 #screen-intro.oculto{display:none;}
 .intro-hero{background:var(--g4);padding:40px 24px 32px;text-align:center;border-bottom:1px solid var(--g2);}
 .intro-logo{font-size:32px;font-weight:200;letter-spacing:0.2em;margin-bottom:4px;}
@@ -30,36 +32,40 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .yon-name{font-size:12px;font-weight:600;margin-bottom:3px;}
 .yon-desc{font-size:11px;color:var(--g3);line-height:1.4;}
 .yon-temp{font-size:10px;margin-top:5px;opacity:0.7;}
-.intro-cta{background:var(--rojo);color:var(--crema);border:none;width:100%;padding:16px;border-radius:14px;font-size:16px;font-weight:500;cursor:pointer;letter-spacing:0.04em;margin-top:8px;margin-bottom:32px;}
-#app-carta{display:none;flex-direction:column;min-height:100vh;}
+.intro-cta{background:var(--rojo);color:var(--crema);border:none;width:100%;padding:18px;border-radius:14px;font-size:17px;font-weight:500;cursor:pointer;letter-spacing:0.04em;margin-top:8px;margin-bottom:32px;min-height:56px;}
+
+/* ===== CARTA ===== */
+#app-carta{display:none;flex-direction:column;height:100vh;overflow:hidden;}
 #app-carta.visible{display:flex;}
-.carta-header{background:var(--g4);padding:14px 16px 12px;border-bottom:1px solid var(--g2);position:sticky;top:0;z-index:10;}
+.carta-header{background:var(--g4);padding:14px 16px 12px;border-bottom:1px solid var(--g2);flex-shrink:0;z-index:10;}
 .carta-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
 .logo-sm{font-size:18px;font-weight:200;letter-spacing:0.14em;}
 .logo-sm-sub{font-size:9px;letter-spacing:0.16em;color:var(--rojo);text-transform:uppercase;}
 .header-btns{display:flex;gap:8px;align-items:center;}
-.wishlist-btn{position:relative;background:none;border:1px solid var(--g2);color:var(--g3);padding:6px 10px;border-radius:8px;font-size:13px;cursor:pointer;}
-.wishlist-badge{position:absolute;top:-6px;right:-6px;background:var(--rojo);color:var(--crema);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;display:none;}
-.admin-btn{background:none;border:1px solid var(--g2);color:var(--g3);padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer;}
-.rec-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:6px 10px;border-radius:8px;font-size:11px;cursor:pointer;}
-.filtros{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;}
+.wishlist-btn{position:relative;background:none;border:1px solid var(--g2);color:var(--g3);padding:8px 12px;border-radius:8px;font-size:14px;cursor:pointer;min-height:40px;min-width:40px;}
+.wishlist-badge{position:absolute;top:-6px;right:-6px;background:var(--rojo);color:var(--crema);font-size:9px;font-weight:700;width:16px;height:16px;border-radius:50%;display:none;align-items:center;justify-content:center;}
+.admin-btn{background:none;border:1px solid var(--g2);color:var(--g3);padding:8px 12px;border-radius:8px;font-size:12px;cursor:pointer;min-height:40px;}
+.rec-btn{background:none;border:1px solid var(--gold);color:var(--gold);padding:8px 12px;border-radius:8px;font-size:12px;cursor:pointer;min-height:40px;}
+.filtros{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .filtros::-webkit-scrollbar{display:none;}
-.filtro-btn{background:var(--g2);border:none;color:var(--g3);padding:6px 13px;border-radius:20px;font-size:12px;cursor:pointer;white-space:nowrap;transition:all 0.15s;flex-shrink:0;}
+.filtro-btn{background:var(--g2);border:none;color:var(--g3);padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer;white-space:nowrap;flex-shrink:0;min-height:36px;}
 .filtro-btn.activo{background:var(--rojo);color:var(--crema);}
-.carta-content{flex:1;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.carta-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px;}
+
+/* ===== SAKE CARDS ===== */
 .sake-card{background:var(--g1);border-radius:14px;overflow:hidden;border:1px solid var(--g2);position:relative;}
 .sake-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:14px 0 0 14px;}
 .sake-card[data-cat="Kun-shu"]::before{background:#8855cc;}
 .sake-card[data-cat="So-shu"]::before{background:#4488cc;}
 .sake-card[data-cat="Jun-shu"]::before{background:#44aa55;}
 .sake-card[data-cat="Juku-shu"]::before{background:#cc8833;}
-.sake-card-header{display:flex;gap:12px;padding:12px 12px 8px;}
-.sake-img-wrap{width:54px;height:76px;background:var(--g2);border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;}
+.sake-card-header{display:flex;gap:12px;padding:12px 12px 8px;cursor:pointer;}
+.sake-img-wrap{width:54px;height:76px;background:var(--g2);border-radius:8px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:26px;}
 .sake-img-wrap img{width:100%;height:100%;object-fit:cover;}
 .sake-main{flex:1;min-width:0;}
 .sake-top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:3px;}
 .sake-nombre{font-size:15px;font-weight:500;line-height:1.2;flex:1;}
-.heart-btn{background:none;border:none;font-size:20px;cursor:pointer;color:var(--g2);flex-shrink:0;padding:0;transition:all 0.15s;line-height:1;}
+.heart-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--g2);flex-shrink:0;padding:4px;transition:all 0.15s;line-height:1;min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center;}
 .heart-btn.active{color:#e84393;}
 .sake-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px;}
 .badge{font-size:9px;font-weight:700;letter-spacing:0.06em;padding:2px 7px;border-radius:20px;text-transform:uppercase;}
@@ -71,7 +77,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .cat-jun{background:#1a2a18;color:#80c47a;}.cat-juku{background:#2d1f0e;color:var(--gold);}
 .sake-tipo-row{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:4px;}
 .sake-nota{font-size:12px;color:var(--g3);line-height:1.4;}
-.sake-footer{display:flex;align-items:center;justify-content:space-between;padding:0 12px 10px;gap:8px;}
+.sake-footer{display:flex;align-items:center;justify-content:space-between;padding:0 12px 10px;gap:8px;cursor:pointer;}
 .sake-tags{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
 .sake-tag{background:var(--g4);color:var(--g3);font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap;}
 .temp-tag{background:var(--g4);color:var(--g3);font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap;}
@@ -79,7 +85,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .precio-item{text-align:center;}
 .precio-label{font-size:9px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;}
 .precio-val{font-size:14px;font-weight:500;}
-.ver-mas{text-align:center;padding:6px;border-top:1px solid var(--g2);font-size:11px;color:var(--g3);cursor:pointer;}
+.ver-mas{text-align:center;padding:8px;border-top:1px solid var(--g2);font-size:12px;color:var(--g3);cursor:pointer;min-height:36px;display:flex;align-items:center;justify-content:center;}
 .sake-detalle{display:none;padding:0 14px 14px;border-top:1px solid var(--g2);}
 .sake-detalle.visible{display:block;}
 .det-img{width:100%;max-height:200px;object-fit:contain;border-radius:10px;margin:10px 0 6px;background:var(--g2);}
@@ -95,7 +101,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .det-item-val{font-size:12px;font-weight:500;}
 .rec-section{margin-top:12px;padding-top:12px;border-top:1px solid var(--g2);}
 .rec-title{font-size:10px;letter-spacing:0.1em;color:var(--gold);text-transform:uppercase;font-weight:600;margin-bottom:8px;}
-.rec-cards{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;}
+.rec-cards{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
 .rec-cards::-webkit-scrollbar{display:none;}
 .rec-card{background:var(--g4);border-radius:10px;padding:10px;min-width:130px;flex-shrink:0;cursor:pointer;border:1px solid var(--g2);}
 .rec-card-emoji{font-size:20px;margin-bottom:4px;}
@@ -108,39 +114,44 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .leyenda-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;margin-top:3px;}
 .leyenda-name{font-size:11px;font-weight:500;}
 .leyenda-desc{font-size:10px;color:var(--g3);margin-top:1px;line-height:1.3;}
+
+/* ===== WISHLIST ===== */
 #wishlist-panel{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:150;display:none;align-items:flex-end;}
 #wishlist-panel.visible{display:flex;}
-.wishlist-box{background:var(--g1);border-radius:20px 20px 0 0;width:100%;max-height:80vh;overflow-y:auto;padding:20px 18px 36px;border-top:1px solid var(--g2);}
+.wishlist-box{background:var(--g1);border-radius:20px 20px 0 0;width:100%;max-height:80vh;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:20px 18px 36px;border-top:1px solid var(--g2);}
 .wishlist-handle{width:36px;height:4px;background:var(--g2);border-radius:2px;margin:0 auto 16px;}
 .wishlist-title{font-size:16px;font-weight:500;margin-bottom:4px;}
 .wishlist-sub{font-size:12px;color:var(--g3);margin-bottom:16px;}
 .wishlist-empty{text-align:center;padding:30px;color:var(--g3);font-size:14px;}
-.wishlist-item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--g2);}
+.wishlist-item{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--g2);}
 .wishlist-item-emoji{font-size:24px;width:36px;text-align:center;}
 .wishlist-item-info{flex:1;}
 .wishlist-item-name{font-size:14px;font-weight:500;}
 .wishlist-item-tipo{font-size:11px;color:var(--g3);margin-top:2px;}
-.wishlist-item-rm{background:none;border:none;color:var(--g3);font-size:18px;cursor:pointer;padding:4px;}
-.wishlist-cta{background:var(--rojo);color:var(--crema);border:none;width:100%;padding:14px;border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;margin-top:16px;}
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;}
+.wishlist-item-rm{background:none;border:none;color:var(--g3);font-size:20px;cursor:pointer;padding:8px;min-width:40px;min-height:40px;display:flex;align-items:center;justify-content:center;}
+.wishlist-cta{background:var(--rojo);color:var(--crema);border:none;width:100%;padding:16px;border-radius:12px;font-size:15px;font-weight:500;cursor:pointer;margin-top:16px;min-height:52px;}
+
+/* ===== LOGIN MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px;}
 .modal-overlay.oculto{display:none;}
 .modal-box{background:var(--g1);border-radius:16px;padding:22px;width:100%;max-width:340px;border:1px solid var(--g2);}
-.modal-input{width:100%;background:var(--g4);border:1px solid var(--g2);border-radius:10px;color:var(--crema);padding:12px 14px;font-size:16px;outline:none;margin-bottom:12px;}
+.modal-input{width:100%;background:var(--g4);border:1px solid var(--g2);border-radius:10px;color:var(--crema);padding:14px;font-size:18px;outline:none;margin-bottom:12px;}
 .modal-input:focus{border-color:var(--rojo);}
-.modal-btn{width:100%;background:var(--rojo);color:var(--crema);border:none;border-radius:10px;padding:12px;font-size:15px;cursor:pointer;font-weight:500;}
+.modal-btn{width:100%;background:var(--rojo);color:var(--crema);border:none;border-radius:10px;padding:14px;font-size:16px;cursor:pointer;font-weight:500;min-height:52px;}
 .modal-error{font-size:12px;color:var(--rojo);margin-bottom:10px;display:none;}
-#rec-panel{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:160;display:none;flex-direction:column;overflow-y:auto;}
+
+/* ===== RECOMENDADOR ===== */
+#rec-panel{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:160;display:none;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 #rec-panel.visible{display:flex;}
-.rec-panel-header{background:var(--g4);padding:18px 20px 16px;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between;}
+.rec-panel-header{background:var(--g4);padding:18px 20px 16px;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
 .rec-panel-body{padding:20px;flex:1;}
 .rec-question{font-size:18px;font-weight:500;margin-bottom:8px;line-height:1.4;}
 .rec-subtitle{font-size:13px;color:var(--g3);margin-bottom:20px;}
 .rec-options{display:flex;flex-direction:column;gap:10px;}
-.rec-option{background:var(--g1);border:1px solid var(--g2);border-radius:14px;padding:16px;cursor:pointer;transition:all 0.15s;display:flex;align-items:center;gap:14px;}
-.rec-option:active{background:var(--g2);}
+.rec-option{background:var(--g1);border:1px solid var(--g2);border-radius:14px;padding:16px;cursor:pointer;display:flex;align-items:center;gap:14px;min-height:72px;}
 .rec-option-emoji{font-size:28px;flex-shrink:0;}
 .rec-option-text{flex:1;}
-.rec-option-label{font-size:14px;font-weight:500;margin-bottom:2px;}
+.rec-option-label{font-size:15px;font-weight:500;margin-bottom:2px;}
 .rec-option-desc{font-size:12px;color:var(--g3);}
 .rec-progress{display:flex;gap:6px;margin-bottom:24px;}
 .rec-dot{width:8px;height:8px;border-radius:50%;background:var(--g2);}
@@ -156,64 +167,154 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .rec-resultado-tipo{font-size:11px;color:var(--g3);margin-bottom:6px;}
 .rec-resultado-match{font-size:12px;color:var(--crema);background:var(--g4);border-radius:8px;padding:6px 10px;margin-top:6px;line-height:1.4;}
 .rec-resultado-precios{display:flex;gap:10px;margin-top:8px;}
-.rec-panel-btn{background:var(--rojo);color:var(--crema);border:none;width:calc(100% - 40px);margin:0 20px 30px;padding:14px;border-radius:14px;font-size:15px;font-weight:500;cursor:pointer;}
-#app-admin{display:none;flex-direction:column;min-height:100vh;}
+.rec-panel-btn{background:var(--rojo);color:var(--crema);border:none;width:calc(100% - 40px);margin:0 20px 30px;padding:16px;border-radius:14px;font-size:15px;font-weight:500;cursor:pointer;min-height:52px;}
+
+/* ===== ADMIN — CORREGIDO PARA TABLET ===== */
+#app-admin{
+  display:none;
+  flex-direction:column;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:var(--negro);
+  overflow:hidden;
+}
 #app-admin.visible{display:flex;}
-.admin-header{background:var(--g4);padding:14px 16px;border-bottom:1px solid var(--g2);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;}
-.admin-content{padding:14px;flex:1;}
-.back-btn{background:none;border:none;color:var(--g3);font-size:22px;cursor:pointer;padding:0 10px 0 0;}
-.btn-primary{background:var(--rojo);color:var(--crema);border:none;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;font-weight:500;}
-.btn-secondary{background:var(--g2);color:var(--crema);border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;}
-.btn-ghost{background:none;border:1px solid var(--g2);color:var(--g3);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;}
+
+.admin-header{
+  background:var(--g4);
+  padding:14px 16px;
+  border-bottom:1px solid var(--g2);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+  z-index:10;
+}
+
+/* El contenido admin hace scroll, no el body */
+.admin-content{
+  flex:1;
+  min-height:0;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:14px;
+}
+
+.back-btn{background:none;border:none;color:var(--g3);font-size:24px;cursor:pointer;padding:4px 12px 4px 0;min-height:44px;min-width:44px;display:flex;align-items:center;}
+.btn-primary{background:var(--rojo);color:var(--crema);border:none;border-radius:8px;padding:10px 18px;font-size:14px;cursor:pointer;font-weight:500;min-height:44px;}
+.btn-secondary{background:var(--g2);color:var(--crema);border:none;border-radius:8px;padding:10px 16px;font-size:14px;cursor:pointer;min-height:44px;}
+.btn-ghost{background:none;border:1px solid var(--g2);color:var(--g3);border-radius:8px;padding:10px 16px;font-size:14px;cursor:pointer;min-height:44px;}
+
 .admin-list{display:flex;flex-direction:column;gap:8px;}
-.admin-row{background:var(--g1);border-radius:12px;padding:10px 12px;display:flex;align-items:center;gap:10px;border:1px solid var(--g2);}
+.admin-row{background:var(--g1);border-radius:12px;padding:12px;display:flex;align-items:center;gap:10px;border:1px solid var(--g2);}
 .admin-row-thumb{width:36px;height:48px;border-radius:6px;background:var(--g2);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:18px;}
 .admin-row-thumb img{width:100%;height:100%;object-fit:cover;}
-.act-dot{width:7px;height:7px;border-radius:50%;background:#4caf50;flex-shrink:0;}
+.act-dot{width:8px;height:8px;border-radius:50%;background:#4caf50;flex-shrink:0;}
 .act-dot.off{background:var(--g3);}
 .admin-row-info{flex:1;min-width:0;}
-.admin-row-nombre{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.admin-row-nombre{font-size:14px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .admin-row-meta{font-size:11px;color:var(--g3);margin-top:2px;}
-.admin-row-btns{display:flex;gap:5px;flex-shrink:0;}
-.btn-sm{border:none;border-radius:6px;padding:5px 10px;font-size:11px;cursor:pointer;}
+.admin-row-btns{display:flex;gap:6px;flex-shrink:0;}
+/* Botones de lista más grandes para dedos */
+.btn-sm{border:none;border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;min-height:40px;min-width:60px;}
 .btn-sm-edit{background:var(--g2);color:var(--crema);}
 .btn-sm-del{background:none;border:1px solid #5a2020;color:#e07070;}
+
 .tabs{display:flex;border-bottom:1px solid var(--g2);margin-bottom:16px;}
-.tab{padding:9px 14px;font-size:13px;color:var(--g3);cursor:pointer;border-bottom:2px solid transparent;}
+.tab{padding:12px 16px;font-size:14px;color:var(--g3);cursor:pointer;border-bottom:2px solid transparent;min-height:44px;display:flex;align-items:center;}
 .tab.activo{color:var(--rojo);border-bottom-color:var(--rojo);}
-.form-grid{display:flex;flex-direction:column;gap:12px;}
+
+/* ===== FORMULARIO — optimizado tablet ===== */
+.form-grid{display:flex;flex-direction:column;gap:14px;}
 .form-row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.form-group{display:flex;flex-direction:column;gap:5px;}
-.form-label{font-size:11px;color:var(--g3);letter-spacing:0.04em;}
-.form-input{background:var(--g4);border:1px solid var(--g2);border-radius:8px;color:var(--crema);padding:10px 12px;font-size:13px;outline:none;width:100%;font-family:inherit;}
-.form-input:focus{border-color:var(--rojo);}
+.form-group{display:flex;flex-direction:column;gap:6px;}
+.form-label{font-size:11px;color:var(--g3);letter-spacing:0.04em;text-transform:uppercase;}
+/* Inputs más grandes para dedos en tablet */
+.form-input{
+  background:var(--g4);
+  border:1px solid var(--g2);
+  border-radius:8px;
+  color:var(--crema);
+  padding:12px 14px;
+  font-size:15px;
+  outline:none;
+  width:100%;
+  font-family:inherit;
+  min-height:48px;
+  -webkit-appearance:none;
+}
+.form-input:focus{border-color:var(--rojo);background:#22221f;}
 select.form-input option{background:var(--g1);}
-textarea.form-input{resize:vertical;min-height:68px;}
+textarea.form-input{resize:vertical;min-height:80px;}
 .img-preview{width:100%;height:150px;border-radius:10px;background:var(--g2);overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:36px;margin-bottom:8px;border:1px solid var(--g2);}
 .img-preview img{width:100%;height:100%;object-fit:contain;}
 .img-btns{display:flex;gap:8px;align-items:stretch;}
 .ia-panel{background:var(--g4);border-radius:12px;padding:12px 14px;margin-bottom:14px;border:1px solid #3a2a1a;}
 .ia-panel-title{font-size:11px;color:var(--gold);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;font-weight:600;}
 .ia-btns{display:flex;gap:8px;flex-wrap:wrap;}
-.btn-ia{background:#2d1f0e;color:var(--gold);border:1px solid #5a3a1a;border-radius:8px;padding:8px 12px;font-size:12px;cursor:pointer;}
-.ia-status{font-size:12px;color:var(--g3);margin-top:10px;display:none;}
-.ocr-zone{border:2px dashed var(--g2);border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;}
-.ocr-zone:hover{border-color:var(--rojo);}
+.btn-ia{background:#2d1f0e;color:var(--gold);border:1px solid #5a3a1a;border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;min-height:44px;}
+.ia-status{font-size:12px;color:var(--g3);margin-top:10px;display:none;line-height:1.5;}
+.ocr-zone{border:2px dashed var(--g2);border-radius:12px;padding:28px 20px;text-align:center;cursor:pointer;min-height:100px;}
 .ocr-status{background:var(--g4);border-radius:10px;padding:12px;margin-top:12px;display:none;font-size:13px;color:var(--g3);}
 .config-box{background:var(--g4);border-radius:12px;padding:14px;margin-bottom:14px;display:none;}
-.config-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:10px;}
-.config-label{font-size:13px;flex:1;}
+.config-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px;}
+.config-label{font-size:14px;flex:1;}
 .config-sub{font-size:11px;color:var(--g3);}
-.config-input{background:var(--g2);border:1px solid var(--g2);border-radius:6px;color:var(--crema);padding:7px 10px;font-size:12px;outline:none;width:160px;flex-shrink:0;}
+.config-input{background:var(--g2);border:1px solid var(--g2);border-radius:6px;color:var(--crema);padding:9px 12px;font-size:13px;outline:none;width:170px;flex-shrink:0;min-height:44px;}
+
+/* Badge toggles como botones reales */
 .badge-toggles{display:flex;gap:8px;flex-wrap:wrap;}
-.badge-toggle{padding:6px 12px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;border:1px solid var(--g2);background:var(--g4);color:var(--g3);transition:all 0.15s;}
+.badge-toggle{
+  padding:10px 14px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:600;
+  cursor:pointer;
+  border:1px solid var(--g2);
+  background:var(--g4);
+  color:var(--g3);
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  -webkit-appearance:none;
+  appearance:none;
+}
 .badge-toggle.on-rec{background:#1a2d0e;color:#7dcc50;border-color:#3a5a20;}
 .badge-toggle.on-top{background:#2d1f0e;color:var(--gold);border-color:#6a3e10;}
 .badge-toggle.on-lim{background:#2d0e0e;color:#e07070;border-color:#6a2020;}
+
+/* Plato selector */
+.plato-selector{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
+.plato-toggle{
+  background:var(--g4);
+  border:1px solid var(--g2);
+  color:var(--g3);
+  font-size:12px;
+  padding:8px 12px;
+  border-radius:20px;
+  cursor:pointer;
+  min-height:36px;
+  display:inline-flex;
+  align-items:center;
+  -webkit-appearance:none;
+}
+.plato-toggle.sel{background:#1a2210;border-color:#4a7a20;color:#9de060;}
+
+/* Botones de guardar/cancelar al final del form */
+.form-actions{
+  display:flex;
+  gap:10px;
+  margin-top:24px;
+  padding-bottom:env(safe-area-inset-bottom, 40px);
+}
+
 @keyframes spin{to{transform:rotate(360deg);}}
-.spinner{display:inline-block;width:12px;height:12px;border:2px solid var(--g2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:6px;vertical-align:middle;}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2a2a28;border:1px solid var(--g2);color:var(--crema);padding:10px 20px;border-radius:24px;font-size:13px;z-index:999;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap;}
+.spinner{display:inline-block;width:14px;height:14px;border:2px solid var(--g2);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin-right:6px;vertical-align:middle;}
+.toast{position:fixed;bottom:env(safe-area-inset-bottom, 24px);left:50%;transform:translateX(-50%);background:#2a2a28;border:1px solid var(--g2);color:var(--crema);padding:12px 22px;border-radius:24px;font-size:14px;z-index:9999;opacity:0;transition:opacity 0.2s;pointer-events:none;white-space:nowrap;max-width:90vw;}
 .toast.visible{opacity:1;}
+
+/* Tablas y misc */
 .pulido-table{width:100%;border-collapse:collapse;margin-top:12px;font-size:12px;}
 .pulido-table th{font-size:10px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;padding:6px 8px;text-align:left;border-bottom:1px solid var(--g2);}
 .pulido-table td{padding:7px 8px;border-bottom:1px solid #262624;vertical-align:top;line-height:1.4;}
@@ -223,7 +324,7 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .pulido-table .desc{color:var(--g3);}
 .junmai-note{font-size:11px;color:var(--g3);margin-top:8px;padding:8px 10px;background:var(--g4);border-radius:8px;border-left:2px solid var(--gold);}
 .metodo-card{background:var(--g4);border-radius:12px;overflow:hidden;border:1px solid var(--g2);margin-bottom:8px;}
-.metodo-header{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;}
+.metodo-header{display:flex;align-items:center;gap:12px;padding:14px;cursor:pointer;min-height:56px;}
 .metodo-icon{font-size:24px;width:36px;text-align:center;flex-shrink:0;}
 .metodo-header-info{flex:1;}
 .metodo-nombre{font-size:13px;font-weight:500;}
@@ -240,14 +341,11 @@ textarea.form-input{resize:vertical;min-height:68px;}
 .maridaje-title{font-size:10px;letter-spacing:0.1em;color:var(--rojo);text-transform:uppercase;font-weight:500;margin-bottom:8px;}
 .maridaje-chips{display:flex;gap:6px;flex-wrap:wrap;}
 .maridaje-chip{background:var(--g4);border:1px solid var(--g2);color:var(--crema);font-size:11px;padding:4px 9px;border-radius:20px;white-space:nowrap;}
-.plato-selector{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;}
-.plato-toggle{background:var(--g4);border:1px solid var(--g2);color:var(--g3);font-size:11px;padding:5px 10px;border-radius:20px;cursor:pointer;transition:all 0.15s;}
-.plato-toggle.sel{background:#1a2210;border-color:#4a7a20;color:#9de060;}
 .lang-selector{display:flex;gap:4px;}
-.lang-btn{background:var(--g2);border:none;color:var(--g3);padding:5px 8px;border-radius:6px;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.15s;}
+.lang-btn{background:var(--g2);border:none;color:var(--g3);padding:6px 10px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;min-height:36px;min-width:36px;}
 .lang-btn.active{background:var(--rojo);color:var(--crema);}
 .intro-lang{display:flex;justify-content:center;gap:8px;padding:16px 0 4px;}
-.intro-lang .lang-btn{padding:8px 16px;font-size:13px;border-radius:20px;}
+.intro-lang .lang-btn{padding:10px 18px;font-size:14px;border-radius:20px;min-height:44px;}
 </style>
 </head>
 <body>
@@ -304,7 +402,7 @@ textarea.form-input{resize:vertical;min-height:68px;}
       <div style="font-size:15px;font-weight:500;" id="recPanelTitle">✦ ¿Qué sake es para mí?</div>
       <div style="font-size:11px;color:var(--g3);" id="recPanelSub">3 preguntas · 30 segundos</div>
     </div>
-    <button style="background:none;border:none;color:var(--g3);font-size:24px;cursor:pointer;" onclick="cerrarRecomendador()">×</button>
+    <button style="background:none;border:none;color:var(--g3);font-size:26px;cursor:pointer;min-width:44px;min-height:44px;" onclick="cerrarRecomendador()">×</button>
   </div>
   <div id="rec-content"></div>
 </div>
@@ -325,11 +423,11 @@ textarea.form-input{resize:vertical;min-height:68px;}
   <div class="modal-box">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
       <span style="font-size:16px;font-weight:500;">Gestión</span>
-      <button style="background:none;border:none;color:var(--g3);font-size:22px;cursor:pointer;" onclick="cerrarLogin()">×</button>
+      <button style="background:none;border:none;color:var(--g3);font-size:26px;cursor:pointer;min-width:44px;min-height:44px;" onclick="cerrarLogin()">×</button>
     </div>
     <div class="modal-error" id="loginError">PIN incorrecto</div>
     <input class="modal-input" type="password" id="pinInput" placeholder="PIN" maxlength="8" onkeydown="if(event.key==='Enter')verificarPin()">
-    <button class="modal-btn" onclick="verificarPin()">Entrar</button>
+    <button class="modal-btn" type="button" onclick="verificarPin()">Entrar</button>
   </div>
 </div>
 
@@ -337,36 +435,49 @@ textarea.form-input{resize:vertical;min-height:68px;}
 <div id="app-admin">
   <div class="admin-header">
     <div style="display:flex;align-items:center;">
-      <button class="back-btn" onclick="salirAdmin()">←</button>
+      <button class="back-btn" type="button" onclick="salirAdmin()">←</button>
       <div>
         <div style="font-size:14px;font-weight:500;">Panel de gestión</div>
         <div style="font-size:11px;color:var(--g3);" id="countLabel">Arume Sake Bar</div>
       </div>
     </div>
     <div style="display:flex;gap:8px;">
-      <button class="btn-ghost" style="font-size:11px;padding:6px 10px;" onclick="toggleConfig()">⚙ Config</button>
-      <button class="btn-primary" onclick="abrirFormNuevo()">+ Nuevo</button>
+      <button class="btn-ghost" style="font-size:12px;padding:8px 12px;" type="button" onclick="toggleConfig()">⚙ Config</button>
+      <button class="btn-primary" type="button" onclick="abrirFormNuevo()">+ Nuevo</button>
     </div>
   </div>
+
   <div class="admin-content">
+    <!-- Config box -->
     <div class="config-box" id="configBox">
       <div style="font-size:11px;color:var(--rojo);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;">Configuración</div>
-      <div class="config-row"><div><div class="config-label">Gemini API Key</div><div class="config-sub">Para IA y análisis de imágenes</div></div><input class="config-input" type="password" id="cfgGeminiKey" placeholder="AIza..."></div>
-      <div class="config-row"><div><div class="config-label">Supabase URL</div></div><input class="config-input" id="cfgSupaUrl" placeholder="https://xxx.supabase.co"></div>
-      <div class="config-row"><div><div class="config-label">Supabase Anon Key</div></div><input class="config-input" type="password" id="cfgSupaKey" placeholder="eyJ..."></div>
+      <div class="config-row">
+        <div><div class="config-label">Gemini API Key</div><div class="config-sub">Para IA y análisis de imágenes</div></div>
+        <input class="config-input" type="password" id="cfgGeminiKey" placeholder="AIza...">
+      </div>
+      <div class="config-row">
+        <div><div class="config-label">Supabase URL</div></div>
+        <input class="config-input" id="cfgSupaUrl" placeholder="https://xxx.supabase.co">
+      </div>
+      <div class="config-row">
+        <div><div class="config-label">Supabase Anon Key</div></div>
+        <input class="config-input" type="password" id="cfgSupaKey" placeholder="eyJ...">
+      </div>
       <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
-        <button class="btn-primary" style="flex:2;" onclick="guardarConfigBtn()">💾 Guardar configuración</button>
-        <button class="btn-secondary" onclick="testSupabase()">Probar conexión</button>
-        <button class="btn-secondary" onclick="sincronizarSupabase()">⬆ Subir sakes</button>
-        <button class="btn-ghost" style="width:100%;" onclick="toggleConfig()">Cerrar</button>
+        <button class="btn-primary" style="flex:2;" type="button" onclick="guardarConfigBtn(this)">💾 Guardar configuración</button>
+        <button class="btn-secondary" type="button" onclick="testSupabase()">Probar conexión</button>
+        <button class="btn-secondary" type="button" onclick="sincronizarSupabase()">⬆ Subir sakes</button>
+        <button class="btn-ghost" style="width:100%;" type="button" onclick="toggleConfig()">Cerrar</button>
       </div>
       <div id="supaStatus" style="font-size:12px;color:var(--g3);margin-top:8px;display:none;"></div>
     </div>
+
+    <!-- Lista de sakes -->
     <div id="adminListView">
       <div class="tabs">
         <div class="tab activo" onclick="setTab('lista',this)">Sakes</div>
         <div class="tab" onclick="setTab('historial',this)">📊 Historial</div>
-        <div class="tab" onclick="setTab('ocr',this)">📷 Importar con IA</div>
+        <div class="tab" onclick="setTab('ocr',this)">📷 Importar IA</div>
       </div>
       <div id="tabLista"><div class="admin-list" id="adminList"></div></div>
       <div id="tabHistorial" style="display:none;"></div>
@@ -381,33 +492,46 @@ textarea.form-input{resize:vertical;min-height:68px;}
         <div class="ocr-status" id="ocrStatus"></div>
       </div>
     </div>
+
+    <!-- Formulario edición/nuevo -->
     <div id="adminFormView" style="display:none;">
+      <!-- Cabecera del form con botón guardar siempre visible -->
       <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
-        <button class="back-btn" onclick="volverLista()">←</button>
-        <div style="font-size:15px;font-weight:500;" id="formTitle">Nuevo sake</div>
+        <button class="back-btn" type="button" onclick="volverLista()">←</button>
+        <div style="font-size:15px;font-weight:500;flex:1;" id="formTitle">Nuevo sake</div>
+        <!-- BOTÓN GUARDAR ARRIBA: siempre visible en tablet -->
+        <button type="button" class="btn-primary" onclick="guardarSake()" style="padding:10px 20px;">💾 Guardar</button>
       </div>
+
       <div class="ia-panel">
         <div class="ia-panel-title">✦ Rellenar con IA</div>
         <div class="ia-btns">
-          <button class="btn-ia" onclick="document.getElementById('fotoIA').click()">📷 Analizar foto de botella</button>
-          <button class="btn-ia" onclick="buscarImagenIA()">🔍 Buscar imagen por nombre</button>
+          <button class="btn-ia" type="button" onclick="document.getElementById('fotoIA').click()">📷 Analizar foto</button>
+          <button class="btn-ia" type="button" onclick="buscarImagenIA()">🔍 Buscar imagen</button>
         </div>
         <input type="file" id="fotoIA" accept="image/*" style="display:none;" onchange="analizarFotoIA(this)">
         <div class="ia-status" id="iaStatus"></div>
       </div>
-      <div class="form-group" style="margin-bottom:12px;">
+
+      <div class="form-group" style="margin-bottom:14px;">
         <div class="form-label">IMAGEN DE LA BOTELLA</div>
         <div class="img-preview" id="imgPreview"><span style="font-size:36px;">🍶</span></div>
         <div class="img-btns">
-          <button class="btn-ghost" style="flex:1;font-size:12px;padding:8px;" onclick="document.getElementById('imgFile').click()">📁 Subir foto</button>
+          <button class="btn-ghost" style="flex:1;font-size:13px;" type="button" onclick="document.getElementById('imgFile').click()">📁 Subir foto</button>
           <input type="file" id="imgFile" accept="image/*" style="display:none;" onchange="subirImagen(this)">
-          <input class="form-input" id="fImgUrl" placeholder="O pega URL..." style="flex:2;font-size:12px;" oninput="previsualizarUrl()">
+          <input class="form-input" id="fImgUrl" placeholder="O pega URL..." style="flex:2;font-size:13px;" oninput="previsualizarUrl()">
         </div>
       </div>
+
       <div class="form-grid">
         <div class="form-group"><label class="form-label">NOMBRE *</label><input class="form-input" id="fNombre" placeholder="Dassai 45"></div>
         <div class="form-row2">
-          <div class="form-group"><label class="form-label">CATEGORÍA</label><select class="form-input" id="fCategoria"><option value="">-</option><option>Kun-shu</option><option>Jun-shu</option><option>So-shu</option><option>Juku-shu</option></select></div>
+          <div class="form-group"><label class="form-label">CATEGORÍA</label>
+            <select class="form-input" id="fCategoria">
+              <option value="">-</option>
+              <option>Kun-shu</option><option>Jun-shu</option><option>So-shu</option><option>Juku-shu</option>
+            </select>
+          </div>
           <div class="form-group"><label class="form-label">TIPO</label><input class="form-input" id="fTipo" placeholder="Junmai Daiginjo"></div>
         </div>
         <div class="form-row2">
@@ -415,40 +539,40 @@ textarea.form-input{resize:vertical;min-height:68px;}
           <div class="form-group"><label class="form-label">PULIDO</label><input class="form-input" id="fPulido" placeholder="45%"></div>
         </div>
         <div class="form-row2">
-          <div class="form-group"><label class="form-label">REGIÓN / PREFECTURA</label><input class="form-input" id="fRegion" placeholder="Yamaguchi"></div>
+          <div class="form-group"><label class="form-label">REGIÓN</label><input class="form-input" id="fRegion" placeholder="Yamaguchi"></div>
           <div class="form-group"><label class="form-label">BODEGA</label><input class="form-input" id="fBodega" placeholder="Asahi Shuzo"></div>
         </div>
-        <!-- PATCH 1: GRADUACIÓN solo, sin FORMATO -->
         <div class="form-group"><label class="form-label">GRADUACIÓN</label><input class="form-input" id="fAlc" placeholder="16%"></div>
-        <div class="form-group"><label class="form-label">NOTA DE CATA (1 frase para el cliente)</label><input class="form-input" id="fNota" placeholder="Floral y elegante, la entrada perfecta al sake aromático."></div>
+        <div class="form-group"><label class="form-label">NOTA DE CATA</label><input class="form-input" id="fNota" placeholder="Floral y elegante..."></div>
         <div class="form-group"><label class="form-label">VISTA</label><input class="form-input" id="fVista" placeholder="Transparente y brillante"></div>
-        <div class="form-group"><label class="form-label">NARIZ</label><textarea class="form-input" id="fNariz" placeholder="Fruta blanca, flores, pera..."></textarea></div>
+        <div class="form-group"><label class="form-label">NARIZ</label><textarea class="form-input" id="fNariz" placeholder="Fruta blanca, flores..."></textarea></div>
         <div class="form-group"><label class="form-label">BOCA</label><textarea class="form-input" id="fBoca" placeholder="Suave, acidez equilibrada..."></textarea></div>
+
         <div class="form-group">
-          <label class="form-label">MARIDAJES (platos de la carta)</label>
+          <label class="form-label">MARIDAJES</label>
           <div class="plato-selector" id="platoSelector"></div>
         </div>
+
         <div class="form-group">
           <label class="form-label">BADGES</label>
           <div class="badge-toggles">
-            <div class="badge-toggle" id="togRec" onclick="toggleBadge('rec')">⭐ Recomendado</div>
-            <div class="badge-toggle" id="togTop" onclick="toggleBadge('top')">🏆 Más vendido</div>
-            <div class="badge-toggle" id="togLim" onclick="toggleBadge('lim')">🔴 Edición limitada</div>
+            <button type="button" class="badge-toggle" id="togRec" onclick="toggleBadge('rec')">⭐ Recomendado</button>
+            <button type="button" class="badge-toggle" id="togTop" onclick="toggleBadge('top')">🏆 Más vendido</button>
+            <button type="button" class="badge-toggle" id="togLim" onclick="toggleBadge('lim')">🔴 Edición limitada</button>
           </div>
         </div>
-        <!-- PATCH 2: PRECIOS con Copa / 200ml / Botella+tamaño -->
+
         <div class="form-group">
           <label class="form-label">PRECIOS</label>
-          <div class="form-row2">
-            <div class="form-group"><label class="form-label">Copa €</label><input class="form-input" id="fPrecioCopa" type="number" step="0.5" placeholder="-"></div>
-            <div class="form-group"><label class="form-label">200 ml €</label><input class="form-input" id="fPrecioJarra" type="number" step="0.5" placeholder="-"></div>
+          <div class="form-row2" style="margin-bottom:10px;">
+            <div class="form-group"><label class="form-label">Copa €</label><input class="form-input" id="fPrecioCopa" type="number" step="0.5" placeholder="-" inputmode="decimal"></div>
+            <div class="form-group"><label class="form-label">200 ml €</label><input class="form-input" id="fPrecioJarra" type="number" step="0.5" placeholder="-" inputmode="decimal"></div>
           </div>
-          <div style="margin-top:10px;">
-            <label class="form-label" style="display:block;margin-bottom:5px;">Botella €</label>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
-              <input class="form-input" id="fPrecioBotella" type="number" step="0.5" placeholder="Precio">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+            <div class="form-group" style="grid-column:span 2"><label class="form-label">Botella €</label><input class="form-input" id="fPrecioBotella" type="number" step="0.5" placeholder="Precio" inputmode="decimal"></div>
+            <div class="form-group"><label class="form-label">Tamaño</label>
               <select class="form-input" id="fMedida">
-                <option value="">Tamaño</option>
+                <option value="">-</option>
                 <option value="300ml">300 ml</option>
                 <option value="720ml">720 ml</option>
                 <option value="1.8L">1.8 L</option>
@@ -456,15 +580,24 @@ textarea.form-input{resize:vertical;min-height:68px;}
             </div>
           </div>
         </div>
-        <div class="form-group"><label class="form-label">ESTADO</label><select class="form-input" id="fActivo"><option value="1">Activo (visible)</option><option value="0">Oculto</option></select></div>
+
+        <div class="form-group">
+          <label class="form-label">ESTADO</label>
+          <select class="form-input" id="fActivo">
+            <option value="1">Activo (visible)</option>
+            <option value="0">Oculto</option>
+          </select>
+        </div>
       </div>
-      <div style="display:flex;gap:10px;margin-top:20px;padding-bottom:40px;">
+
+      <!-- Botones de acción al final -->
+      <div class="form-actions">
         <button type="button" class="btn-ghost" onclick="volverLista()" style="flex:1;">Cancelar</button>
-        <button type="button" class="btn-primary" onclick="guardarSake()" style="flex:2;">Guardar sake</button>
+        <button type="button" class="btn-primary" onclick="guardarSake()" style="flex:2;font-size:16px;">💾 Guardar sake</button>
       </div>
-    </div>
-  </div>
-</div>
+    </div><!-- /adminFormView -->
+  </div><!-- /admin-content -->
+</div><!-- /app-admin -->
 
 <div class="toast" id="toast"></div>
 
@@ -510,12 +643,7 @@ const LANG={
     recSect:'Si te gusta este, prueba también',
     copa:'Copa',jarra:'200 ml',botella:'Botella',
     tempWine:'copa de vino',tempCold:'muy frío',tempVers:'versátil',tempAmb:'ambiente',
-    yon:[
-      {desc:'Aromático, floral y frutal.'},
-      {desc:'Fresco, limpio y ligero.'},
-      {desc:'Con cuerpo, umami y arroz.'},
-      {desc:'Añejo y muy complejo.'},
-    ],
+    yon:[{desc:'Aromático, floral y frutal.'},{desc:'Fresco, limpio y ligero.'},{desc:'Con cuerpo, umami y arroz.'},{desc:'Añejo y muy complejo.'}],
     terminos:[
       {nombre:'Nigori',tagline:'Sake turbio',body:'Filtrado con malla gruesa, conserva sedimentos de arroz. Aspecto lechoso, sabor cremoso y dulce.',carta:'🍶 En tu carta: <b>Dreamy Clouds Tokubetsu Nigori</b>'},
       {nombre:'Genshu',tagline:'Sin diluir',body:'No se añade agua. Graduación 17–20%. Potente y estructurado.',carta:'🍶 En tu carta: <b>Fukugen</b>'},
@@ -601,12 +729,7 @@ const LANG={
     recSect:'If you like this, also try',
     copa:'Glass',jarra:'200 ml',botella:'Bottle',
     tempWine:'wine glass',tempCold:'very cold',tempVers:'versatile',tempAmb:'room temp',
-    yon:[
-      {desc:'Aromatic, floral and fruity.'},
-      {desc:'Fresh, clean and light.'},
-      {desc:'Full-bodied, umami and rice.'},
-      {desc:'Aged and very complex.'},
-    ],
+    yon:[{desc:'Aromatic, floral and fruity.'},{desc:'Fresh, clean and light.'},{desc:'Full-bodied, umami and rice.'},{desc:'Aged and very complex.'}],
     terminos:[
       {nombre:'Nigori',tagline:'Cloudy sake',body:'Coarsely filtered, retaining rice sediment. Milky appearance, creamy and sweet flavour.',carta:'🍶 On your menu: <b>Dreamy Clouds Tokubetsu Nigori</b>'},
       {nombre:'Genshu',tagline:'Undiluted',body:'No water added. Natural ABV 17–20%. Powerful and structured.',carta:'🍶 On your menu: <b>Fukugen</b>'},
@@ -692,12 +815,7 @@ const LANG={
     recSect:'Wenn Ihnen dieser gefällt, probieren Sie auch',
     copa:'Glas',jarra:'200 ml',botella:'Flasche',
     tempWine:'Weinglas',tempCold:'sehr kalt',tempVers:'vielseitig',tempAmb:'Raumtemperatur',
-    yon:[
-      {desc:'Aromatisch, blumig und fruchtig.'},
-      {desc:'Frisch, klar und leicht.'},
-      {desc:'Vollmundig, Umami und Reis.'},
-      {desc:'Gereift und sehr komplex.'},
-    ],
+    yon:[{desc:'Aromatisch, blumig und fruchtig.'},{desc:'Frisch, klar und leicht.'},{desc:'Vollmundig, Umami und Reis.'},{desc:'Gereift und sehr komplex.'}],
     terminos:[
       {nombre:'Nigori',tagline:'Trüber Sake',body:'Grob gefiltert, behält Reissediment. Milchiges Aussehen, cremiger und süßer Geschmack.',carta:'🍶 Auf Ihrer Karte: <b>Dreamy Clouds Tokubetsu Nigori</b>'},
       {nombre:'Genshu',tagline:'Unverdünnt',body:'Kein Wasser hinzugefügt. Natürlicher Alkoholgehalt 17–20%. Kraftvoll und strukturiert.',carta:'🍶 Auf Ihrer Karte: <b>Fukugen</b>'},
@@ -749,52 +867,38 @@ const LANG={
   },
 };
 
-function t(key){return (LANG[lang]||LANG.es)[key]||key;}
+function t(key){return(LANG[lang]||LANG.es)[key]||key;}
 
-function setLang(l, btn){
+function setLang(l,btn){
   lang=l;
-  document.querySelectorAll('.lang-btn').forEach(b=>{
-    b.classList.toggle('active', b.textContent.toLowerCase()===l);
-  });
+  document.querySelectorAll('.lang-btn').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase()===l);});
   renderIntro();
   if(document.getElementById('app-carta').classList.contains('visible')){
     document.getElementById('intro-tagline').innerHTML=t('tagline');
     document.getElementById('btnRec').textContent=t('recBtn');
     document.getElementById('recPanelTitle').textContent=t('recTitle');
     document.getElementById('recPanelSub').textContent=t('recSub');
-    renderSakes();
-    actualizarFiltrosLang();
+    renderSakes();actualizarFiltrosLang();
   }
 }
-
-function actualizarFiltrosLang(){
-  const b=document.getElementById('fAll');
-  if(b) b.textContent=t('filterAll');
-}
+function actualizarFiltrosLang(){const b=document.getElementById('fAll');if(b)b.textContent=t('filterAll');}
 
 function renderIntro(){
   const L=LANG[lang]||LANG.es;
-  const tg=document.getElementById('intro-tagline');
-  if(tg) tg.innerHTML=L.tagline;
+  const tg=document.getElementById('intro-tagline');if(tg)tg.innerHTML=L.tagline;
   const icons=['🥛','💪','⚡','⏳','🪵'];
   const terminosHTML=L.terminos.map((tm,i)=>`
     <div class="metodo-card">
       <div class="metodo-header" onclick="toggleMetodo('tM${i}')">
         <div class="metodo-icon">${icons[i]}</div>
-        <div class="metodo-header-info">
-          <div class="metodo-nombre">${tm.nombre}</div>
-          <div class="metodo-tagline">${tm.tagline}</div>
-        </div>
+        <div class="metodo-header-info"><div class="metodo-nombre">${tm.nombre}</div><div class="metodo-tagline">${tm.tagline}</div></div>
         <div class="metodo-arrow" id="arr-tM${i}">▶</div>
       </div>
-      <div class="metodo-body" id="tM${i}">
-        <p>${tm.body}</p>
-        ${tm.carta?`<div class="en-carta">${tm.carta}</div>`:''}
-      </div>
+      <div class="metodo-body" id="tM${i}"><p>${tm.body}</p>${tm.carta?`<div class="en-carta">${tm.carta}</div>`:''}</div>
     </div>`).join('');
   const yonData=[
     {css:'kun',emoji:'🌸',name:'Kun-shu',color:'#c49fe8',temp:`8–10°C · ${L.tempWine}`},
-    {css:'so', emoji:'💧',name:'So-shu', color:'#7ab8e8',temp:`5–8°C · ${L.tempCold}`},
+    {css:'so',emoji:'💧',name:'So-shu',color:'#7ab8e8',temp:`5–8°C · ${L.tempCold}`},
     {css:'jun',emoji:'🌾',name:'Jun-shu',color:'#80c47a',temp:`15–20°C · ${L.tempVers}`},
     {css:'juku',emoji:'🥃',name:'Juku-shu',color:'#d4a05a',temp:`15–18°C · ${L.tempAmb}`},
   ];
@@ -805,10 +909,10 @@ function renderIntro(){
       <div class="yon-desc">${L.yon[i].desc}</div>
       <div class="yon-temp">🌡 ${y.temp}</div>
     </div>`).join('');
-  const mkTable=(rows)=>rows.map(r=>`
+  const mkTable=rows=>rows.map(r=>`
     <tr>
       <td class="nombre" ${r.gold?'style="color:var(--gold);"':''}>${r.nombre}</td>
-      <td class="pct" ${r.gold?'style="color:var(--gold);"':r.nombre==='Junmai'||r.nombre.match(/No limit|Kein|Sin limit/)?'style="color:var(--g3);"':''}>${r.pct}</td>
+      <td class="pct" ${r.gold?'style="color:var(--gold);"':''}>${r.pct}</td>
       <td class="desc">${r.desc}</td>
     </tr>`).join('');
   document.getElementById('introBody').innerHTML=`
@@ -846,104 +950,75 @@ function renderIntro(){
       <div class="intro-sec-title">${L.howTo}</div>
       <div class="intro-text">${L.howToText}</div>
     </div>
-    <button class="intro-cta" onclick="entrarCarta()">${L.cta}</button>
+    <button class="intro-cta" type="button" onclick="entrarCarta()">${L.cta}</button>
   `;
 }
 
 const CAT_INFO={
-  'Kun-shu': {emoji:'🌸',dot:'#8855cc',get desc(){return(LANG[lang]||LANG.es).yon[0].desc},get temp(){return`8–10°C · ${(LANG[lang]||LANG.es).tempWine}`},css:'cat-kun'},
-  'So-shu':  {emoji:'💧',dot:'#4488cc',get desc(){return(LANG[lang]||LANG.es).yon[1].desc},get temp(){return`5–8°C · ${(LANG[lang]||LANG.es).tempCold}`},css:'cat-so'},
-  'Jun-shu': {emoji:'🌾',dot:'#44aa55',get desc(){return(LANG[lang]||LANG.es).yon[2].desc},get temp(){return`15–20°C · ${(LANG[lang]||LANG.es).tempVers}`},css:'cat-jun'},
+  'Kun-shu':{emoji:'🌸',dot:'#8855cc',get desc(){return(LANG[lang]||LANG.es).yon[0].desc},get temp(){return`8–10°C · ${(LANG[lang]||LANG.es).tempWine}`},css:'cat-kun'},
+  'So-shu':{emoji:'💧',dot:'#4488cc',get desc(){return(LANG[lang]||LANG.es).yon[1].desc},get temp(){return`5–8°C · ${(LANG[lang]||LANG.es).tempCold}`},css:'cat-so'},
+  'Jun-shu':{emoji:'🌾',dot:'#44aa55',get desc(){return(LANG[lang]||LANG.es).yon[2].desc},get temp(){return`15–20°C · ${(LANG[lang]||LANG.es).tempVers}`},css:'cat-jun'},
   'Juku-shu':{emoji:'🥃',dot:'#cc8833',get desc(){return(LANG[lang]||LANG.es).yon[3].desc},get temp(){return`15–18°C · ${(LANG[lang]||LANG.es).tempAmb}`},css:'cat-juku'},
 };
 
-// PATCH 5: PLATOS con Dim Sums y Gyozas correctos
 const PLATOS=[
-  {cat:'Tapas',nombre:'Edamame picante'},
-  {cat:'Tapas',nombre:'Edamame natural'},
-  {cat:'Tapas',nombre:'Ensalada de algas vegetal'},
-  {cat:'Tapas',nombre:'Ensalada de algas con langostinos'},
-  {cat:'Tapas',nombre:'Sopa de pescado'},
-  {cat:'Tapas',nombre:'Sopa vegetal con tofu'},
-  {cat:'Tapas',nombre:'Atún'},
-  {cat:'Tapas',nombre:'Nido de atún'},
-  {cat:'Tapas',nombre:'Nido de salmón'},
-  {cat:'Tapas',nombre:'Carpaccio de salmón'},
-  {cat:'Tapas',nombre:'Saam de gambas'},
-  {cat:'Tapas',nombre:'Saam de seitán'},
-  {cat:'Tapas',nombre:'Shisho y gambas'},
-  {cat:'Tapas',nombre:'Katsu sandwich de gambas'},
-  {cat:'Tapas',nombre:'Katsu sandwich de Heura'},
-  {cat:'Tapas',nombre:'Katsu sandwich de cerdo'},
-  {cat:'Tapas',nombre:'Yuzucoshu ventresca de atún'},
-  {cat:'Tapas',nombre:'Sunomono de blancos'},
-  {cat:'Tapas',nombre:'Lubina, kimchee, yuzu y trufa'},
-  {cat:'Tapas',nombre:'Cebiche corvina y maracuyá'},
-  {cat:'Tapas',nombre:'Croqueta gamba y kimchi'},
-  {cat:'Tapas',nombre:'Anguila ahumada y encurtidos'},
-  {cat:'Tapas',nombre:'Cigarroll'},
-  {cat:'Tapas',nombre:'Pollo Karaage'},
-  {cat:'Ostras',nombre:'Ostras natural'},
-  {cat:'Ostras',nombre:'Ostras en tempura'},
+  {cat:'Tapas',nombre:'Edamame picante'},{cat:'Tapas',nombre:'Edamame natural'},
+  {cat:'Tapas',nombre:'Ensalada de algas vegetal'},{cat:'Tapas',nombre:'Ensalada de algas con langostinos'},
+  {cat:'Tapas',nombre:'Sopa de pescado'},{cat:'Tapas',nombre:'Sopa vegetal con tofu'},
+  {cat:'Tapas',nombre:'Atún'},{cat:'Tapas',nombre:'Nido de atún'},{cat:'Tapas',nombre:'Nido de salmón'},
+  {cat:'Tapas',nombre:'Carpaccio de salmón'},{cat:'Tapas',nombre:'Saam de gambas'},{cat:'Tapas',nombre:'Saam de seitán'},
+  {cat:'Tapas',nombre:'Shisho y gambas'},{cat:'Tapas',nombre:'Katsu sandwich de gambas'},
+  {cat:'Tapas',nombre:'Katsu sandwich de Heura'},{cat:'Tapas',nombre:'Katsu sandwich de cerdo'},
+  {cat:'Tapas',nombre:'Yuzucoshu ventresca de atún'},{cat:'Tapas',nombre:'Sunomono de blancos'},
+  {cat:'Tapas',nombre:'Lubina, kimchee, yuzu y trufa'},{cat:'Tapas',nombre:'Cebiche corvina y maracuyá'},
+  {cat:'Tapas',nombre:'Croqueta gamba y kimchi'},{cat:'Tapas',nombre:'Anguila ahumada y encurtidos'},
+  {cat:'Tapas',nombre:'Cigarroll'},{cat:'Tapas',nombre:'Pollo Karaage'},
+  {cat:'Ostras',nombre:'Ostras natural'},{cat:'Ostras',nombre:'Ostras en tempura'},
   {cat:'Rolls',nombre:'Roll atún, aguacate y vinagreta mango chili'},
   {cat:'Rolls',nombre:'Roll salmón, mango, pepino y miso'},
   {cat:'Rolls',nombre:'Roll langostino tempura y espárrago'},
   {cat:'Rolls',nombre:'Roll berenjena tempura, shitake y espárrago'},
   {cat:'Rolls',nombre:'Roll langostino, pepino y aguacate'},
   {cat:'Rolls',nombre:'Roll salmón ahumado, tomate seco, rúcula y pesto'},
-  {cat:'Rolls',nombre:'Roll foie y membrillo'},
-  {cat:'Rolls',nombre:'Roll tamago, aguacate y langostino'},
+  {cat:'Rolls',nombre:'Roll foie y membrillo'},{cat:'Rolls',nombre:'Roll tamago, aguacate y langostino'},
   {cat:'Rolls',nombre:'Roll tamago, aguacate y tofu'},
-  {cat:'Makis',nombre:'Maki atún'},
-  {cat:'Makis',nombre:'Maki salmón'},
-  {cat:'Makis',nombre:'Maki lubina'},
-  {cat:'Makis',nombre:'Maki aguacate'},
-  {cat:'Nigiris',nombre:'Nigiri atún'},
-  {cat:'Nigiris',nombre:'Nigiri ventresca de atún'},
-  {cat:'Nigiris',nombre:'Nigiri salmón'},
-  {cat:'Nigiris',nombre:'Nigiri lubina con trufa'},
-  {cat:'Nigiris',nombre:'Nigiri vieira'},
-  {cat:'Nigiris',nombre:'Nigiri anguila'},
-  {cat:'Nigiris',nombre:'Nigiri anguila y foie'},
-  {cat:'Nigiris',nombre:'Nigiri gamba mallorquina'},
+  {cat:'Makis',nombre:'Maki atún'},{cat:'Makis',nombre:'Maki salmón'},
+  {cat:'Makis',nombre:'Maki lubina'},{cat:'Makis',nombre:'Maki aguacate'},
+  {cat:'Nigiris',nombre:'Nigiri atún'},{cat:'Nigiris',nombre:'Nigiri ventresca de atún'},
+  {cat:'Nigiris',nombre:'Nigiri salmón'},{cat:'Nigiris',nombre:'Nigiri lubina con trufa'},
+  {cat:'Nigiris',nombre:'Nigiri vieira'},{cat:'Nigiris',nombre:'Nigiri anguila'},
+  {cat:'Nigiris',nombre:'Nigiri anguila y foie'},{cat:'Nigiris',nombre:'Nigiri gamba mallorquina'},
   {cat:'Nigiris',nombre:'Nigiri calamar'},
-  {cat:'Sashimi',nombre:'Sashimi atún'},
-  {cat:'Sashimi',nombre:'Sashimi ventresca de atún'},
-  {cat:'Sashimi',nombre:'Sashimi lubina'},
-  {cat:'Sashimi',nombre:'Sashimi salmón'},
+  {cat:'Sashimi',nombre:'Sashimi atún'},{cat:'Sashimi',nombre:'Sashimi ventresca de atún'},
+  {cat:'Sashimi',nombre:'Sashimi lubina'},{cat:'Sashimi',nombre:'Sashimi salmón'},
   {cat:'Sashimi',nombre:'Sashimi omakase'},
-  {cat:'Dim Sums',nombre:'Dim sum pato y foie'},
-  {cat:'Dim Sums',nombre:'Dim sum bacalao a la mallorquina'},
+  {cat:'Dim Sums',nombre:'Dim sum pato y foie'},{cat:'Dim Sums',nombre:'Dim sum bacalao a la mallorquina'},
   {cat:'Dim Sums',nombre:'Dim sum setas, coco y trufa'},
-  {cat:'Gyozas',nombre:'Gyozas pollo al limón'},
-  {cat:'Gyozas',nombre:'Gyozas callos'},
-  {cat:'Gyozas',nombre:'Gyozas curry de coliflor'},
-  {cat:'Gyozas',nombre:'Gyozas gambas'},
-  {cat:'Postres',nombre:'Tarta de queso Chis'},
-  {cat:'Postres',nombre:'Choco blanco, mango y curry'},
-  {cat:'Postres',nombre:'Helado de té verde'},
-  {cat:'Postres',nombre:"Mayuko’s Mochi"},
+  {cat:'Gyozas',nombre:'Gyozas pollo al limón'},{cat:'Gyozas',nombre:'Gyozas callos'},
+  {cat:'Gyozas',nombre:'Gyozas curry de coliflor'},{cat:'Gyozas',nombre:'Gyozas gambas'},
+  {cat:'Postres',nombre:'Tarta de queso Chis'},{cat:'Postres',nombre:'Choco blanco, mango y curry'},
+  {cat:'Postres',nombre:'Helado de té verde'},{cat:'Postres',nombre:"Mayuko's Mochi"},
   {cat:'Postres',nombre:'Mochis variados'},
 ];
 
 const PREF_POS={
-  'Yamaguchi': {x:19,y:68},'Yamagata': {x:68,y:32},'Nagano': {x:57,y:47},
-  'Shimane':   {x:24,y:62},'España':   {x:0,y:0},  'Pirineos, España':{x:0,y:0},
-  'Hyogo':     {x:36,y:58},'Fukushima':{x:70,y:38},'Kyoto': {x:38,y:55},
-  'Hiroshima': {x:26,y:64},'Niigata':  {x:62,y:37},'Miyagi':{x:72,y:33},
-  'Akita':     {x:65,y:28},'Iwate':    {x:74,y:27},'Aomori':{x:72,y:20},
-  'Hokkaido':  {x:78,y:8}, 'Tokyo':    {x:70,y:50},'Osaka': {x:40,y:57},
-  'Aichi':     {x:48,y:54},'Shizuoka': {x:54,y:55},'Tochigi':{x:67,y:44},
-  'Ibaraki':   {x:70,y:46},'Kanagawa': {x:66,y:51},'Saitama':{x:67,y:48},
-  'Nara':      {x:40,y:58},'Mie':      {x:44,y:58},'Wakayama':{x:40,y:61},
-  'Okayama':   {x:28,y:62},'Tottori':  {x:28,y:58},'Yamanashi':{x:60,y:50},
-  'Fukuoka':   {x:16,y:70},'Saga':     {x:14,y:72},'Kumamoto':{x:16,y:74},
-  'Nagasaki':  {x:12,y:72},'Oita':     {x:20,y:72},'Miyazaki':{x:20,y:76},
-  'Kagoshima': {x:18,y:80},'Ehime':    {x:26,y:68},'Kochi':   {x:30,y:72},
-  'Tokushima': {x:34,y:68},'Kagawa':   {x:32,y:66},'Fukui':   {x:44,y:48},
-  'Ishikawa':  {x:46,y:44},'Toyama':   {x:50,y:44},'Gifu':    {x:50,y:50},
-  'Shiga':     {x:42,y:54},'Gunma':    {x:64,y:46},'Chiba':   {x:70,y:52},
-  'Okinawa':   {x:20,y:90},
+  'Yamaguchi':{x:19,y:68},'Yamagata':{x:68,y:32},'Nagano':{x:57,y:47},
+  'Shimane':{x:24,y:62},'España':{x:0,y:0},'Pirineos, España':{x:0,y:0},
+  'Hyogo':{x:36,y:58},'Fukushima':{x:70,y:38},'Kyoto':{x:38,y:55},
+  'Hiroshima':{x:26,y:64},'Niigata':{x:62,y:37},'Miyagi':{x:72,y:33},
+  'Akita':{x:65,y:28},'Iwate':{x:74,y:27},'Aomori':{x:72,y:20},
+  'Hokkaido':{x:78,y:8},'Tokyo':{x:70,y:50},'Osaka':{x:40,y:57},
+  'Aichi':{x:48,y:54},'Shizuoka':{x:54,y:55},'Tochigi':{x:67,y:44},
+  'Ibaraki':{x:70,y:46},'Kanagawa':{x:66,y:51},'Saitama':{x:67,y:48},
+  'Nara':{x:40,y:58},'Mie':{x:44,y:58},'Wakayama':{x:40,y:61},
+  'Okayama':{x:28,y:62},'Tottori':{x:28,y:58},'Yamanashi':{x:60,y:50},
+  'Fukuoka':{x:16,y:70},'Saga':{x:14,y:72},'Kumamoto':{x:16,y:74},
+  'Nagasaki':{x:12,y:72},'Oita':{x:20,y:72},'Miyazaki':{x:20,y:76},
+  'Kagoshima':{x:18,y:80},'Ehime':{x:26,y:68},'Kochi':{x:30,y:72},
+  'Tokushima':{x:34,y:68},'Kagawa':{x:32,y:66},'Fukui':{x:44,y:48},
+  'Ishikawa':{x:46,y:44},'Toyama':{x:50,y:44},'Gifu':{x:50,y:50},
+  'Shiga':{x:42,y:54},'Gunma':{x:64,y:46},'Chiba':{x:70,y:52},
+  'Okinawa':{x:20,y:90},
 };
 
 function secretTap(){abrirLogin();}
@@ -966,21 +1041,26 @@ function guardarConfig(){
   config.supaKey=document.getElementById('cfgSupaKey').value;
   localStorage.setItem('arume_config',JSON.stringify(config));
 }
-function guardarConfigBtn(){
+// FIX: recibe btn como parámetro en vez de usar event.target
+function guardarConfigBtn(btn){
   guardarConfig();
-  const btn=event.target;const original=btn.textContent;
+  const original=btn.textContent;
   btn.textContent='✓ Guardado';btn.style.background='#2a6a2a';
   setTimeout(()=>{btn.textContent=original;btn.style.background='';},2000);
   toast('✓ Configuración guardada');
-  if(config.supaUrl&&config.supaKey) cargarDesdeSupabase();
+  if(config.supaUrl&&config.supaKey)cargarDesdeSupabase();
 }
-function toast(m,d=2500){const t=document.getElementById('toast');t.textContent=m;t.classList.add('visible');setTimeout(()=>t.classList.remove('visible'),d);}
+function toast(m,d=2500){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('visible');
+  setTimeout(()=>t.classList.remove('visible'),d);
+}
 
 const INIT=[
   {id:uid(),nombre:'Dassai 45',arroz:'Yamada Nishiki',categoria:'Kun-shu',tipo:'Junmai Daiginjo',pulido:'45%',region:'Yamaguchi',bodega:'Asahi Shuzo',vol_alc:'16%',vista:'Color ámbar dorado, brillante.',nariz:'Fruta blanca —uvas, peras—, notas verdes y exóticas.',boca:'Arroz inflado, castañas y sandía. Final fresco con ligera acidez.',nota_cata:'La entrada perfecta al sake: floral, elegante y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false,maridajes:['Nigiri salmón','Nigiri ventresca de atún','Sashimi atún','Ostras natural']},
   {id:uid(),nombre:'Dewasakura',arroz:'Dewasansan',categoria:'Kun-shu',tipo:'Junmai Ginjo',pulido:'50%',region:'Yamagata',bodega:'Dewasakura Shuzo',vol_alc:'15.5%',vista:'',nariz:'Notas cítricas de lima y corteza de piña. Muy expresivo.',boca:'Acidez refrescante, seco, con final ligeramente cálido.',nota_cata:'Fresco y frutal con una elegancia muy característica del estilo Ginjo.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Cebiche corvina y maracuyá','Saam de gambas','Edamame picante']},
   {id:uid(),nombre:'Fukugen',arroz:'Hitogocochi',categoria:'Jun-shu',tipo:'Junmai Genshu Nama Muroka',pulido:'56%',region:'Nagano',bodega:'Fukugen Shuzo',vol_alc:'16%',vista:'',nariz:'Cereal y notas de arroz fresco. Intenso y directo.',boca:'Tradicional, con mucha presencia de cereal y umami potente.',nota_cata:'El sake más tradicional de la carta: cereal, umami y mucho carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:true,maridajes:['Sashimi omakase','Dim sum bacalao a la mallorquina','Nigiri anguila','Dim sum pato y foie']},
-  {id:uid(),nombre:'Dreamy Clouds Nigori',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Nigori Tokubetsu',pulido:'58%',region:'Shimane',bodega:'Rihaku Shuzo',vol_alc:'15%',vista:'Turbio y lechoso, aspecto característico del Nigori.',nariz:'Jugo de arroz fresco, acento anisado y punto lácteo.',boca:'Suave y cremoso, con final que recuerda a la golosina.',nota_cata:'Nigori cremoso y goloso: el sake más diferente e impactante visualmente.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false,maridajes:["Mayuko’s Mochi",'Choco blanco, mango y curry','Helado de té verde','Gyozas curry de coliflor']},
+  {id:uid(),nombre:'Dreamy Clouds Nigori',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Nigori Tokubetsu',pulido:'58%',region:'Shimane',bodega:'Rihaku Shuzo',vol_alc:'15%',vista:'Turbio y lechoso, aspecto característico del Nigori.',nariz:'Jugo de arroz fresco, acento anisado y punto lácteo.',boca:'Suave y cremoso, con final que recuerda a la golosina.',nota_cata:'Nigori cremoso y goloso: el sake más diferente e impactante visualmente.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'720ml',img:'',activo:true,badge_rec:false,badge_top:true,badge_lim:false,maridajes:["Mayuko's Mochi",'Choco blanco, mango y curry','Helado de té verde','Gyozas curry de coliflor']},
   {id:uid(),nombre:'Sugoi',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Futsūshu',pulido:'90%',region:'Pirineos, España',bodega:'Seda Líquida',vol_alc:'14%',vista:'',nariz:'Flores blancas, plátano maduro y piña.',boca:'Sabroso, sutil y muy agradable. Notas lácticas y de arroz.',nota_cata:'El único sake español de la carta. Sorprendente y muy fácil de beber.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'750ml',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Gyozas pollo al limón','Edamame natural','Roll salmón, mango, pepino y miso']},
   {id:uid(),nombre:'Misaki',arroz:'Mezcla local',categoria:'So-shu',tipo:'Junmai Daiginjo',pulido:'65%',region:'Hyogo',bodega:'Nihon Sakari',vol_alc:'14.5%',vista:'',nariz:'Pera blanca y melón maduro. Limpio y fresco.',boca:'Ligero, limpio y muy fácil de beber.',nota_cata:'El más ligero y refrescante. Ideal para quien empieza con el sake.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:false,badge_top:false,badge_lim:false,maridajes:['Ostras natural','Sashimi lubina','Maki aguacate']},
   {id:uid(),nombre:'Daishichi Kimoto',arroz:'Gohyakumangoku',categoria:'Jun-shu',tipo:'Junmai Kimoto',pulido:'69%',region:'Fukushima',bodega:'Daishichi Shuzo',vol_alc:'15%',vista:'',nariz:'Notas terrosas, de tierra mojada y cereal tostado.',boca:'Denso, terroso y con alta acidez. Largo y persistente.',nota_cata:'Elaborado con el método Kimoto más antiguo. Complejo, profundo y con carácter.',precio_copa:null,precio_jarra:null,precio_botella:null,medida_botella:'',img:'',activo:true,badge_rec:true,badge_top:false,badge_lim:false,maridajes:['Anguila ahumada y encurtidos','Gyozas callos','Dim sum setas, coco y trufa','Pollo Karaage']},
@@ -1020,7 +1100,9 @@ function toggleWish(id,btn){
   const inWish=wishlist.includes(id);
   if(inWish){wishlist=wishlist.filter(x=>x!==id);}
   else{wishlist.push(id);registrarInteres(id);}
-  guardarWish();btn.classList.toggle('active',!inWish);btn.textContent=inWish?'🤍':'❤️';
+  guardarWish();
+  btn.classList.toggle('active',!inWish);
+  btn.textContent=inWish?'🤍':'❤️';
   if(navigator.vibrate)navigator.vibrate(30);
   toast(inWish?'Eliminado de tu selección':'❤️ Añadido a tu selección');
 }
@@ -1032,7 +1114,12 @@ function registrarInteres(sakeId){
   stats[sakeId].dias[hoy]=(stats[sakeId].dias[hoy]||0)+1;
   localStorage.setItem('arume_stats',JSON.stringify(stats));
 }
-function actualizarBadgeWish(){const b=document.getElementById('wishBadge');if(!b)return;b.style.display=wishlist.length?'flex':'none';b.textContent=wishlist.length;}
+function actualizarBadgeWish(){
+  const b=document.getElementById('wishBadge');
+  if(!b)return;
+  b.style.display=wishlist.length?'flex':'none';
+  b.textContent=wishlist.length;
+}
 function abrirWishlist(){
   document.getElementById('wishTitle').textContent=t('wishTitle');
   document.getElementById('wishSub').textContent=t('wishSub');
@@ -1054,7 +1141,7 @@ function renderWishlist(){
         <div class="wishlist-item-tipo">${s.categoria||''} · ${s.tipo||''}</div>
         ${s.precio_copa?`<div style="font-size:12px;color:var(--gold);margin-top:2px;">${t('copa')} ${s.precio_copa}€</div>`:''}
       </div>
-      <button class="wishlist-item-rm" onclick="toggleWishFromPanel('${s.id}')">✕</button>
+      <button class="wishlist-item-rm" type="button" onclick="toggleWishFromPanel('${s.id}')">✕</button>
     </div>`;
   }).join('');
 }
@@ -1084,9 +1171,8 @@ function mapaSVG(region){
 
 function getRecomendaciones(sake){
   const otros=sakes.filter(s=>s.activo&&s.id!==sake.id);
-  return [...otros.filter(s=>s.categoria===sake.categoria).slice(0,2),...otros.filter(s=>s.categoria!==sake.categoria).slice(0,2)].slice(0,3);
+  return[...otros.filter(s=>s.categoria===sake.categoria).slice(0,2),...otros.filter(s=>s.categoria!==sake.categoria).slice(0,2)].slice(0,3);
 }
-
 function filtrar(btn,f){
   filtroActual=f;
   document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('activo'));
@@ -1120,7 +1206,7 @@ function renderSakes(){
         <div class="sake-main">
           <div class="sake-top-row">
             <div class="sake-nombre">${s.nombre}</div>
-            <button class="heart-btn ${inWish?'active':''}" id="heart-${s.id}" onclick="event.stopPropagation();toggleWish('${s.id}',this)">${inWish?'❤️':'🤍'}</button>
+            <button class="heart-btn ${inWish?'active':''}" id="heart-${s.id}" type="button" onclick="event.stopPropagation();toggleWish('${s.id}',this)">${inWish?'❤️':'🤍'}</button>
           </div>
           <div class="sake-badges">
             ${s.badge_rec?'<span class="badge badge-rec">⭐ Recomendado</span>':''}
@@ -1168,10 +1254,15 @@ function renderSakes(){
   }).join('');
 }
 function toggleDet(id){
-  const el=document.getElementById(id);const wasOpen=el.classList.contains('visible');
+  const el=document.getElementById(id);
+  const wasOpen=el.classList.contains('visible');
   document.querySelectorAll('.sake-detalle.visible').forEach(d=>d.classList.remove('visible'));
   document.querySelectorAll('.ver-mas').forEach(v=>v.textContent=t('verMas'));
-  if(!wasOpen){el.classList.add('visible');const vm=el.previousElementSibling;if(vm&&vm.classList.contains('ver-mas'))vm.textContent=t('verMenos');}
+  if(!wasOpen){
+    el.classList.add('visible');
+    const vm=el.previousElementSibling;
+    if(vm&&vm.classList.contains('ver-mas'))vm.textContent=t('verMenos');
+  }
 }
 function scrollToSake(id){
   const card=document.getElementById('card-'+id);
@@ -1189,7 +1280,6 @@ function scoreParaRespuestas(sake,r){
   if(r.exp==='novato'&&(sake.badge_rec||sake.badge_top))score+=2;
   if(r.exp==='novato'&&(cat==='So-shu'||cat==='Kun-shu'))score+=1;
   if(r.exp==='experto'&&(cat==='Jun-shu'||cat==='Juku-shu'))score+=1;
-  if(r.exp==='medio')score+=0.5;
   const mari=sake.maridajes||[];
   if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri/i.test(m)))score+=2;
   if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino/i.test(m)))score+=2;
@@ -1198,13 +1288,12 @@ function scoreParaRespuestas(sake,r){
   if(sake.badge_rec)score+=0.5;
   return score;
 }
-
 function abrirRecomendador(){recRespuestas={};recPaso=0;document.getElementById('rec-panel').classList.add('visible');renderRecPaso();}
 function cerrarRecomendador(){document.getElementById('rec-panel').classList.remove('visible');}
 function renderRecPaso(){
   const el=document.getElementById('rec-content');
-  if(recPaso>=(LANG[lang]||LANG.es).recPreguntas.length){renderRecResultado();return;}
   const preguntas=(LANG[lang]||LANG.es).recPreguntas;
+  if(recPaso>=preguntas.length){renderRecResultado();return;}
   const p=preguntas[recPaso];
   const claves=['sabor','exp','comida'];
   const clave=claves[recPaso];
@@ -1235,8 +1324,8 @@ function matchReason(sake,r){
   if(r.exp==='novato'&&sake.badge_rec)return M.novatoRec;
   if(r.exp==='novato'&&sake.badge_top)return M.novatoTop;
   const mari=sake.maridajes||[];
-  if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri|salmon|tuna|sea bass/i.test(m)))return M.pescado;
-  if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino|prawn|scallop|oyster|eel|shrimp/i.test(m)))return M.marisco;
+  if(r.comida==='pescado'&&mari.some(m=>/sashimi|salmón|lubina|atún|nigiri/i.test(m)))return M.pescado;
+  if(r.comida==='marisco'&&mari.some(m=>/gamba|vieira|anguila|ostra|langostino/i.test(m)))return M.marisco;
   return M.default;
 }
 function renderRecResultado(){
@@ -1256,10 +1345,7 @@ function renderRecResultado(){
             <div class="rec-resultado-rank ${i===0?'top':''}">${rankLabel}</div>
             <div style="display:flex;align-items:center;gap:10px;">
               <div style="font-size:32px;">${s.img?`<img src="${s.img}" style="width:40px;height:54px;object-fit:cover;border-radius:6px;">`:cat.emoji}</div>
-              <div>
-                <div class="rec-resultado-nombre">${s.nombre}</div>
-                <div class="rec-resultado-tipo">${cat.emoji} ${s.categoria||''} · ${s.tipo||''}</div>
-              </div>
+              <div><div class="rec-resultado-nombre">${s.nombre}</div><div class="rec-resultado-tipo">${cat.emoji} ${s.categoria||''} · ${s.tipo||''}</div></div>
             </div>
             <div class="rec-resultado-match">💡 ${reason}</div>
             ${s.precio_copa||s.precio_botella?`<div class="rec-resultado-precios">
@@ -1270,8 +1356,8 @@ function renderRecResultado(){
         }).join('')}
       </div>
     </div>
-    <button class="rec-panel-btn" onclick="cerrarRecomendador()">${L.recSeeAll}</button>
-    <button style="background:none;border:none;color:var(--g3);font-size:13px;cursor:pointer;display:block;margin:0 auto 30px;" onclick="recRespuestas={};recPaso=0;renderRecPaso()">${L.recRepeat}</button>`;
+    <button class="rec-panel-btn" type="button" onclick="cerrarRecomendador()">${L.recSeeAll}</button>
+    <button style="background:none;border:none;color:var(--g3);font-size:13px;cursor:pointer;display:block;margin:0 auto 30px;min-height:44px;padding:10px;" type="button" onclick="recRespuestas={};recPaso=0;renderRecPaso()">${L.recRepeat}</button>`;
 }
 function irASake(id){
   cerrarRecomendador();filtroActual='all';
@@ -1280,9 +1366,19 @@ function irASake(id){
   renderSakes();setTimeout(()=>scrollToSake(id),200);
 }
 
-function abrirLogin(){document.getElementById('loginModal').classList.remove('oculto');document.getElementById('pinInput').focus();}
-function cerrarLogin(){document.getElementById('loginModal').classList.add('oculto');document.getElementById('loginError').style.display='none';document.getElementById('pinInput').value='';}
-function verificarPin(){if(document.getElementById('pinInput').value===PIN){cerrarLogin();entrarAdmin();}else document.getElementById('loginError').style.display='block';}
+function abrirLogin(){
+  document.getElementById('loginModal').classList.remove('oculto');
+  setTimeout(()=>document.getElementById('pinInput').focus(),100);
+}
+function cerrarLogin(){
+  document.getElementById('loginModal').classList.add('oculto');
+  document.getElementById('loginError').style.display='none';
+  document.getElementById('pinInput').value='';
+}
+function verificarPin(){
+  if(document.getElementById('pinInput').value===PIN){cerrarLogin();entrarAdmin();}
+  else document.getElementById('loginError').style.display='block';
+}
 
 function activarKiosco(){
   modoKiosco=true;
@@ -1298,8 +1394,8 @@ function desactivarKiosco(){
 }
 function entrarAdmin(){
   if(modoKiosco)desactivarKiosco();
+  // FIX: usar visibility en vez de manipular display directamente para evitar conflictos de layout
   document.getElementById('app-carta').classList.remove('visible');
-  document.getElementById('app-carta').style.display='none';
   document.getElementById('screen-intro').classList.add('oculto');
   document.getElementById('app-admin').classList.add('visible');
   document.getElementById('cfgGeminiKey').value=config.geminiKey||'';
@@ -1309,13 +1405,16 @@ function entrarAdmin(){
 }
 function salirAdmin(){
   document.getElementById('app-admin').classList.remove('visible');
-  document.getElementById('app-carta').style.display='flex';
   document.getElementById('app-carta').classList.add('visible');
   renderSakes();
 }
-function toggleConfig(){const b=document.getElementById('configBox');b.style.display=b.style.display==='none'?'block':'none';}
+function toggleConfig(){
+  const b=document.getElementById('configBox');
+  b.style.display=b.style.display==='none'||b.style.display===''?'block':'none';
+}
 function setTab(tab,btn){
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('activo'));btn.classList.add('activo');
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('activo'));
+  btn.classList.add('activo');
   document.getElementById('tabLista').style.display=tab==='lista'?'block':'none';
   document.getElementById('tabHistorial').style.display=tab==='historial'?'block':'none';
   document.getElementById('tabOcr').style.display=tab==='ocr'?'block':'none';
@@ -1330,11 +1429,17 @@ function renderAdmin(){
       <div class="admin-row-thumb">${thumb}</div>
       <div class="act-dot ${s.activo?'':'off'}"></div>
       <div class="admin-row-info"><div class="admin-row-nombre">${s.nombre}</div><div class="admin-row-meta">${[s.tipo,s.pulido,s.region].filter(Boolean).join(' · ')}</div></div>
-      <div class="admin-row-btns"><button class="btn-sm btn-sm-edit" onclick="abrirEdit('${s.id}')">Editar</button><button class="btn-sm btn-sm-del" onclick="eliminar('${s.id}')">✕</button></div>
+      <div class="admin-row-btns">
+        <button class="btn-sm btn-sm-edit" type="button" onclick="abrirEdit('${s.id}')">Editar</button>
+        <button class="btn-sm btn-sm-del" type="button" onclick="eliminar('${s.id}')">✕</button>
+      </div>
     </div>`;
   }).join('');
+  // Botón kiosco
   const old=document.getElementById('btnKiosco');if(old)old.remove();
-  const k=document.createElement('button');k.id='btnKiosco';k.className='btn-secondary';k.style.cssText='width:100%;margin-top:14px;';
+  const k=document.createElement('button');
+  k.id='btnKiosco';k.className='btn-secondary';k.type='button';
+  k.style.cssText='width:100%;margin-top:14px;min-height:48px;';
   k.textContent='📱 Activar modo kiosco (tablet)';
   k.onclick=()=>{salirAdmin();setTimeout(activarKiosco,300);};
   document.getElementById('adminListView').appendChild(k);
@@ -1398,18 +1503,26 @@ function renderHistorial(){
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
             <div style="font-size:18px;width:24px;text-align:center;">${medal||`<span style="font-size:11px;color:var(--g3);">${i+1}</span>`}</div>
             <div style="flex:1;min-width:0;"><div style="font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${r.sake.nombre}</div><div style="font-size:10px;color:var(--g3);">${r.sake.categoria||''}</div></div>
-            <div style="text-align:right;flex-shrink:0;"><div style="font-size:16px;font-weight:500;color:var(--crema);">${r.total}</div>${r.hoy?`<div style="font-size:10px;color:var(--gold);">+${r.hoy} hoy</div>`:'<div style="font-size:10px;color:var(--g3);">—</div>'}</div>
+            <div style="text-align:right;flex-shrink:0;"><div style="font-size:16px;font-weight:500;">${r.total}</div>${r.hoy?`<div style="font-size:10px;color:var(--gold);">+${r.hoy} hoy</div>`:'<div style="font-size:10px;color:var(--g3);">—</div>'}</div>
           </div>
           <div style="height:4px;background:var(--g2);border-radius:2px;overflow:hidden;"><div style="height:100%;width:${barW}%;background:${cat.dot};border-radius:2px;"></div></div>
         </div>`;
       }).join('')}
     </div>
-    <button onclick="resetStats()" style="background:none;border:1px solid #5a2020;color:#e07070;border-radius:8px;padding:8px 14px;font-size:12px;cursor:pointer;width:100%;">🗑 Resetear estadísticas del servicio</button>`;
+    <button type="button" onclick="resetStats()" style="background:none;border:1px solid #5a2020;color:#e07070;border-radius:8px;padding:10px 14px;font-size:12px;cursor:pointer;width:100%;min-height:44px;">🗑 Resetear estadísticas del servicio</button>`;
 }
-function resetStats(){if(!confirm('¿Resetear todas las estadísticas? Esto no se puede deshacer.'))return;localStorage.removeItem('arume_stats');renderHistorial();toast('Estadísticas reseteadas');}
+function resetStats(){if(!confirm('¿Resetear todas las estadísticas?'))return;localStorage.removeItem('arume_stats');renderHistorial();toast('Estadísticas reseteadas');}
 
 function setImgPreview(src){document.getElementById('imgPreview').innerHTML=src?`<img src="${src}" style="width:100%;height:100%;object-fit:contain;">`:'<span style="font-size:36px;">🍶</span>';}
-function limpiarForm(){['fNombre','fTipo','fArroz','fPulido','fRegion','fBodega','fAlc','fNota','fVista','fNariz','fBoca','fPrecioCopa','fPrecioJarra','fPrecioBotella','fImgUrl'].forEach(id=>document.getElementById(id).value='');document.getElementById('fCategoria').value='';document.getElementById('fMedida').value='';document.getElementById('fActivo').value='1';badgeState={rec:false,top:false,lim:false};actualizarBadgeToggles();}
+function limpiarForm(){
+  ['fNombre','fTipo','fArroz','fPulido','fRegion','fBodega','fAlc','fNota','fVista','fNariz','fBoca','fPrecioCopa','fPrecioJarra','fPrecioBotella','fImgUrl']
+    .forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('fCategoria').value='';
+  document.getElementById('fMedida').value='';
+  document.getElementById('fActivo').value='1';
+  badgeState={rec:false,top:false,lim:false};
+  actualizarBadgeToggles();
+}
 function toggleBadge(b){badgeState[b]=!badgeState[b];actualizarBadgeToggles();}
 function actualizarBadgeToggles(){
   document.getElementById('togRec').className='badge-toggle'+(badgeState.rec?' on-rec':'');
@@ -1423,38 +1536,110 @@ function abrirFormNuevo(){
   document.getElementById('iaStatus').style.display='none';
   document.getElementById('adminListView').style.display='none';
   document.getElementById('adminFormView').style.display='block';
+  // Scroll al inicio del form
+  document.querySelector('.admin-content').scrollTop=0;
 }
 function abrirEdit(id){
   editandoId=id;imgB64=null;
-  const s=sakes.find(x=>x.id===id);
+  const s=sakes.find(x=>x.id===id);if(!s)return;
   document.getElementById('formTitle').textContent='Editar sake';
-  document.getElementById('fNombre').value=s.nombre||'';document.getElementById('fCategoria').value=s.categoria||'';document.getElementById('fTipo').value=s.tipo||'';document.getElementById('fArroz').value=s.arroz||'';document.getElementById('fPulido').value=s.pulido||'';document.getElementById('fRegion').value=s.region||'';document.getElementById('fBodega').value=s.bodega||'';document.getElementById('fAlc').value=s.vol_alc||'';document.getElementById('fNota').value=s.nota_cata||'';document.getElementById('fVista').value=s.vista||'';document.getElementById('fNariz').value=s.nariz||'';document.getElementById('fBoca').value=s.boca||'';document.getElementById('fPrecioCopa').value=s.precio_copa||'';document.getElementById('fPrecioJarra').value=s.precio_jarra||'';document.getElementById('fPrecioBotella').value=s.precio_botella||'';document.getElementById('fMedida').value=s.medida_botella||'';document.getElementById('fActivo').value=s.activo?'1':'0';
-  const urlImg=(s.img&&!s.img.startsWith('data:'))?s.img:'';document.getElementById('fImgUrl').value=urlImg;
+  document.getElementById('fNombre').value=s.nombre||'';
+  document.getElementById('fCategoria').value=s.categoria||'';
+  document.getElementById('fTipo').value=s.tipo||'';
+  document.getElementById('fArroz').value=s.arroz||'';
+  document.getElementById('fPulido').value=s.pulido||'';
+  document.getElementById('fRegion').value=s.region||'';
+  document.getElementById('fBodega').value=s.bodega||'';
+  document.getElementById('fAlc').value=s.vol_alc||'';
+  document.getElementById('fNota').value=s.nota_cata||'';
+  document.getElementById('fVista').value=s.vista||'';
+  document.getElementById('fNariz').value=s.nariz||'';
+  document.getElementById('fBoca').value=s.boca||'';
+  document.getElementById('fPrecioCopa').value=s.precio_copa||'';
+  document.getElementById('fPrecioJarra').value=s.precio_jarra||'';
+  document.getElementById('fPrecioBotella').value=s.precio_botella||'';
+  document.getElementById('fMedida').value=s.medida_botella||'';
+  document.getElementById('fActivo').value=s.activo?'1':'0';
+  const urlImg=(s.img&&!s.img.startsWith('data:'))?s.img:'';
+  document.getElementById('fImgUrl').value=urlImg;
   setImgPreview(s.img||'');
-  badgeState={rec:!!s.badge_rec,top:!!s.badge_top,lim:!!s.badge_lim};actualizarBadgeToggles();renderPlatoSelector(s.maridajes||[]);
+  badgeState={rec:!!s.badge_rec,top:!!s.badge_top,lim:!!s.badge_lim};
+  actualizarBadgeToggles();
+  renderPlatoSelector(s.maridajes||[]);
   document.getElementById('iaStatus').style.display='none';
-  document.getElementById('adminListView').style.display='none';document.getElementById('adminFormView').style.display='block';
+  document.getElementById('adminListView').style.display='none';
+  document.getElementById('adminFormView').style.display='block';
+  // Scroll al inicio del form
+  document.querySelector('.admin-content').scrollTop=0;
 }
-function volverLista(){document.getElementById('adminFormView').style.display='none';document.getElementById('adminListView').style.display='block';}
+function volverLista(){
+  document.getElementById('adminFormView').style.display='none';
+  document.getElementById('adminListView').style.display='block';
+}
+
+// FIX PRINCIPAL: guardarSake robusto para Android
 function guardarSake(){
-  const nombre=document.getElementById('fNombre').value.trim();if(!nombre){toast('El nombre es obligatorio');return;}
+  // Quitar foco de cualquier input activo primero (cierra teclado)
+  if(document.activeElement)document.activeElement.blur();
+
+  const nombre=document.getElementById('fNombre').value.trim();
+  if(!nombre){toast('El nombre es obligatorio');return;}
+
   const urlImg=document.getElementById('fImgUrl').value.trim();
   const existente=editandoId?sakes.find(x=>x.id===editandoId):null;
   const img=imgB64||urlImg||(existente?.img)||'';
-  const data={nombre,img,categoria:document.getElementById('fCategoria').value,tipo:document.getElementById('fTipo').value.trim(),arroz:document.getElementById('fArroz').value.trim(),pulido:document.getElementById('fPulido').value.trim(),region:document.getElementById('fRegion').value.trim(),bodega:document.getElementById('fBodega').value.trim(),vol_alc:document.getElementById('fAlc').value.trim(),nota_cata:document.getElementById('fNota').value.trim(),vista:document.getElementById('fVista').value.trim(),nariz:document.getElementById('fNariz').value.trim(),boca:document.getElementById('fBoca').value.trim(),precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,medida_botella:document.getElementById('fMedida').value,activo:document.getElementById('fActivo').value==='1',badge_rec:badgeState.rec,badge_top:badgeState.top,badge_lim:badgeState.lim,maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato)};
+
+  const data={
+    nombre,img,
+    categoria:document.getElementById('fCategoria').value,
+    tipo:document.getElementById('fTipo').value.trim(),
+    arroz:document.getElementById('fArroz').value.trim(),
+    pulido:document.getElementById('fPulido').value.trim(),
+    region:document.getElementById('fRegion').value.trim(),
+    bodega:document.getElementById('fBodega').value.trim(),
+    vol_alc:document.getElementById('fAlc').value.trim(),
+    nota_cata:document.getElementById('fNota').value.trim(),
+    vista:document.getElementById('fVista').value.trim(),
+    nariz:document.getElementById('fNariz').value.trim(),
+    boca:document.getElementById('fBoca').value.trim(),
+    precio_copa:parseFloat(document.getElementById('fPrecioCopa').value)||null,
+    precio_jarra:parseFloat(document.getElementById('fPrecioJarra').value)||null,
+    precio_botella:parseFloat(document.getElementById('fPrecioBotella').value)||null,
+    medida_botella:document.getElementById('fMedida').value,
+    activo:document.getElementById('fActivo').value==='1',
+    badge_rec:badgeState.rec,
+    badge_top:badgeState.top,
+    badge_lim:badgeState.lim,
+    maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato),
+  };
+
   let sakeId;
-  if(editandoId){const i=sakes.findIndex(x=>x.id===editandoId);sakes[i]={...sakes[i],...data};sakeId=editandoId;}
-  else{sakeId=uid();sakes.push({id:sakeId,...data});}
-  guardarLocal();renderAdmin();volverLista();
+  if(editandoId){
+    const i=sakes.findIndex(x=>x.id===editandoId);
+    sakes[i]={...sakes[i],...data};
+    sakeId=editandoId;
+  } else {
+    sakeId=uid();
+    sakes.push({id:sakeId,...data});
+  }
+
+  guardarLocal();
+  renderAdmin();
+  volverLista();
   toast(editandoId?'✓ Sake guardado':'✓ Sake añadido');
   guardarSakeEnSupabase(sakeId);
   if(config.geminiKey)traducirSakeAutomatico(sakeId);
 }
+
 async function guardarSakeEnSupabase(id){
   if(!config.supaUrl||!config.supaKey)return;
   const s=sakes.find(x=>x.id===id);if(!s)return;
   try{
-    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{method:'POST',headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify([{...s,updated_at:new Date().toISOString()}])});
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{
+      method:'POST',
+      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body:JSON.stringify([{...s,updated_at:new Date().toISOString()}])
+    });
     if(!r.ok&&r.status!==201){const err=await r.json().catch(()=>({}));toast('⚠ Error Supabase: '+(err.message||r.status));}
   }catch{toast('⚠ Sin conexión — guardado solo en local');}
 }
@@ -1467,10 +1652,23 @@ async function traducirSakeAutomatico(id){
     if(d){const i=sakes.findIndex(x=>x.id===id);if(i>=0){sakes[i]={...sakes[i],...d};guardarLocal();guardarSakeEnSupabase(id);toast('🌐 Traducido a EN · DE automáticamente');}}
   }catch(e){console.warn('Auto-traducción fallida:',e.message);}
 }
-function eliminar(id){if(!confirm('¿Eliminar?'))return;sakes=sakes.filter(x=>x.id!==id);guardarLocal();renderAdmin();toast('Eliminado');sincronizarSupabaseSilencioso();}
+function eliminar(id){
+  if(!confirm('¿Eliminar este sake?'))return;
+  sakes=sakes.filter(x=>x.id!==id);
+  guardarLocal();renderAdmin();toast('Eliminado');
+  sincronizarSupabaseSilencioso();
+}
 
-function subirImagen(input){const f=input.files[0];if(!f)return;const r=new FileReader();r.onload=e=>{imgB64=e.target.result;setImgPreview(imgB64);document.getElementById('fImgUrl').value='';};r.readAsDataURL(f);}
-function previsualizarUrl(){const url=document.getElementById('fImgUrl').value.trim();if(url){imgB64=null;setImgPreview(url);}}
+function subirImagen(input){
+  const f=input.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=e=>{imgB64=e.target.result;setImgPreview(imgB64);document.getElementById('fImgUrl').value='';};
+  r.readAsDataURL(f);
+}
+function previsualizarUrl(){
+  const url=document.getElementById('fImgUrl').value.trim();
+  if(url){imgB64=null;setImgPreview(url);}
+}
 
 async function analizarFotoIA(input){
   const f=input.files[0];if(!f)return;
@@ -1480,13 +1678,15 @@ async function analizarFotoIA(input){
     const b64=await f2b(f);imgB64=b64;setImgPreview(b64);
     const prompt=`Eres un experto Kikisake-shi. Analiza esta imagen de botella de sake.\nDevuelve SOLO JSON: nombre,arroz,categoria(Kun-shu|Jun-shu|So-shu|Juku-shu),tipo,pulido,region,bodega,vol_alc,vista,nariz,boca,nota_cata(1 frase español),precio_copa(null),precio_jarra(null),precio_botella(null),medida_botella.\nSin markdown.`;
     const res=await geminiImg(prompt,b64,f.type);
-    const d=parseJ(res);if(d){rellenar(d);setIA('✓ Formulario rellenado. Revisa y guarda.',false);}
+    const d=parseJ(res);
+    if(d){rellenar(d);setIA('✓ Formulario rellenado. Revisa y guarda.',false);}
     else setIA('No se pudo extraer. Rellena manualmente.',false);
   }catch(e){setIA('Error: '+e.message,false);}
   input.value='';
 }
 async function buscarImagenIA(){
-  const nombre=document.getElementById('fNombre').value.trim();if(!nombre){toast('Escribe primero el nombre del sake');return;}
+  const nombre=document.getElementById('fNombre').value.trim();
+  if(!nombre){toast('Escribe primero el nombre del sake');return;}
   if(!config.geminiKey){toast('Configura Gemini API Key en ⚙ Config');return;}
   setIA('Buscando imagen de "'+nombre+'"...',true);
   try{
@@ -1496,20 +1696,28 @@ async function buscarImagenIA(){
     else setIA('No encontré imagen. Pega una URL manualmente.',false);
   }catch{setIA('Error buscando imagen.',false);}
 }
-function setIA(msg,loading){const el=document.getElementById('iaStatus');el.style.display='block';el.innerHTML=loading?'<span class="spinner"></span>'+msg:msg;}
-function rellenar(d){const m={nombre:'fNombre',categoria:'fCategoria',tipo:'fTipo',arroz:'fArroz',pulido:'fPulido',region:'fRegion',bodega:'fBodega',vol_alc:'fAlc',nota_cata:'fNota',vista:'fVista',nariz:'fNariz',boca:'fBoca',precio_copa:'fPrecioCopa',precio_jarra:'fPrecioJarra',precio_botella:'fPrecioBotella',medida_botella:'fMedida'};Object.entries(m).forEach(([k,id])=>{if(d[k]!=null&&d[k]!==''){const el=document.getElementById(id);if(el)el.value=d[k];}});}
+function setIA(msg,loading){
+  const el=document.getElementById('iaStatus');
+  el.style.display='block';
+  el.innerHTML=loading?'<span class="spinner"></span>'+msg:msg;
+}
+function rellenar(d){
+  const m={nombre:'fNombre',categoria:'fCategoria',tipo:'fTipo',arroz:'fArroz',pulido:'fPulido',region:'fRegion',bodega:'fBodega',vol_alc:'fAlc',nota_cata:'fNota',vista:'fVista',nariz:'fNariz',boca:'fBoca',precio_copa:'fPrecioCopa',precio_jarra:'fPrecioJarra',precio_botella:'fPrecioBotella',medida_botella:'fMedida'};
+  Object.entries(m).forEach(([k,id])=>{if(d[k]!=null&&d[k]!==''){const el=document.getElementById(id);if(el)el.value=d[k];}});
+}
 
 function renderPlatoSelector(selected){
   const el=document.getElementById('platoSelector');if(!el)return;
   const cats=[...new Set(PLATOS.map(p=>p.cat))];
-  el.innerHTML=cats.map(cat=>`
-    <div style="width:100%;margin-top:8px;margin-bottom:4px;">
-      <div style="font-size:10px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">${cat}</div>
-    </div>
-    ${PLATOS.filter(p=>p.cat===cat).map(p=>{
+  let html='';
+  cats.forEach(cat=>{
+    html+=`<div style="width:100%;margin-top:8px;margin-bottom:4px;"><div style="font-size:10px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">${cat}</div></div>`;
+    PLATOS.filter(p=>p.cat===cat).forEach(p=>{
       const on=selected.includes(p.nombre);
-      return`<div class="plato-toggle${on?' sel':''}" data-plato="${p.nombre}" onclick="togglePlato(this)">${p.nombre}</div>`;
-    }).join('')}`).join('');
+      html+=`<button type="button" class="plato-toggle${on?' sel':''}" data-plato="${p.nombre}" onclick="togglePlato(this)">${p.nombre}</button>`;
+    });
+  });
+  el.innerHTML=html;
 }
 function togglePlato(el){el.classList.toggle('sel');}
 
@@ -1520,9 +1728,15 @@ async function procesarOCR(input){
   try{
     const b64=await f2b(f);
     const prompt=`Analiza este documento y extrae TODOS los sakes. Para cada uno: nombre,arroz,categoria,tipo,pulido,region,bodega,vol_alc,vista,nariz,boca,nota_cata,precio_copa(null),precio_jarra(null),precio_botella(null),medida_botella. SOLO array JSON.`;
-    const res=await geminiImg(prompt,b64,f.type);const data=parseJ(res);
-    if(Array.isArray(data)&&data.length){data.forEach(s=>sakes.push({id:uid(),activo:true,img:'',badge_rec:false,badge_top:false,badge_lim:false,maridajes:[],...s}));guardarLocal();renderAdmin();st.innerHTML='✓ '+data.length+' sakes importados';setTab('lista',document.querySelectorAll('.tab')[0]);toast('✓ '+data.length+' sakes importados');}
-    else st.innerHTML='No se encontraron sakes.';
+    const res=await geminiImg(prompt,b64,f.type);
+    const data=parseJ(res);
+    if(Array.isArray(data)&&data.length){
+      data.forEach(s=>sakes.push({id:uid(),activo:true,img:'',badge_rec:false,badge_top:false,badge_lim:false,maridajes:[],...s}));
+      guardarLocal();renderAdmin();
+      st.innerHTML='✓ '+data.length+' sakes importados';
+      setTab('lista',document.querySelectorAll('.tab')[0]);
+      toast('✓ '+data.length+' sakes importados');
+    } else st.innerHTML='No se encontraron sakes.';
   }catch(e){st.innerHTML='Error: '+e.message;}
   input.value='';
 }
@@ -1530,32 +1744,60 @@ async function procesarOCR(input){
 async function testSupabase(){
   if(!config.supaUrl||!config.supaKey){toast('Rellena URL y Key');return;}
   const st=document.getElementById('supaStatus');st.style.display='block';st.textContent='Probando conexión...';
-  try{const r=await fetch(config.supaUrl+'/rest/v1/sakes?limit=1',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});st.textContent=r.ok?'✓ Conexión OK ('+r.status+')':'✗ Error '+r.status;}
-  catch{st.textContent='✗ No se pudo conectar';}
+  try{
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes?limit=1',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});
+    st.textContent=r.ok?'✓ Conexión OK ('+r.status+')':'✗ Error '+r.status;
+  }catch{st.textContent='✗ No se pudo conectar';}
 }
 async function sincronizarSupabase(){
   if(!config.supaUrl||!config.supaKey){toast('Configura Supabase primero');return;}
   const st=document.getElementById('supaStatus');st.style.display='block';st.textContent='Subiendo sakes...';
   try{
-    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{method:'POST',headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))});
+    const r=await fetch(config.supaUrl+'/rest/v1/sakes',{
+      method:'POST',
+      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))
+    });
     if(r.ok||r.status===201){st.textContent='✓ '+sakes.length+' sakes sincronizados';toast('✓ Supabase actualizado');}
     else{const err=await r.json();st.textContent='✗ Error: '+(err.message||r.status);}
   }catch(e){st.textContent='✗ Error de red: '+e.message;}
 }
 async function sincronizarSupabaseSilencioso(){
   if(!config.supaUrl||!config.supaKey)return;
-  try{await fetch(config.supaUrl+'/rest/v1/sakes',{method:'POST',headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))});}catch{}
+  try{
+    await fetch(config.supaUrl+'/rest/v1/sakes',{
+      method:'POST',
+      headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey,'Content-Type':'application/json','Prefer':'resolution=merge-duplicates'},
+      body:JSON.stringify(sakes.map(s=>({...s,updated_at:new Date().toISOString()})))
+    });
+  }catch{}
 }
 async function cargarDesdeSupabase(){
   if(!config.supaUrl||!config.supaKey)return;
   try{
     const r=await fetch(config.supaUrl+'/rest/v1/sakes?select=*&order=nombre',{headers:{'apikey':config.supaKey,'Authorization':'Bearer '+config.supaKey}});
-    if(r.ok){const data=await r.json();if(Array.isArray(data)&&data.length){sakes=data;guardarLocal();if(document.getElementById('app-carta').classList.contains('visible'))renderSakes();if(config.geminiKey){const st=sakes.filter(s=>s.nota_cata&&!s.nota_cata_en);st.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2500));}}}
+    if(r.ok){
+      const data=await r.json();
+      if(Array.isArray(data)&&data.length){
+        sakes=data;guardarLocal();
+        if(document.getElementById('app-carta').classList.contains('visible'))renderSakes();
+        if(config.geminiKey){
+          const st=sakes.filter(s=>s.nota_cata&&!s.nota_cata_en);
+          st.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2500));
+        }
+      }
+    }
   }catch{}
 }
 
-async function geminiImg(p,b64,mime){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';}
-async function geminiTxt(p){const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}]})});const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';}
+async function geminiImg(p,b64,mime){
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});
+  const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+}
+async function geminiTxt(p){
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}]})});
+  const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+}
 function parseJ(t){try{return JSON.parse(t.replace(/```json|```/g,'').trim());}catch{return null;}}
 function f2b(f){return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result.split(',')[1]);r.onerror=rej;r.readAsDataURL(f);});}
 </script>
