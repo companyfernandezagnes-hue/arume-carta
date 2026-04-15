@@ -35,7 +35,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .intro-cta{background:var(--rojo);color:var(--crema);border:none;width:100%;padding:18px;border-radius:14px;font-size:17px;font-weight:500;cursor:pointer;letter-spacing:0.04em;margin-top:8px;margin-bottom:32px;min-height:56px;}
 
 /* ===== CARTA ===== */
-#app-carta{display:none;flex-direction:column;height:100vh;overflow:hidden;}
+#app-carta{display:none;flex-direction:column;height:100dvh;overflow:hidden;}
 #app-carta.visible{display:flex;}
 .carta-header{background:var(--g4);padding:14px 16px 12px;border-bottom:1px solid var(--g2);flex-shrink:0;z-index:10;}
 .carta-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
@@ -1033,13 +1033,14 @@ let recRespuestas={};
 let recPaso=0;
 
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
-function guardarLocal(){localStorage.setItem('arume_sakes',JSON.stringify(sakes));}
-function guardarWish(){localStorage.setItem('arume_wish',JSON.stringify(wishlist));actualizarBadgeWish();}
+function safeSet(k,v){try{localStorage.setItem(k,v)}catch(e){console.warn('localStorage lleno:',e)}}
+  function guardarLocal(){safeSet('arume_sakes',JSON.stringify(sakes));}
+function guardarWish(){safeSet('arume_wish',JSON.stringify(wishlist));actualizarBadgeWish();}
 function guardarConfig(){
   config.geminiKey=document.getElementById('cfgGeminiKey').value;
   config.supaUrl=document.getElementById('cfgSupaUrl').value;
   config.supaKey=document.getElementById('cfgSupaKey').value;
-  localStorage.setItem('arume_config',JSON.stringify(config));
+  safeSet('arume_config',JSON.stringify(config));
 }
 // FIX: recibe btn como parámetro en vez de usar event.target
 function guardarConfigBtn(btn){
@@ -1192,8 +1193,8 @@ function renderSakes(){
   el.innerHTML=leyenda+lista.map(s=>{
     const cat=CAT_INFO[s.categoria]||{emoji:'🍶',css:'',dot:'#666',temp:''};
     const inWish=wishlist.includes(s.id);
-    const thumb=s.img?`<img src="${s.img}" alt="${s.nombre}" onerror="this.parentNode.innerHTML='${cat.emoji}'">`:cat.emoji;
-    const detImg=s.img?`<img src="${s.img}" class="det-img" onerror="this.style.display='none'">`:'';
+    const thumb=s.img?`<img loading="lazy" src="${s.img}" alt="${s.nombre}" onerror="this.parentNode.innerHTML='${cat.emoji}'">`:cat.emoji;
+    const detImg=s.img?`<img loading="lazy" src="${s.img}" class="det-img" onerror="this.style.display='none'">`:'';
     const recs=getRecomendaciones(s);
     const recHtml=recs.length?`<div class="rec-section"><div class="rec-title">${t('recSect')}</div>
       <div class="rec-cards">${recs.map(r=>{const rc=CAT_INFO[r.categoria]||{emoji:'🍶'};return`
@@ -1344,7 +1345,7 @@ function renderRecResultado(){
           return`<div class="rec-resultado-card" onclick="irASake('${s.id}')">
             <div class="rec-resultado-rank ${i===0?'top':''}">${rankLabel}</div>
             <div style="display:flex;align-items:center;gap:10px;">
-              <div style="font-size:32px;">${s.img?`<img src="${s.img}" style="width:40px;height:54px;object-fit:cover;border-radius:6px;">`:cat.emoji}</div>
+              <div style="font-size:32px;">${s.img?`<img loading="lazy" src="${s.img}" style="width:40px;height:54px;object-fit:cover;border-radius:6px;">`:cat.emoji}</div>
               <div><div class="rec-resultado-nombre">${s.nombre}</div><div class="rec-resultado-tipo">${cat.emoji} ${s.categoria||''} · ${s.tipo||''}</div></div>
             </div>
             <div class="rec-resultado-match">💡 ${reason}</div>
@@ -1424,7 +1425,7 @@ function renderAdmin(){
   document.getElementById('countLabel').textContent=sakes.length+' sakes';
   document.getElementById('adminList').innerHTML=sakes.map(s=>{
     const cat=CAT_INFO[s.categoria]||{emoji:'🍶'};
-    const thumb=s.img?`<img src="${s.img}" onerror="this.parentNode.innerHTML='${cat.emoji}'">`:cat.emoji;
+    const thumb=s.img?`<img loading="lazy" src="${s.img}" onerror="this.parentNode.innerHTML='${cat.emoji}'">`:cat.emoji;
     return`<div class="admin-row">
       <div class="admin-row-thumb">${thumb}</div>
       <div class="act-dot ${s.activo?'':'off'}"></div>
