@@ -1671,7 +1671,7 @@ async function traducirSakeAutomatico(id){
     const prompt=`Eres un experto en sake y sumiller. Traduce estos textos de cata de sake del español al inglés y al alemán.\nDevuelve SOLO JSON sin markdown:\n{"nota_cata_en":"...","nota_cata_de":"...","vista_en":"...","vista_de":"...","nariz_en":"...","nariz_de":"...","boca_en":"...","boca_de":"..."}\nTextos:\n- nota_cata: "${s.nota_cata||''}"\n- vista: "${s.vista||''}"\n- nariz: "${s.nariz||''}"\n- boca: "${s.boca||''}"\nTono elegante de carta de restaurante.`;
     const res=await geminiTxt(prompt);const d=parseJ(res);
     if(d){const i=sakes.findIndex(x=>x.id===id);if(i>=0){sakes[i]={...sakes[i],...d};guardarLocal();guardarSakeEnSupabase(id);toast('🌐 Traducido a EN · DE automáticamente');}}
-  }catch(e){console.warn('Auto-traducción fallida:',e.message);}
+  }catch(e){console.warn('Auto-traducción fallida:',e.message);toast('⚠ Traducción fallida: '+e.message);}
 }
 function eliminar(id){
   if(!confirm('¿Eliminar este sake?'))return;
@@ -1812,11 +1812,11 @@ async function cargarDesdeSupabase(){
 }
 
 async function geminiImg(p,b64,mime){
-  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});
   const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
 }
 async function geminiTxt(p){
-  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}]})});
+  const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}]})});
   const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
 }
 function parseJ(t){try{return JSON.parse(t.replace(/```json|```/g,'').trim());}catch{return null;}}
