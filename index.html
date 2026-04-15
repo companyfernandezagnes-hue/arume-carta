@@ -1258,7 +1258,7 @@ function renderSakes(){
           ${s.region&&s.region.includes('España')?`<span class="sake-tag">🇪🇸 ${s.region}</span>`:''}
         </div>
         <div class="sake-precios">
-          ${s.precio_copa?`<div class="precio-item"><div class="precio-icon">${ICO_COPA}</div><div class="precio-qty">12 cl</div><div class="precio-val">${s.precio_copa}€</div></div>`:''}
+          ${s.precio_copa?`<div class="precio-item"><div class="precio-icon">${ICO_COPA}</div><div class="precio-qty">100 ml</div><div class="precio-val">${s.precio_copa}€</div></div>`:''}
           ${s.precio_jarra?`<div class="precio-item"><div class="precio-icon">${ICO_TOKKURI}</div><div class="precio-qty">200 ml</div><div class="precio-val">${s.precio_jarra}€</div></div>`:''}
           ${s.precio_botella?`<div class="precio-item"><div class="precio-icon">${ICO_BOTELLA}</div><div class="precio-qty">${s.medida_botella||'720 ml'}</div><div class="precio-val">${s.precio_botella}€</div></div>`:''}
         </div>
