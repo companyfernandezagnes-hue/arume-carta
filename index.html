@@ -522,6 +522,7 @@ textarea.form-input{resize:vertical;min-height:80px;}
         <div class="ia-panel-title">✦ Rellenar con IA</div>
         <div class="ia-btns">
           <button class="btn-ia" type="button" onclick="document.getElementById('fotoIA').click()">📷 Analizar foto</button>
+          <button class="btn-ia" type="button" onclick="rellenarPorNombreIA()">✦ Solo con nombre</button>
           <button class="btn-ia" type="button" onclick="buscarImagenIA()">🔍 Buscar imagen</button>
         </div>
         <input type="file" id="fotoIA" accept="image/*" style="display:none;" onchange="analizarFotoIA(this)">
@@ -1717,6 +1718,18 @@ async function analizarFotoIA(input){
     else setIA('No se pudo extraer. Rellena manualmente.',false);
   }catch(e){setIA('Error: '+e.message,false);}
   input.value='';
+}
+async function rellenarPorNombreIA(){
+  const nombre=document.getElementById('fNombre').value.trim();
+  if(!nombre){toast('Escribe primero el nombre del sake');return;}
+  if(!config.geminiKey&&!config.groqKey){toast('Configura Groq o Gemini en ⚙ Config');return;}
+  setIA('Investigando "'+nombre+'" con IA...',true);
+  try{
+    const prompt=`Eres experto Kikisake-shi. Para el sake llamado "${nombre}" devuelve SOLO JSON (sin markdown) con estos campos, usando tu conocimiento (si no sabes un dato déjalo vacío):\n{"nombre":"","arroz":"","categoria":"Kun-shu|Jun-shu|So-shu|Juku-shu","tipo":"","pulido":"","region":"","bodega":"","vol_alc":"","vista":"","nariz":"","boca":"","nota_cata":"","medida_botella":"720ml"}\nLas notas (vista/nariz/boca/nota_cata) en español, tono elegante de carta de restaurante. nota_cata debe ser 1 frase.`;
+    const res=await aiTxt(prompt);const d=parseJ(res);
+    if(d){rellenar(d);setIA('✓ Formulario rellenado. Revisa y guarda.',false);}
+    else setIA('No se pudo extraer. Rellena manualmente.',false);
+  }catch(e){setIA('Error: '+e.message,false);}
 }
 async function buscarImagenIA(){
   const nombre=document.getElementById('fNombre').value.trim();
