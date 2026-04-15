@@ -89,10 +89,13 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .sake-tags{display:flex;gap:5px;flex-wrap:wrap;flex:1;}
 .sake-tag{background:var(--g4);color:var(--g3);font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap;}
 .temp-tag{background:var(--g4);color:var(--g3);font-size:10px;padding:2px 7px;border-radius:20px;white-space:nowrap;}
-.sake-precios{display:flex;gap:8px;align-items:baseline;flex-shrink:0;}
-.precio-item{text-align:center;}
+.sake-precios{display:flex;gap:10px;align-items:flex-end;flex-shrink:0;}
+.precio-item{text-align:center;display:flex;flex-direction:column;align-items:center;gap:2px;}
 .precio-label{font-size:9px;color:var(--g3);letter-spacing:0.06em;text-transform:uppercase;}
-.precio-val{font-size:14px;font-weight:500;}
+.precio-icon{color:var(--crema);opacity:0.85;}
+.precio-icon svg{width:22px;height:22px;display:block;}
+.precio-qty{font-size:9px;color:var(--g3);letter-spacing:0.04em;}
+.precio-val{font-size:14px;font-weight:500;color:var(--crema);}
 .ver-mas{text-align:center;padding:8px;border-top:1px solid var(--g2);font-size:12px;color:var(--g3);cursor:pointer;min-height:36px;display:flex;align-items:center;justify-content:center;}
 .sake-detalle{display:none;padding:0 14px 14px;border-top:1px solid var(--g2);}
 .sake-detalle.visible{display:block;}
@@ -616,6 +619,10 @@ textarea.form-input{resize:vertical;min-height:80px;}
 
 <script>
 const PIN='1234';
+
+const ICO_COPA=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h10l-1.2 7a4 4 0 0 1-7.6 0L7 3z"/><path d="M12 14v6"/><path d="M8.5 20h7"/></svg>`;
+const ICO_TOKKURI=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3h4v3l2 2a5 5 0 0 1 1.5 3.5V17a4 4 0 0 1-4 4h-3a4 4 0 0 1-4-4v-5.5A5 5 0 0 1 8 8l2-2V3z"/><path d="M10 3h4"/></svg>`;
+const ICO_BOTELLA=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"><rect x="10" y="2" width="4" height="5" rx="0.5"/><path d="M9 7h6"/><path d="M8 11a4 4 0 0 1 1.5-3l.5-1h4l.5 1A4 4 0 0 1 16 11v9a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2z"/></svg>`;
 
 // ===== IDIOMAS =====
 let lang='es';
@@ -1251,9 +1258,9 @@ function renderSakes(){
           ${s.region&&s.region.includes('España')?`<span class="sake-tag">🇪🇸 ${s.region}</span>`:''}
         </div>
         <div class="sake-precios">
-          ${s.precio_copa?`<div class="precio-item"><div class="precio-label">${t('copa')}</div><div class="precio-val">${s.precio_copa}€</div></div>`:''}
-          ${s.precio_jarra?`<div class="precio-item"><div class="precio-label">200 ml</div><div class="precio-val">${s.precio_jarra}€</div></div>`:''}
-          ${s.precio_botella?`<div class="precio-item"><div class="precio-label">${s.medida_botella||t('botella')}</div><div class="precio-val">${s.precio_botella}€</div></div>`:''}
+          ${s.precio_copa?`<div class="precio-item"><div class="precio-icon">${ICO_COPA}</div><div class="precio-qty">12 cl</div><div class="precio-val">${s.precio_copa}€</div></div>`:''}
+          ${s.precio_jarra?`<div class="precio-item"><div class="precio-icon">${ICO_TOKKURI}</div><div class="precio-qty">200 ml</div><div class="precio-val">${s.precio_jarra}€</div></div>`:''}
+          ${s.precio_botella?`<div class="precio-item"><div class="precio-icon">${ICO_BOTELLA}</div><div class="precio-qty">${s.medida_botella||'720 ml'}</div><div class="precio-val">${s.precio_botella}€</div></div>`:''}
         </div>
       </div>
       <div class="ver-mas" onclick="toggleDet('det-${s.id}')">${t('verMas')}</div>
