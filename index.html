@@ -55,6 +55,9 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 /* ===== SAKE CARDS ===== */
 .sake-card{background:var(--g1);border-radius:14px;overflow:hidden;border:1px solid var(--g2);position:relative;flex-shrink:0;}
 .sug-label{font-size:11px;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;font-weight:600;text-align:center;margin-top:4px;margin-bottom:-4px;}
+.sug-block{border:1.5px dashed var(--gold);border-radius:14px;padding:18px 14px;margin-bottom:6px;background:linear-gradient(135deg,#2a1a0a 0%,var(--g1) 60%);}
+.sug-block .sug-label{margin:0 0 8px 0;}
+.sug-empty{text-align:center;font-size:13px;color:var(--g3);font-style:italic;}
 .sake-card-sug{background:linear-gradient(135deg,#2a1a0a 0%,var(--g1) 60%);border:1.5px solid var(--gold);box-shadow:0 0 24px rgba(212,160,90,0.18);}
 .sake-card-sug .sake-nombre{color:var(--gold)!important;font-size:17px;font-weight:600;}
 .sake-card-sug::before{background:var(--gold)!important;width:4px!important;}
@@ -642,6 +645,7 @@ const LANG={
     wishClose:'Cerrar',
     filterAll:'Todos',
     sugLabel:'✦ Sugerencia del sommelier',
+    sugEmpty:'Próximamente — pregunta a tu camarero',
     detVista:'Vista',detNariz:'Nariz',detBoca:'Boca',
     detBodega:'Bodega',detArroz:'Arroz',detPref:'Prefectura',
     detGrad:'Graduación',detTipo:'Tipo',detFormato:'Formato',
@@ -729,6 +733,7 @@ const LANG={
     wishClose:'Close',
     filterAll:'All',
     sugLabel:'✦ Sommelier\'s pick',
+    sugEmpty:'Coming soon — ask your server',
     detVista:'Appearance',detNariz:'Nose',detBoca:'Palate',
     detBodega:'Brewery',detArroz:'Rice',detPref:'Prefecture',
     detGrad:'Alcohol',detTipo:'Type',detFormato:'Format',
@@ -816,6 +821,7 @@ const LANG={
     wishClose:'Schließen',
     filterAll:'Alle',
     sugLabel:'✦ Sommelier-Empfehlung',
+    sugEmpty:'Demnächst — fragen Sie Ihren Kellner',
     detVista:'Aussehen',detNariz:'Nase',detBoca:'Gaumen',
     detBodega:'Brauerei',detArroz:'Reis',detPref:'Präfektur',
     detGrad:'Alkohol',detTipo:'Typ',detFormato:'Format',
@@ -1191,6 +1197,8 @@ function filtrar(btn,f){
 function renderSakes(){
   let lista=sakes.filter(s=>s.activo&&(filtroActual==='all'||s.categoria===filtroActual));
   lista=[...lista].sort((a,b)=>(b.sugerencia?1:0)-(a.sugerencia?1:0));
+  const haySug=sakes.some(s=>s.activo&&s.sugerencia);
+  const sugEmptyHTML=(!haySug&&filtroActual==='all')?`<div class="sug-block"><div class="sug-label">${t('sugLabel')}</div><div class="sug-empty">${t('sugEmpty')}</div></div>`:'';
   const el=document.getElementById('cartaContent');
   if(!lista.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--g3);">No hay sakes en esta categoría.</div>';return;}
   const leyenda=filtroActual==='all'?`
@@ -1200,7 +1208,7 @@ function renderSakes(){
       <div><div class="leyenda-name">${v.emoji} ${k}</div><div class="leyenda-desc">${v.desc}</div></div></div>`).join('')}
     </div></div>`:
     `<div style="padding:4px 2px 2px;font-size:12px;color:var(--g3);">${CAT_INFO[filtroActual]?.emoji} <b style="color:var(--crema)">${filtroActual}</b> · ${CAT_INFO[filtroActual]?.desc} &nbsp;·&nbsp; 🌡 ${CAT_INFO[filtroActual]?.temp}</div>`;
-  el.innerHTML=leyenda+lista.map(s=>{
+  el.innerHTML=sugEmptyHTML+leyenda+lista.map(s=>{
     const cat=CAT_INFO[s.categoria]||{emoji:'🍶',css:'',dot:'#666',temp:''};
     const inWish=wishlist.includes(s.id);
     const thumb=s.img?`<img loading="lazy" src="${s.img}" alt="${s.nombre}" onerror="this.parentNode.innerHTML='${cat.emoji}'">`:cat.emoji;
