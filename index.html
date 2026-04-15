@@ -460,8 +460,8 @@ textarea.form-input{resize:vertical;min-height:80px;}
     <div class="config-box" id="configBox">
       <div style="font-size:11px;color:var(--rojo);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;">Configuración</div>
       <div class="config-row">
-        <div><div class="config-label">Grok API Key</div><div class="config-sub">Traducción (prioritaria si está)</div></div>
-        <input class="config-input" type="password" id="cfgGrokKey" placeholder="xai-...">
+        <div><div class="config-label">Groq API Key</div><div class="config-sub">Traducción (prioritaria si está)</div></div>
+        <input class="config-input" type="password" id="cfgGroqKey" placeholder="gsk_...">
       </div>
       <div class="config-row">
         <div><div class="config-label">Gemini API Key</div><div class="config-sub">Fallback · análisis de imágenes</div></div>
@@ -1057,7 +1057,7 @@ function safeSet(k,v){try{localStorage.setItem(k,v)}catch(e){console.warn('local
 function guardarWish(){safeSet('arume_wish',JSON.stringify(wishlist));actualizarBadgeWish();}
 function guardarConfig(){
   config.geminiKey=document.getElementById('cfgGeminiKey').value;
-  config.grokKey=document.getElementById('cfgGrokKey').value;
+  config.groqKey=document.getElementById('cfgGroqKey').value;
   config.supaUrl=document.getElementById('cfgSupaUrl').value;
   config.supaKey=document.getElementById('cfgSupaKey').value;
   safeSet('arume_config',JSON.stringify(config));
@@ -1093,7 +1093,7 @@ if(!sakes){sakes=INIT;guardarLocal();}
 renderIntro();
 actualizarBadgeWish();
 if(config.supaUrl&&config.supaKey){cargarDesdeSupabase();}
-if(config.geminiKey||config.grokKey){
+if(config.geminiKey||config.groqKey){
   setTimeout(()=>{
     const sinTraducir=sakes.filter(s=>s.activo&&s.nota_cata&&!s.nota_cata_en);
     sinTraducir.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2000));
@@ -1423,7 +1423,7 @@ function entrarAdmin(){
   document.getElementById('screen-intro').classList.add('oculto');
   document.getElementById('app-admin').classList.add('visible');
   document.getElementById('cfgGeminiKey').value=config.geminiKey||'';
-  document.getElementById('cfgGrokKey').value=config.grokKey||'';
+  document.getElementById('cfgGroqKey').value=config.groqKey||'';
   document.getElementById('cfgSupaUrl').value=config.supaUrl||'';
   document.getElementById('cfgSupaKey').value=config.supaKey||'';
   renderAdmin();
@@ -1808,7 +1808,7 @@ async function cargarDesdeSupabase(){
       if(Array.isArray(data)&&data.length){
         sakes=data;guardarLocal();
         if(document.getElementById('app-carta').classList.contains('visible'))renderSakes();
-        if(config.geminiKey||config.grokKey){
+        if(config.geminiKey||config.groqKey){
           const st=sakes.filter(s=>s.nota_cata&&!s.nota_cata_en);
           st.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2500));
         }
@@ -1821,13 +1821,13 @@ async function geminiImg(p,b64,mime){
   const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});
   const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
 }
-async function grokTxt(p){
-  const r=await fetch('https://api.x.ai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+config.grokKey},body:JSON.stringify({model:'grok-2-latest',messages:[{role:'user',content:p}]})});
-  const d=await r.json();if(!r.ok)throw new Error(d.error?.message||('Grok '+r.status));
+async function groqTxt(p){
+  const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+config.groqKey},body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:p}]})});
+  const d=await r.json();if(!r.ok)throw new Error(d.error?.message||('Groq '+r.status));
   return d.choices?.[0]?.message?.content||'';
 }
 async function aiTxt(p){
-  if(config.grokKey){try{return await grokTxt(p);}catch(e){console.warn('Grok falló, probando Gemini:',e.message);}}
+  if(config.groqKey){try{return await groqTxt(p);}catch(e){console.warn('Groq falló, probando Gemini:',e.message);}}
   return await geminiTxt(p);
 }
 async function geminiTxt(p){
