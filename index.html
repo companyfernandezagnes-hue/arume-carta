@@ -460,7 +460,11 @@ textarea.form-input{resize:vertical;min-height:80px;}
     <div class="config-box" id="configBox">
       <div style="font-size:11px;color:var(--rojo);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:12px;">Configuración</div>
       <div class="config-row">
-        <div><div class="config-label">Gemini API Key</div><div class="config-sub">Para IA y análisis de imágenes</div></div>
+        <div><div class="config-label">Grok API Key</div><div class="config-sub">Traducción (prioritaria si está)</div></div>
+        <input class="config-input" type="password" id="cfgGrokKey" placeholder="xai-...">
+      </div>
+      <div class="config-row">
+        <div><div class="config-label">Gemini API Key</div><div class="config-sub">Fallback · análisis de imágenes</div></div>
         <input class="config-input" type="password" id="cfgGeminiKey" placeholder="AIza...">
       </div>
       <div class="config-row">
@@ -1053,6 +1057,7 @@ function safeSet(k,v){try{localStorage.setItem(k,v)}catch(e){console.warn('local
 function guardarWish(){safeSet('arume_wish',JSON.stringify(wishlist));actualizarBadgeWish();}
 function guardarConfig(){
   config.geminiKey=document.getElementById('cfgGeminiKey').value;
+  config.grokKey=document.getElementById('cfgGrokKey').value;
   config.supaUrl=document.getElementById('cfgSupaUrl').value;
   config.supaKey=document.getElementById('cfgSupaKey').value;
   safeSet('arume_config',JSON.stringify(config));
@@ -1088,7 +1093,7 @@ if(!sakes){sakes=INIT;guardarLocal();}
 renderIntro();
 actualizarBadgeWish();
 if(config.supaUrl&&config.supaKey){cargarDesdeSupabase();}
-if(config.geminiKey){
+if(config.geminiKey||config.grokKey){
   setTimeout(()=>{
     const sinTraducir=sakes.filter(s=>s.activo&&s.nota_cata&&!s.nota_cata_en);
     sinTraducir.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2000));
@@ -1418,6 +1423,7 @@ function entrarAdmin(){
   document.getElementById('screen-intro').classList.add('oculto');
   document.getElementById('app-admin').classList.add('visible');
   document.getElementById('cfgGeminiKey').value=config.geminiKey||'';
+  document.getElementById('cfgGrokKey').value=config.grokKey||'';
   document.getElementById('cfgSupaUrl').value=config.supaUrl||'';
   document.getElementById('cfgSupaKey').value=config.supaKey||'';
   renderAdmin();
@@ -1669,7 +1675,7 @@ async function traducirSakeAutomatico(id){
   const textos=[s.nota_cata,s.vista,s.nariz,s.boca].filter(Boolean);if(!textos.length)return;
   try{
     const prompt=`Eres un experto en sake y sumiller. Traduce estos textos de cata de sake del español al inglés y al alemán.\nDevuelve SOLO JSON sin markdown:\n{"nota_cata_en":"...","nota_cata_de":"...","vista_en":"...","vista_de":"...","nariz_en":"...","nariz_de":"...","boca_en":"...","boca_de":"..."}\nTextos:\n- nota_cata: "${s.nota_cata||''}"\n- vista: "${s.vista||''}"\n- nariz: "${s.nariz||''}"\n- boca: "${s.boca||''}"\nTono elegante de carta de restaurante.`;
-    const res=await geminiTxt(prompt);const d=parseJ(res);
+    const res=await aiTxt(prompt);const d=parseJ(res);
     if(d){const i=sakes.findIndex(x=>x.id===id);if(i>=0){sakes[i]={...sakes[i],...d};guardarLocal();guardarSakeEnSupabase(id);toast('🌐 Traducido a EN · DE automáticamente');}}
   }catch(e){console.warn('Auto-traducción fallida:',e.message);toast('⚠ Traducción fallida: '+e.message);}
 }
@@ -1712,7 +1718,7 @@ async function buscarImagenIA(){
   setIA('Buscando imagen de "'+nombre+'"...',true);
   try{
     const prompt=`URL directa foto botella sake "${nombre}". Solo JSON: {"url":"..."}. Usa saketime.com, tippsy.com o thewhiskyexchange.com.`;
-    const res=await geminiTxt(prompt);const d=parseJ(res);
+    const res=await aiTxt(prompt);const d=parseJ(res);
     if(d?.url){document.getElementById('fImgUrl').value=d.url;imgB64=null;setImgPreview(d.url);setIA('✓ Imagen encontrada.',false);}
     else setIA('No encontré imagen. Pega una URL manualmente.',false);
   }catch{setIA('Error buscando imagen.',false);}
@@ -1802,7 +1808,7 @@ async function cargarDesdeSupabase(){
       if(Array.isArray(data)&&data.length){
         sakes=data;guardarLocal();
         if(document.getElementById('app-carta').classList.contains('visible'))renderSakes();
-        if(config.geminiKey){
+        if(config.geminiKey||config.grokKey){
           const st=sakes.filter(s=>s.nota_cata&&!s.nota_cata_en);
           st.forEach((s,i)=>setTimeout(()=>traducirSakeAutomatico(s.id),i*2500));
         }
@@ -1814,6 +1820,15 @@ async function cargarDesdeSupabase(){
 async function geminiImg(p,b64,mime){
   const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p},{inline_data:{mime_type:mime,data:b64}}]}]})});
   const d=await r.json();return d.candidates?.[0]?.content?.parts?.[0]?.text||'';
+}
+async function grokTxt(p){
+  const r=await fetch('https://api.x.ai/v1/chat/completions',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+config.grokKey},body:JSON.stringify({model:'grok-2-latest',messages:[{role:'user',content:p}]})});
+  const d=await r.json();if(!r.ok)throw new Error(d.error?.message||('Grok '+r.status));
+  return d.choices?.[0]?.message?.content||'';
+}
+async function aiTxt(p){
+  if(config.grokKey){try{return await grokTxt(p);}catch(e){console.warn('Grok falló, probando Gemini:',e.message);}}
+  return await geminiTxt(p);
 }
 async function geminiTxt(p){
   const r=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${config.geminiKey}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contents:[{parts:[{text:p}]}]})});
