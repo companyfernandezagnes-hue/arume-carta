@@ -54,6 +54,11 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 
 /* ===== SAKE CARDS ===== */
 .sake-card{background:var(--g1);border-radius:14px;overflow:hidden;border:1px solid var(--g2);position:relative;flex-shrink:0;}
+.sug-label{font-size:11px;letter-spacing:0.2em;color:var(--gold);text-transform:uppercase;font-weight:600;text-align:center;margin-top:4px;margin-bottom:-4px;}
+.sake-card-sug{background:linear-gradient(135deg,#2a1a0a 0%,var(--g1) 60%);border:1.5px solid var(--gold);box-shadow:0 0 24px rgba(212,160,90,0.18);}
+.sake-card-sug .sake-nombre{color:var(--gold)!important;font-size:17px;font-weight:600;}
+.sake-card-sug::before{background:var(--gold)!important;width:4px!important;}
+.badge-toggle.on-sug{background:#2d1f0e;color:var(--gold);border-color:#6a3e10;}
 .sake-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:14px 0 0 14px;}
 .sake-card[data-cat="Kun-shu"]::before{background:#8855cc;}
 .sake-card[data-cat="So-shu"]::before{background:#4488cc;}
@@ -559,6 +564,7 @@ textarea.form-input{resize:vertical;min-height:80px;}
             <button type="button" class="badge-toggle" id="togRec" onclick="toggleBadge('rec')">⭐ Recomendado</button>
             <button type="button" class="badge-toggle" id="togTop" onclick="toggleBadge('top')">🏆 Más vendido</button>
             <button type="button" class="badge-toggle" id="togLim" onclick="toggleBadge('lim')">🔴 Edición limitada</button>
+            <button type="button" class="badge-toggle" id="togSug" onclick="toggleBadge('sug')">✦ Sugerencia del sommelier</button>
           </div>
         </div>
 
@@ -635,6 +641,7 @@ const LANG={
     wishEmpty:'Toca ❤️ en los sakes que quieras probar',
     wishClose:'Cerrar',
     filterAll:'Todos',
+    sugLabel:'✦ Sugerencia del sommelier',
     detVista:'Vista',detNariz:'Nariz',detBoca:'Boca',
     detBodega:'Bodega',detArroz:'Arroz',detPref:'Prefectura',
     detGrad:'Graduación',detTipo:'Tipo',detFormato:'Formato',
@@ -721,6 +728,7 @@ const LANG={
     wishEmpty:'Tap ❤️ on the sakes you\'d like to try',
     wishClose:'Close',
     filterAll:'All',
+    sugLabel:'✦ Sommelier\'s pick',
     detVista:'Appearance',detNariz:'Nose',detBoca:'Palate',
     detBodega:'Brewery',detArroz:'Rice',detPref:'Prefecture',
     detGrad:'Alcohol',detTipo:'Type',detFormato:'Format',
@@ -807,6 +815,7 @@ const LANG={
     wishEmpty:'Tippen Sie ❤️ bei den Sakes, die Sie probieren möchten',
     wishClose:'Schließen',
     filterAll:'Alle',
+    sugLabel:'✦ Sommelier-Empfehlung',
     detVista:'Aussehen',detNariz:'Nase',detBoca:'Gaumen',
     detBodega:'Brauerei',detArroz:'Reis',detPref:'Präfektur',
     detGrad:'Alkohol',detTipo:'Typ',detFormato:'Format',
@@ -1027,7 +1036,7 @@ let config=JSON.parse(localStorage.getItem('arume_config')||'{}');
 let sakes=JSON.parse(localStorage.getItem('arume_sakes')||'null');
 let wishlist=JSON.parse(localStorage.getItem('arume_wish')||'[]');
 let editandoId=null,filtroActual='all',imgB64=null;
-let badgeState={rec:false,top:false,lim:false};
+let badgeState={rec:false,top:false,lim:false,sug:false};
 let modoKiosco=false;
 let recRespuestas={};
 let recPaso=0;
@@ -1180,7 +1189,8 @@ function filtrar(btn,f){
   btn.classList.add('activo');renderSakes();
 }
 function renderSakes(){
-  const lista=sakes.filter(s=>s.activo&&(filtroActual==='all'||s.categoria===filtroActual));
+  let lista=sakes.filter(s=>s.activo&&(filtroActual==='all'||s.categoria===filtroActual));
+  lista=[...lista].sort((a,b)=>(b.sugerencia?1:0)-(a.sugerencia?1:0));
   const el=document.getElementById('cartaContent');
   if(!lista.length){el.innerHTML='<div style="text-align:center;padding:40px;color:var(--g3);">No hay sakes en esta categoría.</div>';return;}
   const leyenda=filtroActual==='all'?`
@@ -1201,7 +1211,7 @@ function renderSakes(){
         <div class="rec-card" onclick="scrollToSake('${r.id}')">
           <div class="rec-card-emoji">${rc.emoji}</div><div class="rec-card-name">${r.nombre}</div><div class="rec-card-tipo">${r.categoria||''}</div>
         </div>`;}).join('')}</div></div>`:'';
-    return`<div class="sake-card" id="card-${s.id}" data-cat="${s.categoria||''}">
+    return`${s.sugerencia?`<div class="sug-label">${t('sugLabel')}</div>`:''}<div class="sake-card${s.sugerencia?' sake-card-sug':''}" id="card-${s.id}" data-cat="${s.categoria||''}">
       <div class="sake-card-header" onclick="toggleDet('det-${s.id}')">
         <div class="sake-img-wrap">${thumb}</div>
         <div class="sake-main">
@@ -1521,7 +1531,7 @@ function limpiarForm(){
   document.getElementById('fCategoria').value='';
   document.getElementById('fMedida').value='';
   document.getElementById('fActivo').value='1';
-  badgeState={rec:false,top:false,lim:false};
+  badgeState={rec:false,top:false,lim:false,sug:false};
   actualizarBadgeToggles();
 }
 function toggleBadge(b){badgeState[b]=!badgeState[b];actualizarBadgeToggles();}
@@ -1529,6 +1539,7 @@ function actualizarBadgeToggles(){
   document.getElementById('togRec').className='badge-toggle'+(badgeState.rec?' on-rec':'');
   document.getElementById('togTop').className='badge-toggle'+(badgeState.top?' on-top':'');
   document.getElementById('togLim').className='badge-toggle'+(badgeState.lim?' on-lim':'');
+  const tS=document.getElementById('togSug');if(tS)tS.className='badge-toggle'+(badgeState.sug?' on-sug':'');
 }
 function abrirFormNuevo(){
   editandoId=null;imgB64=null;
@@ -1564,7 +1575,7 @@ function abrirEdit(id){
   const urlImg=(s.img&&!s.img.startsWith('data:'))?s.img:'';
   document.getElementById('fImgUrl').value=urlImg;
   setImgPreview(s.img||'');
-  badgeState={rec:!!s.badge_rec,top:!!s.badge_top,lim:!!s.badge_lim};
+  badgeState={rec:!!s.badge_rec,top:!!s.badge_top,lim:!!s.badge_lim,sug:!!s.sugerencia};
   actualizarBadgeToggles();
   renderPlatoSelector(s.maridajes||[]);
   document.getElementById('iaStatus').style.display='none';
@@ -1611,6 +1622,7 @@ function guardarSake(){
     badge_rec:badgeState.rec,
     badge_top:badgeState.top,
     badge_lim:badgeState.lim,
+    sugerencia:badgeState.sug,
     maridajes:[...document.querySelectorAll('.plato-toggle.sel')].map(el=>el.dataset.plato),
   };
 
