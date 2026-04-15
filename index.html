@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Arume Sake Bar · Carta</title>
 <style>
-:root{--negro:#242422;--rojo:#DA3934;--crema:#EFF0EB;--g1:#2e2e2c;--g2:#3a3a38;--g3:#9a9a98;--g4:#1a1a18;--gold:#d4a05a;}
+:root{--negro:#242422;--rojo:#DA3934;--crea:#EFF0EB;--g1:#2e2e2c;--g2:#3a3a38;--g3:#9a9a98;--g4:#1a1a18;--gold:#d4a05a;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:rgba(218,57,52,0.15);touch-action:manipulation;}
 html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:var(--negro);color:var(--crema);overflow-x:hidden;-webkit-text-size-adjust:100%;}
 
@@ -53,7 +53,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .carta-content{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px;display:flex;flex-direction:column;gap:10px;}
 
 /* ===== SAKE CARDS ===== */
-.sake-card{background:var(--g1);border-radius:14px;overflow:hidden;border:1px solid var(--g2);position:relative;}
+.sake-card{background:var(--g1);border-radius:14px;overflow:hidden;border:1px solid var(--g2);position:relative;flex-shrink:0;}
 .sake-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;border-radius:14px 0 0 14px;}
 .sake-card[data-cat="Kun-shu"]::before{background:#8855cc;}
 .sake-card[data-cat="So-shu"]::before{background:#4488cc;}
