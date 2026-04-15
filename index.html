@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Arume Sake Bar · Carta</title>
 <style>
-:root{--negro:#242422;--rojo:#DA3934;--crea:#EFF0EB;--g1:#2e2e2c;--g2:#3a3a38;--g3:#9a9a98;--g4:#1a1a18;--gold:#d4a05a;}
+:root{--negro:#242422;--rojo:#DA3934;--crema:#EFF0EB;--g1:#2e2e2c;--g2:#3a3a38;--g3:#9a9a98;--g4:#1a1a18;--gold:#d4a05a;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:rgba(218,57,52,0.15);touch-action:manipulation;}
 html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:var(--negro);color:var(--crema);overflow-x:hidden;-webkit-text-size-adjust:100%;}
 
@@ -13,7 +13,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 #screen-intro{position:fixed;inset:0;background:var(--negro);z-index:200;display:flex;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 #screen-intro.oculto{display:none;}
 .intro-hero{background:var(--g4);padding:40px 24px 32px;text-align:center;border-bottom:1px solid var(--g2);}
-.intro-logo{font-size:32px;font-weight:200;letter-spacing:0.2em;margin-bottom:4px;}
+.intro-logo{font-size:32px;font-weight:200;letter-spacing:0.2em;margin-bottom:4px;color:var(--rojo);}
 .intro-logo-sub{font-size:11px;letter-spacing:0.2em;color:var(--rojo);text-transform:uppercase;}
 .intro-tagline{font-size:18px;font-weight:300;margin-top:20px;line-height:1.5;color:var(--crema);}
 .intro-tagline b{color:var(--gold);font-weight:500;}
@@ -39,7 +39,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 #app-carta.visible{display:flex;}
 .carta-header{background:var(--g4);padding:14px 16px 12px;border-bottom:1px solid var(--g2);flex-shrink:0;z-index:10;}
 .carta-header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
-.logo-sm{font-size:18px;font-weight:200;letter-spacing:0.14em;}
+.logo-sm{font-size:18px;font-weight:200;letter-spacing:0.14em;color:var(--rojo);}
 .logo-sm-sub{font-size:9px;letter-spacing:0.16em;color:var(--rojo);text-transform:uppercase;}
 .header-btns{display:flex;gap:8px;align-items:center;}
 .wishlist-btn{position:relative;background:none;border:1px solid var(--g2);color:var(--g3);padding:8px 12px;border-radius:8px;font-size:14px;cursor:pointer;min-height:40px;min-width:40px;}
@@ -64,7 +64,7 @@ html,body{height:100%;font-family:'Helvetica Neue',Arial,sans-serif;background:v
 .sake-img-wrap img{width:100%;height:100%;object-fit:cover;}
 .sake-main{flex:1;min-width:0;}
 .sake-top-row{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:3px;}
-.sake-nombre{font-size:15px;font-weight:500;line-height:1.2;flex:1;}
+.sake-nombre{font-size:15px;font-weight:500;line-height:1.2;flex:1;color:var(--rojo);}
 .heart-btn{background:none;border:none;font-size:22px;cursor:pointer;color:var(--g2);flex-shrink:0;padding:4px;transition:all 0.15s;line-height:1;min-width:36px;min-height:36px;display:flex;align-items:center;justify-content:center;}
 .heart-btn.active{color:#e84393;}
 .sake-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:5px;}
