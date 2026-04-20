@@ -1712,8 +1712,8 @@ function previsualizarUrl(){
 
 async function analizarFotoIA(input){
   const f=input.files[0];if(!f)return;
-  if(!config.geminiKey){toast('Configura Gemini API Key en ⚙ Config');return;}
-  setIA('Analizando imagen con Gemini...',true);
+  if(!config.geminiKey){toast('Analizar fotos requiere Gemini API Key en ⚙ Config');return;}
+  setIA('Analizando imagen...',true);
   try{
     const b64=await f2b(f);imgB64=b64;setImgPreview(b64);
     const prompt=`Eres un experto Kikisake-shi. Analiza esta imagen de botella de sake.\nDevuelve SOLO JSON: nombre,arroz,categoria(Kun-shu|Jun-shu|So-shu|Juku-shu),tipo,pulido,region,bodega,vol_alc,vista,nariz,boca,nota_cata(1 frase español),precio_copa(null),precio_jarra(null),precio_botella(null),medida_botella.\nSin markdown.`;
@@ -1739,13 +1739,13 @@ async function rellenarPorNombreIA(){
 async function buscarImagenIA(){
   const nombre=document.getElementById('fNombre').value.trim();
   if(!nombre){toast('Escribe primero el nombre del sake');return;}
-  if(!config.geminiKey){toast('Configura Gemini API Key en ⚙ Config');return;}
+  if(!config.geminiKey&&!config.groqKey){toast('Configura Groq o Gemini en ⚙ Config');return;}
   setIA('Buscando imagen de "'+nombre+'"...',true);
   try{
-    const prompt=`URL directa foto botella sake "${nombre}". Solo JSON: {"url":"..."}. Usa saketime.com, tippsy.com o thewhiskyexchange.com.`;
+    const prompt=`Necesito la URL directa de una imagen real de la botella del sake "${nombre}". Busca en estas webs reales: saketime.com, tippsy.com, sake-world.com, nihonshu.wiki. Devuelve SOLO JSON sin markdown: {"url":"URL_DIRECTA_IMAGEN","source":"nombre_web"}\nSi no encuentras ninguna URL real y verificable, devuelve: {"url":"","source":""}`;
     const res=await aiTxt(prompt);const d=parseJ(res);
-    if(d?.url){document.getElementById('fImgUrl').value=d.url;imgB64=null;setImgPreview(d.url);setIA('✓ Imagen encontrada.',false);}
-    else setIA('No encontré imagen. Pega una URL manualmente.',false);
+    if(d?.url){document.getElementById('fImgUrl').value=d.url;imgB64=null;setImgPreview(d.url);setIA('✓ Imagen encontrada ('+d.source+'). Verifica que se vea bien.',false);}
+    else setIA('No encontré imagen. Busca manualmente en <a href="https://www.google.com/search?tbm=isch&q=sake+bottle+'+encodeURIComponent(nombre)+'" target="_blank" style="color:var(--rojo);">Google Images</a> y pega la URL.',false);
   }catch{setIA('Error buscando imagen.',false);}
 }
 function setIA(msg,loading){
