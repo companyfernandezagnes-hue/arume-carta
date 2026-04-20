@@ -1123,6 +1123,7 @@ function entrarCarta(){
   actualizarFiltrosLang();
   renderSakes();
   actualizarBadgeWish();
+  if(modoKiosco){const btn=document.getElementById('adminBtn');if(btn)btn.style.display='none';}
 }
 
 function toggleWish(id,btn){
@@ -1415,6 +1416,10 @@ function verificarPin(){
 function activarKiosco(){
   modoKiosco=true;
   const btn=document.getElementById('adminBtn');if(btn)btn.style.display='none';
+  // Mostrar intro educativa primero
+  document.getElementById('app-carta').classList.remove('visible');
+  document.getElementById('screen-intro').classList.remove('oculto');
+  renderIntro();
   if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{});
   toast('Modo kiosco activado');
 }
