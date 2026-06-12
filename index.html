@@ -467,6 +467,65 @@ textarea.form-input{resize:vertical;min-height:80px;}
   .ss-precio-main{font-size:26px!important;}
   .ss-bottle-area .botella-3d-wrap{width:140px;height:220px;}
 }
+
+/* ===== FICHA IMPRIMIBLE ===== */
+#ficha-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:400;display:none;flex-direction:column;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+#ficha-overlay.visible{display:flex;}
+.ficha-toolbar{position:sticky;top:0;z-index:5;background:var(--g4);border-bottom:1px solid var(--g2);padding:12px 16px;display:flex;gap:10px;align-items:center;justify-content:space-between;flex-shrink:0;}
+.ficha-pages{display:flex;flex-direction:column;align-items:center;gap:24px;padding:24px 12px 80px;}
+.ficha-page{background:#fdfcf8;color:#242422;width:100%;max-width:760px;border-radius:4px;box-shadow:0 10px 50px rgba(0,0,0,0.55);padding:44px 48px;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+.fp-head{display:flex;justify-content:space-between;align-items:flex-end;border-bottom:2px solid #242422;padding-bottom:12px;}
+.fp-logo{font-size:26px;font-weight:200;letter-spacing:0.22em;color:var(--rojo);line-height:1;}
+.fp-logo-sub{font-size:9px;letter-spacing:0.28em;color:#242422;text-transform:uppercase;margin-top:5px;}
+.fp-tag{font-size:10px;letter-spacing:0.3em;text-transform:uppercase;color:#8a8a86;}
+.fp-cat{display:flex;align-items:center;gap:10px;margin:20px 0 8px;flex-wrap:wrap;}
+.fp-cat-band{width:34px;height:10px;border-radius:5px;flex-shrink:0;}
+.fp-cat-name{font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;}
+.fp-cat-desc{font-size:11px;color:#8a8a86;}
+.fp-nombre{font-size:36px;font-weight:300;letter-spacing:0.02em;line-height:1.1;}
+.fp-tipo{font-size:14px;color:#6a6a66;letter-spacing:0.06em;margin-top:4px;}
+.fp-badges{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap;}
+.fp-badge{font-size:9px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;border:1px solid #c8c6c0;border-radius:20px;padding:3px 10px;color:#6a6a66;background:#faf8f2;}
+.fp-badge-sug{border-color:var(--gold);color:#9a6a20;}
+.fp-body{display:flex;gap:28px;margin-top:22px;}
+.fp-left{width:190px;flex-shrink:0;display:flex;flex-direction:column;gap:16px;align-items:center;}
+.fp-img{width:175px;height:250px;object-fit:contain;}
+.fp-img-ph{width:175px;height:250px;display:flex;align-items:center;justify-content:center;font-size:64px;background:#f1efe8;border-radius:10px;}
+.fp-map-info{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8a8a86;text-align:center;margin-top:4px;}
+.fp-right{flex:1;min-width:0;}
+.fp-nota{font-size:15px;font-style:italic;line-height:1.55;border-left:3px solid var(--rojo);padding-left:14px;margin-bottom:18px;}
+.fp-sec{margin-bottom:13px;}
+.fp-sec-label{font-size:10px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:var(--rojo);margin-bottom:3px;}
+.fp-sec-text{font-size:13px;line-height:1.55;color:#3a3a36;}
+.fp-temp{font-size:12px;color:#3a3a36;background:#f1efe8;border-radius:8px;padding:8px 12px;margin-top:4px;display:inline-block;}
+.fp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:20px;}
+.fp-grid-item{background:#f1efe8;border-radius:8px;padding:9px 11px;}
+.fp-grid-label{font-size:8.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8a8a86;margin-bottom:2px;}
+.fp-grid-val{font-size:12.5px;font-weight:500;}
+.fp-precios{display:flex;gap:34px;margin-top:20px;padding:16px 22px;background:#242422;color:#EFF0EB;border-radius:10px;align-items:center;justify-content:center;}
+.fp-precio{text-align:center;display:flex;flex-direction:column;align-items:center;gap:3px;}
+.fp-precio svg{width:24px;height:24px;}
+.fp-precio-qty{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;color:#9a9a98;}
+.fp-precio-val{font-size:17px;font-weight:500;}
+.fp-mari{margin-top:20px;}
+.fp-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px;}
+.fp-chip{font-size:11px;border:1px solid #c8c6c0;border-radius:20px;padding:4px 11px;color:#3a3a36;background:#faf8f2;}
+.fp-foot{margin-top:28px;padding-top:12px;border-top:1px solid #d8d6d0;display:flex;justify-content:space-between;font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a86;}
+@media(max-width:600px){
+  .ficha-page{padding:28px 22px;}
+  .fp-body{flex-direction:column;align-items:center;}
+  .fp-right{width:100%;}
+}
+@media print{
+  body.imprimiendo>*:not(#ficha-overlay){display:none!important;}
+  #ficha-overlay{position:static!important;display:block!important;background:none!important;overflow:visible!important;}
+  .ficha-toolbar{display:none!important;}
+  .ficha-pages{display:block!important;padding:0!important;}
+  .ficha-page{box-shadow:none!important;max-width:none!important;border-radius:0!important;margin:0!important;padding:24px 28px!important;page-break-after:always;break-after:page;}
+  .ficha-page:last-child{page-break-after:auto;break-after:auto;}
+  .fp-body{flex-direction:row!important;}
+}
+@page{size:A4 portrait;margin:12mm;}
 </style>
 </head>
 <body>
@@ -753,6 +812,18 @@ textarea.form-input{resize:vertical;min-height:80px;}
   </div>
   <div id="ss-slide-container"></div>
   <div class="ss-dots" id="ss-dots"></div>
+</div>
+
+<!-- ===== FICHA IMPRIMIBLE ===== -->
+<div id="ficha-overlay">
+  <div class="ficha-toolbar">
+    <div style="font-size:14px;font-weight:500;">🖨 Ficha para imprimir</div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn-primary" type="button" onclick="window.print()">🖨 Imprimir</button>
+      <button class="btn-ghost" type="button" onclick="cerrarFicha()">Cerrar</button>
+    </div>
+  </div>
+  <div class="ficha-pages" id="fichaPages"></div>
 </div>
 
 <div class="toast" id="toast"></div>
@@ -1338,6 +1409,90 @@ function mapaSVG(region){
   </div>`;
 }
 
+/* ===== FICHA IMPRIMIBLE ===== */
+function mapaFichaSVG(region){
+  if(!region||region.toLowerCase().includes('españa'))return'';
+  const pos=PREF_POS[region];if(!pos||pos.x===0)return'';
+  return`<div>
+    <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg" style="display:block;width:160px;height:128px;background:#eef0f4;border-radius:10px;">
+      <path d="M72,20 L74,27 L72,33 L70,38 L68,44 L67,48 L66,51 L64,55 L62,50 L60,45 L58,42 L57,47 L54,55 L52,60 L50,62 L48,58 L46,54 L44,57 L42,59 L40,57 L38,55 L36,58 L34,62 L30,66 L26,64 L24,62 L22,58 L20,54 L22,52 L24,56 L26,58 L28,56 L32,52 L36,48 L38,46 L40,48 L42,46 L44,50 L46,46 L48,42 L50,36 L52,30 L56,24 L60,18 L64,20 L68,24 Z" fill="#d8dde4" stroke="#aab4c2" stroke-width="0.5"/>
+      <path d="M75,10 L79,8 L82,12 L80,18 L76,22 L73,22 L71,18 L72,14 Z" fill="#d8dde4" stroke="#aab4c2" stroke-width="0.5"/>
+      <path d="M20,54 L18,58 L16,64 L18,68 L20,70 L22,68 L22,64 L20,58 Z" fill="#d8dde4" stroke="#aab4c2" stroke-width="0.5"/>
+      <circle cx="${pos.x}" cy="${pos.y}" r="3" fill="#DA3934"/>
+      <circle cx="${pos.x}" cy="${pos.y}" r="5.5" fill="none" stroke="#DA3934" stroke-width="0.8" opacity="0.45"/>
+    </svg>
+    <div class="fp-map-info">🗾 ${region}</div>
+  </div>`;
+}
+function fichaHTML(s){
+  const cat=CAT_INFO[s.categoria]||{emoji:'🍶',dot:'#999',desc:'',temp:''};
+  const img=s.img?`<img class="fp-img" src="${s.img}" alt="${s.nombre}" onerror="this.outerHTML='<div class=\\'fp-img-ph\\'>${cat.emoji}</div>'">`:`<div class="fp-img-ph">${cat.emoji}</div>`;
+  const badges=[
+    s.sugerencia?'<span class="fp-badge fp-badge-sug">✦ Sugerencia del sommelier</span>':'',
+    s.badge_rec?'<span class="fp-badge">⭐ Recomendado</span>':'',
+    s.badge_top?'<span class="fp-badge">🏆 Más vendido</span>':'',
+    s.badge_lim?'<span class="fp-badge">🔴 Edición limitada</span>':'',
+  ].filter(Boolean).join('');
+  const grid=[
+    s.bodega?['Bodega',s.bodega]:null,
+    s.arroz?['Arroz',s.arroz]:null,
+    s.pulido?['Pulido',s.pulido]:null,
+    s.region?['Región',s.region]:null,
+    s.vol_alc?['Graduación',s.vol_alc]:null,
+    s.medida_botella?['Formato',s.medida_botella]:null,
+  ].filter(Boolean).map(([l,v])=>`<div class="fp-grid-item"><div class="fp-grid-label">${l}</div><div class="fp-grid-val">${v}</div></div>`).join('');
+  const precios=[
+    s.precio_copa?`<div class="fp-precio">${ICO_COPA}<div class="fp-precio-qty">Copa · 100 ml</div><div class="fp-precio-val">${s.precio_copa}€</div></div>`:'',
+    s.precio_jarra?`<div class="fp-precio">${ICO_TOKKURI}<div class="fp-precio-qty">Tokkuri · 200 ml</div><div class="fp-precio-val">${s.precio_jarra}€</div></div>`:'',
+    s.precio_botella?`<div class="fp-precio">${ICO_BOTELLA}<div class="fp-precio-qty">Botella · ${s.medida_botella||'720 ml'}</div><div class="fp-precio-val">${s.precio_botella}€</div></div>`:'',
+  ].filter(Boolean).join('');
+  return`<div class="ficha-page">
+    <div class="fp-head">
+      <div><div class="fp-logo">ARUME</div><div class="fp-logo-sub">Sake Bar · Palma de Mallorca</div></div>
+      <div class="fp-tag">Ficha de sake</div>
+    </div>
+    <div class="fp-cat">
+      <div class="fp-cat-band" style="background:${cat.dot};"></div>
+      <div class="fp-cat-name">${cat.emoji} ${s.categoria||'Sake'}</div>
+      ${cat.desc?`<div class="fp-cat-desc">· ${cat.desc}</div>`:''}
+    </div>
+    <div class="fp-nombre">${s.nombre}</div>
+    ${s.tipo?`<div class="fp-tipo">${s.tipo}</div>`:''}
+    ${badges?`<div class="fp-badges">${badges}</div>`:''}
+    <div class="fp-body">
+      <div class="fp-left">${img}${mapaFichaSVG(s.region)}</div>
+      <div class="fp-right">
+        ${s.nota_cata?`<div class="fp-nota">«${s.nota_cata}»</div>`:''}
+        ${s.vista?`<div class="fp-sec"><div class="fp-sec-label">Vista</div><div class="fp-sec-text">${s.vista}</div></div>`:''}
+        ${s.nariz?`<div class="fp-sec"><div class="fp-sec-label">Nariz</div><div class="fp-sec-text">${s.nariz}</div></div>`:''}
+        ${s.boca?`<div class="fp-sec"><div class="fp-sec-label">Boca</div><div class="fp-sec-text">${s.boca}</div></div>`:''}
+        ${cat.temp?`<div class="fp-temp">🌡 Temperatura de servicio: ${cat.temp}</div>`:''}
+      </div>
+    </div>
+    ${grid?`<div class="fp-grid">${grid}</div>`:''}
+    ${precios?`<div class="fp-precios">${precios}</div>`:''}
+    ${s.maridajes&&s.maridajes.length?`<div class="fp-mari"><div class="fp-sec-label">Maridajes recomendados</div><div class="fp-chips">${s.maridajes.map(m=>'<span class="fp-chip">'+m+'</span>').join('')}</div></div>`:''}
+    <div class="fp-foot"><span>Arume Sake Bar</span><span>Sistema Yon-shun · ${s.categoria||''}</span></div>
+  </div>`;
+}
+function abrirFicha(id){
+  const s=sakes.find(x=>x.id===id);if(!s)return;
+  document.getElementById('fichaPages').innerHTML=fichaHTML(s);
+  document.getElementById('ficha-overlay').classList.add('visible');
+  document.body.classList.add('imprimiendo');
+}
+function abrirFichasTodas(){
+  const activos=sakes.filter(s=>s.activo);
+  if(!activos.length){toast('No hay sakes activos');return;}
+  document.getElementById('fichaPages').innerHTML=activos.map(fichaHTML).join('');
+  document.getElementById('ficha-overlay').classList.add('visible');
+  document.body.classList.add('imprimiendo');
+}
+function cerrarFicha(){
+  document.getElementById('ficha-overlay').classList.remove('visible');
+  document.body.classList.remove('imprimiendo');
+}
+
 function getRecomendaciones(sake){
   const otros=sakes.filter(s=>s.activo&&s.id!==sake.id);
   return[...otros.filter(s=>s.categoria===sake.categoria).slice(0,2),...otros.filter(s=>s.categoria!==sake.categoria).slice(0,2)].slice(0,3);
@@ -1611,11 +1766,20 @@ function renderAdmin(){
       <div class="act-dot ${s.activo?'':'off'}"></div>
       <div class="admin-row-info"><div class="admin-row-nombre">${s.nombre}</div><div class="admin-row-meta">${[s.tipo,s.pulido,s.region].filter(Boolean).join(' · ')}</div></div>
       <div class="admin-row-btns">
+        <button class="btn-sm btn-sm-edit" type="button" style="min-width:44px;" title="Imprimir ficha" onclick="abrirFicha('${s.id}')">🖨</button>
         <button class="btn-sm btn-sm-edit" type="button" onclick="abrirEdit('${s.id}')">Editar</button>
         <button class="btn-sm btn-sm-del" type="button" onclick="eliminar('${s.id}')">✕</button>
       </div>
     </div>`;
   }).join('');
+  // Botón imprimir todas las fichas
+  const oldF=document.getElementById('btnFichasAll');if(oldF)oldF.remove();
+  const f=document.createElement('button');
+  f.id='btnFichasAll';f.className='btn-secondary';f.type='button';
+  f.style.cssText='width:100%;margin-top:14px;min-height:48px;';
+  f.textContent='🖨 Imprimir todas las fichas';
+  f.onclick=abrirFichasTodas;
+  document.getElementById('adminListView').appendChild(f);
   // Botón kiosco
   const old=document.getElementById('btnKiosco');if(old)old.remove();
   const k=document.createElement('button');
