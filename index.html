@@ -819,6 +819,7 @@ textarea.form-input{resize:vertical;min-height:80px;}
   <div class="ficha-toolbar">
     <div style="font-size:14px;font-weight:500;">🖨 Ficha para imprimir</div>
     <div style="display:flex;gap:8px;">
+      <button class="btn-secondary" id="btnPdf" type="button" onclick="descargarFichasPDF()">💾 Guardar PDF</button>
       <button class="btn-primary" type="button" onclick="window.print()">🖨 Imprimir</button>
       <button class="btn-ghost" type="button" onclick="cerrarFicha()">Cerrar</button>
     </div>
@@ -1491,6 +1492,41 @@ function abrirFichasTodas(){
 function cerrarFicha(){
   document.getElementById('ficha-overlay').classList.remove('visible');
   document.body.classList.remove('imprimiendo');
+}
+function cargarScript(src){return new Promise((res,rej)=>{const s=document.createElement('script');s.src=src;s.onload=res;s.onerror=()=>rej(new Error('No se pudo cargar '+src));document.head.appendChild(s);});}
+async function asegurarLibsPDF(){
+  if(!window.html2canvas)await cargarScript('https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js');
+  if(!window.jspdf)await cargarScript('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+}
+async function descargarFichasPDF(){
+  const pages=[...document.querySelectorAll('#fichaPages .ficha-page')];
+  if(!pages.length)return;
+  const btn=document.getElementById('btnPdf');
+  const orig=btn.textContent;btn.disabled=true;btn.textContent='⏳ Preparando…';
+  try{
+    await asegurarLibsPDF();
+    const {jsPDF}=window.jspdf;
+    const pdf=new jsPDF({unit:'mm',format:'a4'});
+    for(let i=0;i<pages.length;i++){
+      btn.textContent=`⏳ Ficha ${i+1} de ${pages.length}…`;
+      const canvas=await html2canvas(pages[i],{scale:2,useCORS:true,backgroundColor:'#fdfcf8',logging:false});
+      if(i>0)pdf.addPage();
+      // Encajar en A4 con márgenes de 10mm manteniendo proporción
+      const mw=190,mh=277;
+      let w=mw,h=canvas.height*mw/canvas.width;
+      if(h>mh){h=mh;w=canvas.width*mh/canvas.height;}
+      pdf.addImage(canvas.toDataURL('image/jpeg',0.92),'JPEG',(210-w)/2,10,w,h);
+    }
+    const nombre=pages.length===1
+      ?(document.querySelector('.fp-nombre')?.textContent||'sake').trim().replace(/[^\wáéíóúüñÁÉÍÓÚÜÑ -]/g,'').replace(/\s+/g,'_')
+      :'todas';
+    pdf.save(`Arume_Fichas_${nombre}.pdf`);
+    toast('✓ PDF guardado');
+  }catch(e){
+    console.error('Error generando PDF:',e);
+    toast('No se pudo generar el PDF — usa 🖨 Imprimir y elige "Guardar como PDF"',4000);
+  }
+  btn.disabled=false;btn.textContent=orig;
 }
 
 function getRecomendaciones(sake){
